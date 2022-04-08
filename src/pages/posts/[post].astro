@@ -1,0 +1,34 @@
+---
+import BlogPost from '../../layouts/BlogPost.astro'
+
+export async function getStaticPaths() {
+	const req = await fetch('https://public-api.wordpress.com/rest/v1.1/sites/mpompina.wordpress.com/posts');
+	const {posts} = await req.json();
+	return posts.map((p) => ({
+		params: {
+			post: String(p.ID)
+		},
+		props: {
+			post_obj: p
+		}
+	}))
+}
+
+const post = Astro.props.post_obj;
+const img = Object.values(post.attachments)[0]?.URL
+const content = {
+	title: post.title,
+	description: post.excerpt,
+	publishDate: post.date,
+	author: 'test',
+	heroImage: img,
+	permalink: 'test',
+	alt: post.slug,
+	text: post.content,
+}
+
+// console.log(post.content)
+
+---
+<BlogPost content={content}>
+</BlogPost>
