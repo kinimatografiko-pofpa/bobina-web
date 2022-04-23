@@ -23,7 +23,7 @@ const parsed_post = parse(text);
 		<div>
 			<header>
 				<!-- {heroImage && <img width="720" height="420" class="hero-image" loading="lazy" src={heroImage} alt={alt} />} -->
-				<p class="publish-date">{new Date(publishDate).toLocaleString('el-gr')}</p>
+				<p class="publish-date">{new Date(publishDate).toLocaleDateString('el-gr')}</p>
 				<h1 class="title">{title}</h1>
 			</header>
 
