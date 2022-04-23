@@ -4,6 +4,7 @@ import BlogPost from '../../layouts/BlogPost.astro'
 export async function getStaticPaths() {
 	const req = await fetch('https://public-api.wordpress.com/rest/v1.1/sites/mpompina.wordpress.com/posts');
 	const {posts} = await req.json();
+
 	return posts.map((p) => ({
 		params: {
 			post: String(p.ID)

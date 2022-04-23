@@ -1,5 +1,7 @@
 ---
 import Author from './Author.astro';
+import { Picture } from "astro-imagetools/components";
+import { parse } from 'node-html-parser';
 
 export interface Props {
 	title: string;
@@ -11,6 +13,9 @@ export interface Props {
 }
 
 const { title, author, publishDate, heroImage, alt, text } = Astro.props;
+
+const parsed_post = parse(text);
+
 ---
 
 <div class="layout">
@@ -21,7 +26,35 @@ const { title, author, publishDate, heroImage, alt, text } = Astro.props;
 				<p class="publish-date">{new Date(publishDate).toLocaleString('el-gr')}</p>
 				<h1 class="title">{title}</h1>
 			</header>
-			<main set:html={text}>
+
+			<main>
+			<!-- <Picture
+				src='https://mpompina.files.wordpress.com/2019/07/grandmother.png'
+				alt='test'
+				format="jpeg"
+				includeSourceFormat={false}
+				loading='lazy'/> -->
+			{
+				parsed_post.childNodes.map((v) => {
+					if (v.childNodes.length > 0) {
+						for (let n of v.childNodes){
+							if (n.tagName == 'IMG') {
+								console.log(n.getAttribute('data-orig-file'))
+								return <Picture
+										src={n.getAttribute('data-orig-file')}
+										alt={n.getAttribute('alt')}
+										height={n.getAttribute('height')}
+										format={["avif"]}
+										// fallbackFormat="png"
+										includeSourceFormat={false}
+										loading='lazy'/>
+							}
+						}
+					}
+					return v
+				})
+			}
+
 			</main>
 		</div>
 	</article>
