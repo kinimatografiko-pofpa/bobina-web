@@ -13,7 +13,7 @@
     "astro": "^1.0.0-beta.5"
   },
   "dependencies": {
-    "astro-imagetools": "^0.5.8",
+    "astro-imagetools": "0.5.3",
     "node-html-parser": "^5.3.3",
     "preact": "^10.7.0",
     "typescript": "^4.6.3"
