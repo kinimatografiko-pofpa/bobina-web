@@ -2,7 +2,7 @@
 import BaseHead from '../components/BaseHead.astro';
 import BlogHeader from '../components/BlogHeader.astro';
 import BlogPost from '../components/BlogPost.astro';
-
+import Analytics from '../components/Analytics.astro';
 
 const { content } = Astro.props;
 const { title, description, publishDate, author, heroImage, permalink, alt,text } = content;
@@ -15,6 +15,7 @@ const { title, description, publishDate, author, heroImage, permalink, alt,text 
 	</head>
 
 	<body>
+	<Analytics/>
 		<BlogHeader />
 		<div class="wrapper">
 			<BlogPost {title} {author} {heroImage} {publishDate} {alt} {text}>

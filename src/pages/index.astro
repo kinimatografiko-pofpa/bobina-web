@@ -3,6 +3,7 @@
 import BaseHead from '../components/BaseHead.astro';
 import BlogHeader from '../components/BlogHeader.astro';
 import BlogPostPreview from '../components/BlogPostPreview.astro';
+import Analytics from '../components/Analytics.astro';
 
 // Component Script:
 // You can write any JavaScript/TypeScript that you'd like here.
@@ -64,6 +65,7 @@ allPosts = allPosts.sort((a, b) => new Date(b.date).valueOf() - new Date(a.date)
 	</head>
 
 	<body>
+		<Analytics/>
 		<BlogHeader />
 		<div class="wrapper">
 			<main class="content">
