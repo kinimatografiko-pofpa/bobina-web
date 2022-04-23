@@ -28,24 +28,18 @@ const parsed_post = parse(text);
 			</header>
 
 			<main>
-			<!-- <Picture
-				src='https://mpompina.files.wordpress.com/2019/07/grandmother.png'
-				alt='test'
-				format="jpeg"
-				includeSourceFormat={false}
-				loading='lazy'/> -->
 			{
 				parsed_post.childNodes.map((v) => {
 					if (v.childNodes.length > 0) {
 						for (let n of v.childNodes){
 							if (n.tagName == 'IMG') {
-								console.log(n.getAttribute('data-orig-file'))
+								// console.log(n.getAttribute('data-orig-file'))
 								return <Picture
 										src={n.getAttribute('data-orig-file')}
 										alt={n.getAttribute('alt')}
 										height={n.getAttribute('height')}
-										format={["avif"]}
-										// fallbackFormat="png"
+										format={["avif","webp"]}
+										fallbackFormat="jpeg"
 										includeSourceFormat={false}
 										loading='lazy'/>
 							}
