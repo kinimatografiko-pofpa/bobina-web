@@ -1,0 +1,32 @@
+---
+import { Picture } from "astro-imagetools/components";
+const {src, alt, height, title} = Astro.props;
+---
+<figure>
+	<div class='center-content' >
+		<Picture
+			src={src}
+			alt={title}
+			height={Math.min(height,700)}
+			format={["avif","webp"]}
+			fallbackFormat="jpeg"
+			includeSourceFormat={false}
+			loading='lazy'
+			objectPosition='center'
+			/>
+	</div>
+	<figcaption>{title}</figcaption>
+</figure>
+<style>
+.center-content {
+	display: flex;
+	justify-content: center;
+	margin-bottom: 5px
+}
+figcaption {
+	font-style: italic;
+	opacity: 0.75;
+	text-align: center;
+	font-size: 0.9em;
+}
+</style>

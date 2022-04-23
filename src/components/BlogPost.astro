@@ -1,6 +1,6 @@
 ---
 import Author from './Author.astro';
-import { Picture } from "astro-imagetools/components";
+import BlogPicture from './BlogPicture.astro';
 import { parse } from 'node-html-parser';
 
 export interface Props {
@@ -34,14 +34,11 @@ const parsed_post = parse(text);
 						for (let n of v.childNodes){
 							if (n.tagName == 'IMG') {
 								// console.log(n.getAttribute('data-orig-file'))
-								return <Picture
+								return <BlogPicture
 										src={n.getAttribute('data-orig-file')}
 										alt={n.getAttribute('alt')}
-										height={n.getAttribute('height')}
-										format={["avif","webp"]}
-										fallbackFormat="jpeg"
-										includeSourceFormat={false}
-										loading='lazy'/>
+										title={n.getAttribute('data-image-title')}
+										height={n.getAttribute('height')}/>
 							}
 						}
 					}
