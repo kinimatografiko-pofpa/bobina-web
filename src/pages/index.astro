@@ -15,16 +15,20 @@ let permalink = 'https://mpompina-test-site.netlify.app/';
 
 // Data Fetching: List all Markdown posts in the repo.
 
-let allPosts = await fetch('https://public-api.wordpress.com/rest/v1.1/sites/mpompina.wordpress.com/posts');
+let allPosts = await fetch(
+	'https://public-api.wordpress.com/rest/v1.1/sites/mpompina.wordpress.com/posts'
+);
 allPosts = await allPosts.json();
 allPosts = allPosts.posts;
-allPosts = allPosts.sort((a, b) => new Date(b.date).valueOf() - new Date(a.date).valueOf());
+allPosts = allPosts.sort(
+	(a, b) => new Date(b.date).valueOf() - new Date(a.date).valueOf()
+);
 
 // Full Astro Component Syntax:
 // https://docs.astro.build/core-concepts/astro-components/
 ---
 
-<html lang="en">
+<html lang='en'>
 	<head>
 		<BaseHead {title} {description} {permalink} />
 
@@ -65,15 +69,15 @@ allPosts = allPosts.sort((a, b) => new Date(b.date).valueOf() - new Date(a.date)
 	</head>
 
 	<body>
-		<Analytics/>
+		<Analytics />
 		<BlogHeader />
-		<div class="wrapper">
-			<main class="content">
-				<section class="intro">
-					<h1 class="latest">{title}</h1>
+		<div class='wrapper'>
+			<main class='content'>
+				<section class='intro'>
+					<h1 class='latest'>{title}</h1>
 					<p>{description}</p>
 				</section>
-				<section aria-label="Blog post list">
+				<section aria-label='Blog post list'>
 					{allPosts.map((p) => <BlogPostPreview post={p} />)}
 				</section>
 			</main>

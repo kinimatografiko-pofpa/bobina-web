@@ -10,6 +10,14 @@
     "@jridgewell/gen-mapping" "^0.1.0"
     "@jridgewell/trace-mapping" "^0.3.9"
 
+"@astrojs/compiler@^0.15.2":
+  version "0.15.2"
+  resolved "https://registry.yarnpkg.com/@astrojs/compiler/-/compiler-0.15.2.tgz#b8b3504ea92e2c279ce931c2aa97444f29caf03d"
+  integrity sha512-YsxIyx026zPWbxv3wYrudr1jh8u6oSnhP6MW+9OAgiFuICHjSX4Rw+qm8wJj1D5IkJ3HsDtE+kFMMYIozZ5bvQ==
+  dependencies:
+    tsm "^2.2.1"
+    uvu "^0.5.3"
+
 "@astrojs/compiler@^0.17.1":
   version "0.17.1"
   resolved "https://registry.yarnpkg.com/@astrojs/compiler/-/compiler-0.17.1.tgz#0764eaa22961ca00b3de257a738bf7b14afced32"
@@ -721,6 +729,18 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
+"@pkgr/utils@^2.2.0":
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/@pkgr/utils/-/utils-2.3.0.tgz#3b8491f112a80839450498816767eb03b7db6139"
+  integrity sha512-7dIJ9CRVzBnqyEl7diUHPUFJf/oty2SeoVzcMocc5PeOUDK9KGzvgIBjGRRzzlRDaOjh3ADwH0WeibQvi3ls2Q==
+  dependencies:
+    cross-spawn "^7.0.3"
+    is-glob "^4.0.3"
+    open "^8.4.0"
+    picocolors "^1.0.0"
+    tiny-glob "^0.2.9"
+    tslib "^2.4.0"
+
 "@polka/url@^1.0.0-next.20":
   version "1.0.0-next.21"
   resolved "https://registry.yarnpkg.com/@polka/url/-/url-1.0.0-next.21.tgz#5de5a2385a35309427f6011992b544514d559aa1"
@@ -1405,6 +1425,11 @@ defaults@^1.0.3:
   dependencies:
     clone "^1.0.2"
 
+define-lazy-prop@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/define-lazy-prop/-/define-lazy-prop-2.0.0.tgz#3f7ae421129bcaaac9bc74905c98a0009ec9ee7f"
+  integrity sha512-Ds09qNh8yw3khSjiJjiUInaGX9xlqZDY7JVryGxdxV7NPeuqQfplOpQ66yJFZut3jLa5zOwkXw1g9EI2uKh4Og==
+
 define-properties@^1.1.3, define-properties@^1.1.4:
   version "1.1.4"
   resolved "https://registry.yarnpkg.com/define-properties/-/define-properties-1.1.4.tgz#0b14d7bd7fbeb2f3572c3a7eda80ea5d57fb05b1"
@@ -1978,6 +2003,11 @@ github-slugger@^1.4.0:
   resolved "https://registry.yarnpkg.com/github-slugger/-/github-slugger-1.4.0.tgz#206eb96cdb22ee56fdc53a28d5a302338463444e"
   integrity sha512-w0dzqw/nt51xMVmlaV1+JRzN+oCa1KfcgGEWhxUG16wbdA+Xnt/yoFO8Z8x/V82ZcZ0wy6ln9QDup5avbhiDhQ==
 
+glider-js@^1.7.7:
+  version "1.7.7"
+  resolved "https://registry.yarnpkg.com/glider-js/-/glider-js-1.7.7.tgz#24508efecf6f20fd32b08b2940e4762e1c35fa23"
+  integrity sha512-jowNSpd/38EG0Kw83NgTo4F9YSAcpWQxBw0SFZcc2FysZD+dUuW/AcSeFU27rwGJilqdocKbw12IHOKi+DtpZw==
+
 glob-parent@^5.1.2, glob-parent@~5.1.2:
   version "5.1.2"
   resolved "https://registry.yarnpkg.com/glob-parent/-/glob-parent-5.1.2.tgz#869832c58034fe68a4093c17dc15e8340d8401c4"
@@ -2004,6 +2034,16 @@ globals@^11.1.0:
   version "11.12.0"
   resolved "https://registry.yarnpkg.com/globals/-/globals-11.12.0.tgz#ab8795338868a0babd8525758018c2a7eb95c42e"
   integrity sha512-WOBp/EEGUiIsJSp7wcv/y6MO+lV9UoncWqxuFfm8eBwzWNgyfBd6Gz+IeKQ9jCmyhoH99g15M3T+QaVHFjizVA==
+
+globalyzer@0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/globalyzer/-/globalyzer-0.1.0.tgz#cb76da79555669a1519d5a8edf093afaa0bf1465"
+  integrity sha512-40oNTM9UfG6aBmuKxk/giHn5nQ8RVz/SS4Ir6zgzOv9/qC3kKZ9v4etGTcJbEl/NyVQH7FGU7d+X1egr57Md2Q==
+
+globrex@^0.1.2:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/globrex/-/globrex-0.1.2.tgz#dd5d9ec826232730cd6793a5e33a9302985e6098"
+  integrity sha512-uHJgbwAMwNFf5mLst7IWLNg14x1CkeqglJb/K3doi4dw6q2IvAAmM/Y81kevy83wP+Sst+nutFTYOGg3d1lsxg==
 
 graceful-fs@^4.1.5:
   version "4.2.10"
@@ -2316,7 +2356,7 @@ is-decimal@^2.0.0:
   resolved "https://registry.yarnpkg.com/is-decimal/-/is-decimal-2.0.1.tgz#9469d2dc190d0214fd87d78b78caecc0cc14eef7"
   integrity sha512-AAB9hiomQs5DXWcRB1rqsxGUstbRroFOPPVAomNk/3XHR5JyEZChOyTWe2oayKnsSsr/kcGqF+z6yuH6HHpN0A==
 
-is-docker@^2.0.0:
+is-docker@^2.0.0, is-docker@^2.1.1:
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/is-docker/-/is-docker-2.2.1.tgz#33eeabe23cfe86f14bde4408a02c0cfb853acdaa"
   integrity sha512-F+i2BKsFrH66iaUFc0woD8sLy8getkwTwtOBjvs56Cx4CgJDeKQeqfz8wAYiSb8JOprWhHH5p77PbmYCvvUuXQ==
@@ -3358,6 +3398,15 @@ onetime@^6.0.0:
   dependencies:
     mimic-fn "^4.0.0"
 
+open@^8.4.0:
+  version "8.4.0"
+  resolved "https://registry.yarnpkg.com/open/-/open-8.4.0.tgz#345321ae18f8138f82565a910fdc6b39e8c244f8"
+  integrity sha512-XgFPPM+B28FtCCgSb9I+s9szOC1vZRSwgWsRUA5ylIxRTgKozqjOCrVOqGsYABPYK5qnfqClxZTFBa8PKt2v6Q==
+  dependencies:
+    define-lazy-prop "^2.0.0"
+    is-docker "^2.1.1"
+    is-wsl "^2.2.0"
+
 ora@^6.1.0:
   version "6.1.2"
   resolved "https://registry.yarnpkg.com/ora/-/ora-6.1.2.tgz#7b3c1356b42fd90fb1dad043d5dbe649388a0bf5"
@@ -3677,6 +3726,21 @@ preferred-pm@^3.0.3:
     path-exists "^4.0.0"
     which-pm "2.0.0"
 
+prettier-plugin-astro@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/prettier-plugin-astro/-/prettier-plugin-astro-0.1.1.tgz#09600d0303276d0f5e5b4eabf224168e2b6a1be0"
+  integrity sha512-587zFbgQoZm13jjGukkW0xMDKLwuMw6RlSuvsjdjRr43JWUFTJVxwFnw44pLYLVRwGQLOCDBwBKiZEJ10ghBlQ==
+  dependencies:
+    "@astrojs/compiler" "^0.15.2"
+    prettier "^2.6.2"
+    sass-formatter "^0.7.2"
+    synckit "^0.7.0"
+
+prettier@^2.6.2, prettier@^2.7.1:
+  version "2.7.1"
+  resolved "https://registry.yarnpkg.com/prettier/-/prettier-2.7.1.tgz#e235806850d057f97bb08368a4f7d899f7760c64"
+  integrity sha512-ujppO+MkdPqoVINuDFDRLClm7D78qbDt0/NR+wp5FqEZOoTNAjPHWj17QRhu7geIHJfcNhRk1XVQmF8Bp3ye+g==
+
 pretty-format@^3.8.0:
   version "3.8.0"
   resolved "https://registry.yarnpkg.com/pretty-format/-/pretty-format-3.8.0.tgz#bfbed56d5e9a776645f4b1ff7aa1a3ac4fa3c385"
@@ -3945,6 +4009,11 @@ run-parallel@^1.1.9:
   dependencies:
     queue-microtask "^1.2.2"
 
+s.color@0.0.15:
+  version "0.0.15"
+  resolved "https://registry.yarnpkg.com/s.color/-/s.color-0.0.15.tgz#6b32cd22d8dba95703a5122ddede2020a1560186"
+  integrity sha512-AUNrbEUHeKY8XsYr/DYpl+qk5+aM+DChopnWOPEzn8YKzOhv4l2zH6LzZms3tOZP3wwdOyc0RmTciyi46HLIuA==
+
 sade@^1.7.3:
   version "1.8.1"
   resolved "https://registry.yarnpkg.com/sade/-/sade-1.8.1.tgz#0a78e81d658d394887be57d2a409bf703a3b2701"
@@ -3961,6 +4030,13 @@ safe-buffer@~5.1.1:
   version "5.1.2"
   resolved "https://registry.yarnpkg.com/safe-buffer/-/safe-buffer-5.1.2.tgz#991ec69d296e0313747d59bdfd2b745c35f8828d"
   integrity sha512-Gd2UZBJDkXlY7GbJxfsE8/nvKkUEU1G38c1siN6QP6a9PT9MmHB8GnpscSmMJSoF8LOIrt8ud/wPtojys4G6+g==
+
+sass-formatter@^0.7.2:
+  version "0.7.5"
+  resolved "https://registry.yarnpkg.com/sass-formatter/-/sass-formatter-0.7.5.tgz#60fc3756267368d82877c6abf2c148f0c9291d6d"
+  integrity sha512-NKFP8ddjhUYi6A/iD1cEtzkEs91U61kzqe3lY9SVNuvX7LGc88xnEN0mmsWL7Ol//YTi2GL/ol7b9XZ2+hgXuA==
+  dependencies:
+    suf-log "^2.5.3"
 
 sax@>=0.6.0:
   version "1.2.4"
@@ -4221,6 +4297,13 @@ style-to-object@^0.3.0:
   dependencies:
     inline-style-parser "0.1.1"
 
+suf-log@^2.5.3:
+  version "2.5.3"
+  resolved "https://registry.yarnpkg.com/suf-log/-/suf-log-2.5.3.tgz#0919a7fceea532a99b578c97814c4e335b2d64d1"
+  integrity sha512-KvC8OPjzdNOe+xQ4XWJV2whQA0aM1kGVczMQ8+dStAO6KfEB140JEVQ9dE76ONZ0/Ylf67ni4tILPJB41U0eow==
+  dependencies:
+    s.color "0.0.15"
+
 supports-color@^5.3.0:
   version "5.5.0"
   resolved "https://registry.yarnpkg.com/supports-color/-/supports-color-5.5.0.tgz#e2e69a44ac8772f78a1ec0b35b689df6530efc8f"
@@ -4259,6 +4342,14 @@ svelte@^3.24.0:
   version "3.49.0"
   resolved "https://registry.yarnpkg.com/svelte/-/svelte-3.49.0.tgz#5baee3c672306de1070c3b7888fc2204e36a4029"
   integrity sha512-+lmjic1pApJWDfPCpUUTc1m8azDqYCG1JN9YEngrx/hUyIcFJo6VZhj0A1Ai0wqoHcEIuQy+e9tk+4uDgdtsFA==
+
+synckit@^0.7.0:
+  version "0.7.2"
+  resolved "https://registry.yarnpkg.com/synckit/-/synckit-0.7.2.tgz#43c07b5a8101ee45355aebf0216895309fd32a6f"
+  integrity sha512-CSZRtSRZ8RhJGMtWyLRqlarmWPPlsgZJHtV6cz0VTHNOg+R7UBoE2eNPQmB5Qrhtk3RX2AAcJmVwMXFULVQSwg==
+  dependencies:
+    "@pkgr/utils" "^2.2.0"
+    tslib "^2.4.0"
 
 tailwindcss@^3.0.24:
   version "3.1.5"
@@ -4314,6 +4405,14 @@ timm@^1.6.1:
   resolved "https://registry.yarnpkg.com/timm/-/timm-1.7.1.tgz#96bab60c7d45b5a10a8a4d0f0117c6b7e5aff76f"
   integrity sha512-IjZc9KIotudix8bMaBW6QvMuq64BrJWFs1+4V0lXwWGQZwH+LnX87doAYhem4caOEusRP9/g6jVDQmZ8XOk1nw==
 
+tiny-glob@^0.2.9:
+  version "0.2.9"
+  resolved "https://registry.yarnpkg.com/tiny-glob/-/tiny-glob-0.2.9.tgz#2212d441ac17928033b110f8b3640683129d31e2"
+  integrity sha512-g/55ssRPUjShh+xkfx9UPDXqhckHEsHr4Vd9zX55oSdGZc/MD0m3sferOkwWtp98bv+kcVfEHtRJgBVJzelrzg==
+  dependencies:
+    globalyzer "0.1.0"
+    globrex "^0.1.2"
+
 tinycolor2@^1.4.1:
   version "1.4.2"
   resolved "https://registry.yarnpkg.com/tinycolor2/-/tinycolor2-1.4.2.tgz#3f6a4d1071ad07676d7fa472e1fac40a719d8803"
@@ -4366,12 +4465,12 @@ tsconfig-resolver@^3.0.1:
     strip-bom "^4.0.0"
     type-fest "^0.13.1"
 
-tslib@^2.0.1, tslib@^2.0.3:
+tslib@^2.0.1, tslib@^2.0.3, tslib@^2.4.0:
   version "2.4.0"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.4.0.tgz#7cecaa7f073ce680a05847aa77be941098f36dc3"
   integrity sha512-d6xOpEDfsi2CZVlPQzGeux8XMwLT9hssAsaPYExaQMuYskwb+x1x7J371tWlbBdWHroy99KnVB6qIkUbs5X3UQ==
 
-tsm@^2.1.4:
+tsm@^2.1.4, tsm@^2.2.1:
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/tsm/-/tsm-2.2.1.tgz#3e78e86a03b2f569c20cff4a9f66c4ec8fce65fc"
   integrity sha512-qvJB0baPnxQJolZru11mRgGTdNlx17WqgJnle7eht3Vhb+VUR4/zFA5hFl6NqRe7m8BD9w/6yu0B2XciRrdoJA==
@@ -4547,7 +4646,7 @@ util@^0.12.0:
     safe-buffer "^5.1.2"
     which-typed-array "^1.1.2"
 
-uvu@^0.5.0:
+uvu@^0.5.0, uvu@^0.5.3:
   version "0.5.6"
   resolved "https://registry.yarnpkg.com/uvu/-/uvu-0.5.6.tgz#2754ca20bcb0bb59b64e9985e84d2e81058502df"
   integrity sha512-+g8ENReyr8YsOc6fv/NVJs2vFdHBnBNdfE49rshrTzDWOlUx4Gq7KOS2GD8eqhy2j+Ejq29+SbKH8yjkAqXqoA==

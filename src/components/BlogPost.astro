@@ -15,37 +15,40 @@ export interface Props {
 const { title, author, publishDate, heroImage, alt, text } = Astro.props;
 
 const parsed_post = parse(text);
-
 ---
 
-<div class="layout">
-	<article class="content">
+<div class='layout'>
+	<article class='content'>
 		<div>
 			<header>
 				<!-- {heroImage && <img width="720" height="420" class="hero-image" loading="lazy" src={heroImage} alt={alt} />} -->
-				<p class="publish-date">{new Date(publishDate).toLocaleDateString('el-gr')}</p>
-				<h1 class="title">{title}</h1>
+				<p class='publish-date'>
+					{new Date(publishDate).toLocaleDateString('el-gr')}
+				</p>
+				<h1 class='title'>{title}</h1>
 			</header>
 
 			<main>
-			{
-				parsed_post.childNodes.map((v) => {
+				{parsed_post.childNodes.map((v) => {
 					if (v.childNodes.length > 0) {
-						for (let n of v.childNodes){
+						for (let n of v.childNodes) {
 							if (n.tagName == 'IMG') {
 								// console.log(n.getAttribute('data-orig-file'))
-								return <BlogPicture
+								return (
+									<BlogPicture
 										src={n.getAttribute('data-orig-file')}
 										alt={n.getAttribute('alt')}
-										title={n.getAttribute('data-image-title')}
-										height={n.getAttribute('height')}/>
+										title={n.getAttribute(
+											'data-image-title'
+										)}
+										height={n.getAttribute('height')}
+									/>
+								)
 							}
 						}
 					}
 					return v
-				})
-			}
-
+				})}
 			</main>
 		</div>
 	</article>
