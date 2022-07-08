@@ -9,7 +9,6 @@
 		"preview": "astro preview"
 	},
 	"devDependencies": {
-		"@astrojs/preact": "^0.0.2",
 		"@astrojs/tailwind": "^0.2.2",
 		"astro": "^1.0.0-beta.5",
 		"prettier": "^2.7.1",
@@ -19,7 +18,6 @@
 		"astro-imagetools": "0.5.3",
 		"glider-js": "^1.7.7",
 		"node-html-parser": "^5.3.3",
-		"preact": "^10.7.0",
 		"typescript": "^4.6.3"
 	}
 }
