@@ -4,6 +4,7 @@ import BaseHead from '../components/BaseHead.astro';
 import BlogHeader from '../components/BlogHeader.astro';
 import BlogPostPreview from '../components/BlogPostPreview.astro';
 import Analytics from '../components/Analytics.astro';
+import wp from '../wordpress';
 
 // Component Script:
 // You can write any JavaScript/TypeScript that you'd like here.
@@ -13,16 +14,11 @@ let title = 'Μπομπίνα';
 let description = 'Διαδικτυακό περιοδικό του Κινηματογραφικού Τομέα Π.Ο.Φ.Π.Α.';
 let permalink = 'https://mpompina-test-site.netlify.app/';
 
-// Data Fetching: List all Markdown posts in the repo.
-
-let allPosts = await fetch(
-	'https://public-api.wordpress.com/rest/v1.1/sites/mpompina.wordpress.com/posts'
-);
-allPosts = await allPosts.json();
-allPosts = allPosts.posts;
-allPosts = allPosts.sort(
-	(a, b) => new Date(b.date).valueOf() - new Date(a.date).valueOf()
-);
+// let { data } = await wp.getPosts(100);
+// let allPosts = data.posts;
+// allPosts = allPosts.sort(
+// 	(a, b) => new Date(b.date).valueOf() - new Date(a.date).valueOf()
+// );
 
 // Full Astro Component Syntax:
 // https://docs.astro.build/core-concepts/astro-components/
@@ -33,38 +29,7 @@ allPosts = allPosts.sort(
 		<BaseHead {title} {description} {permalink} />
 
 		<style>
-			header {
-				width: 100%;
-				height: 100%;
-				background-color: var(--theme-bg-offset);
-				display: flex;
-				align-items: center;
-				justify-content: center;
-			}
 
-			.content {
-				margin-top: 4rem;
-				margin-bottom: 8rem;
-			}
-
-			.content :global(main > * + *) {
-				margin-top: 1rem;
-			}
-
-			.intro {
-				padding-bottom: 4rem;
-				margin-bottom: 2rem;
-				border-bottom: 4px solid var(--theme-divider);
-			}
-
-			.intro > * {
-				margin: 0;
-			}
-
-			.latest {
-				font-size: 2.5rem;
-				font-weight: 700;
-			}
 		</style>
 	</head>
 
@@ -73,12 +38,12 @@ allPosts = allPosts.sort(
 		<BlogHeader />
 		<div class='wrapper'>
 			<main class='content'>
-				<section class='intro'>
+				<!-- <section class='intro'>
 					<h1 class='latest'>{title}</h1>
 					<p>{description}</p>
-				</section>
+				</section> -->
 				<section aria-label='Blog post list'>
-					{allPosts.map((p) => <BlogPostPreview post={p} />)}
+					<!-- {allPosts.map((p) => <BlogPostPreview post={p} />)} -->
 				</section>
 			</main>
 		</div>
