@@ -7,6 +7,7 @@ import Analytics from '../components/Analytics.astro';
 import wp from '../wordpress';
 import HeroSection from '../components/HeroSection.astro';
 import TitleSeparator from '../components/TitleSeparator.astro';
+import PlainArticleList from '../components/PlainArticleList.astro';
 
 // Component Script:
 // You can write any JavaScript/TypeScript that you'd like here.
@@ -42,13 +43,7 @@ let permalink = 'https://mpompina-test-site.netlify.app/';
 			<main class='px-5'>
 				<HeroSection />
 				<TitleSeparator title='Προσφατα' />
-				<!-- <section class='intro'>
-					<h1 class='latest'>{title}</h1>
-					<p>{description}</p>
-				</section> -->
-				<section aria-label='Blog post list'>
-					<!-- {allPosts.map((p) => <BlogPostPreview post={p} />)} -->
-				</section>
+				<PlainArticleList />
 			</main>
 		</div>
 	</body>

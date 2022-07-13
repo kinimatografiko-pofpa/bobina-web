@@ -110,3 +110,7 @@
 .border-b-3 {
 	border-bottom-width: 3px;
 }
+
+a, button {
+	cursor: pointer;
+}

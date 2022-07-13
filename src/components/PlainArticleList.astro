@@ -1,0 +1,28 @@
+---
+let list = [
+	{
+		title: 'Ντανταϊσμός και Κινηματογράφος',
+		date: new Date(),
+		categories: ['Αφιερωματα', 'Βιογραφιες'],
+	},
+];
+
+for (let i = 0; i < 5; i++) {
+	list.push(list[0]);
+}
+---
+<section>
+
+{list.map((article) => (
+	<article class="py-9 first:pt-0">
+		<a>
+			<h5 class="title-small">{article.title}</h5>
+			<span class="text-overline-small">
+				{article.date.toLocaleDateString('el-gr')}{' '}
+				{article.categories.map((c) => c + ' ')}
+			</span>
+		</a>
+	</article>
+	<hr />
+))}
+</section>
