@@ -3,7 +3,7 @@ import 'glider-js/glider.min.css';
 
 let article = {
 	image: 'https://mpompina.files.wordpress.com/2022/06/maxresdefault-2.jpg',
-	title: 'A long article title uWu',
+	title: 'Grandmother (1970) David Lynch',
 	link: 'https://www.google.com',
 };
 
@@ -41,7 +41,7 @@ for (let i = 0; i < 3; i++) {
 	}
 
 	.glider-dot.active {
-		background-color: #bf3b52;
+		background-color: #b5465a;
 	}
 	.glider-track,
 	.glider {
@@ -56,25 +56,30 @@ for (let i = 0; i < 3; i++) {
 			overflow: hidden;
 		}
 	}
+
+	.glider-track {
+		padding: 0;
+		margin: 0;
+	}
 </style>
 
-<div class='glider-wrap bg-black text-white py-5'>
+<div class='glider-wrap bg-black text-white mt-8'>
 	<div class='glider '>
 		{content.map((art) => (
 			<div class="flex justify-center">
-				<div class="flex justify-center border-gray-400 border max-w-md">
+				<div class="flex justify-center border-[#3D3D3D] border max-w-md">
 					<a class="glider-img overflow-hidden">
-						<div class="overflow-hidden max-w-60 max-h-60 mb-3">
+						<div class="overflow-hidden max-w-[350px] max-h-[350px]">
 							<img
 								src={art.image}
-								class="transition-transform ease-in-out hover:scale-110 object-cover w-60 h-60"
+								class="transition-transform ease-in-out hover:scale-110 object-cover w-[350px] h-[350px]"
 							/>
 						</div>
-						<h4 class="p-3">{art.title}</h4>
+						<h4 class="py-4 px-2 title-medium-2">{art.title}</h4>
 					</a>
 				</div>
 			</div>
 		))}
 	</div>
-	<div role='tablist' id='dots' class='mt-3'></div>
+	<div role='tablist' id='dots' class='mt-14'></div>
 </div>

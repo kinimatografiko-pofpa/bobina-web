@@ -10,6 +10,7 @@ import TitleSeparator from '../components/TitleSeparator.astro';
 import PlainArticleList from '../components/PlainArticleList.astro';
 import ArticleList from '../components/ArticleList.astro';
 import Card from '../components/Card.astro';
+import Carousel from '../components/Carousel.astro';
 
 // Component Script:
 // You can write any JavaScript/TypeScript that you'd like here.
@@ -41,15 +42,24 @@ let permalink = 'https://mpompina-test-site.netlify.app/';
 	<body>
 		<Analytics />
 		<BlogHeader />
-		<div class='wrapper'>
-			<main class='px-5'>
+		<main>
+			<div class='px-5'>
 				<HeroSection />
 				<TitleSeparator title='Προσφατα' />
 				<PlainArticleList />
 				<TitleSeparator title='Αφιερωματα' />
 				<Card />
 				<ArticleList />
-			</main>
-		</div>
+			</div>
+			<section class='bg-black px-5 py-9 mt-14'>
+				<h1 class='title-large font-medium text-primary'>
+					Αναλύσεις / Κριτικές Ταινιών
+				</h1>
+				<Carousel />
+			</section>
+			<div class='px-5'>
+				<TitleSeparator title='Γενικες κατηγοριες' />
+			</div>
+		</main>
 	</body>
 </html>
