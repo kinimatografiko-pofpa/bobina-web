@@ -103,3 +103,10 @@
 	line-height: 16px;
 	letter-spacing: 0.02em;
 }
+
+.border-t-3 {
+	border-top-width: 3px;
+}
+.border-b-3 {
+	border-bottom-width: 3px;
+}
