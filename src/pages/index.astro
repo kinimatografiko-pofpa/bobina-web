@@ -5,6 +5,7 @@ import BlogHeader from '../components/BlogHeader.astro';
 import BlogPostPreview from '../components/BlogPostPreview.astro';
 import Analytics from '../components/Analytics.astro';
 import wp from '../wordpress';
+import HeroSection from '../components/HeroSection.astro';
 
 // Component Script:
 // You can write any JavaScript/TypeScript that you'd like here.
@@ -38,6 +39,7 @@ let permalink = 'https://mpompina-test-site.netlify.app/';
 		<BlogHeader />
 		<div class='wrapper'>
 			<main class='content'>
+				<HeroSection />
 				<!-- <section class='intro'>
 					<h1 class='latest'>{title}</h1>
 					<p>{description}</p>
