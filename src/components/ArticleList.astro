@@ -1,0 +1,31 @@
+---
+let list = [
+	{
+		title: 'Ντανταϊσμός και Κινηματογράφος',
+		date: new Date(),
+		categories: ['Αφιερωματα', 'Βιογραφιες'],
+		image: 'https://mpompina.files.wordpress.com/2019/07/cea3cf8ccf87ceb5ceb9-ce99cebcceb1cebccebfcf8dcf81ceb1.jpg',
+		shortText:
+			'Μετέφερες το Πίστομα, διήγημα του Θεοτόκη, σε μια ταινία μικρού μήκους. Ποια διαδικασία ακολούθησες; Θεωρείς ότι οι κινηματογραφικές διασκευές πρέπει να γίνονται στο γράμμα ή στο πνεύμα ενός έργου; Πιστεύω ότι για να μπορέσεις να τιμήσεις ένα διήγημα και να μην το εκθέσεις, να μη μοιάζει γραφικό και φολκλόρ, πρέπει να βρεις έναν τρόπο ώστε.....',
+	},
+];
+
+for (let i = 0; i < 5; i++) {
+	list.push(list[0]);
+}
+---
+
+{list.map((article) => (
+	<article class="mt-10">
+		<img src={article.image} class="object-cover w-96 h-96 mb-4" />
+		<a>
+			<h3 class="title-small">{article.title}</h3>
+			<span class="text-overline-small">
+				{article.date.toLocaleDateString('el-gr')}
+				{article.categories.map((c) => c + ' ')}
+			</span>
+		</a>
+		<p class="text-body-small mt-4"> {article.shortText} </p>
+		<a class="block mt-6 text-button hover:text-primary">Περισσότερα</a>
+	</article>
+))}
