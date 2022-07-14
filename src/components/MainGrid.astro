@@ -1,0 +1,20 @@
+---
+import GridItem from './GridItem.astro';
+
+const { class: cl } = Astro.props;
+---
+
+<section class={cl}>
+	<div class='flex'>
+		<GridItem class='mr-2 mb-2'>Βιογραφίες</GridItem>
+		<GridItem class='mb-2 ml-2'>Βιογραφίες</GridItem>
+	</div>
+	<div class='flex'>
+		<GridItem class='my-2 mr-2'>Βιογραφίες</GridItem>
+		<GridItem class='my-2 ml-2'>Βιογραφίες</GridItem>
+	</div>
+	<GridItem size='full'>
+		<p class='text-center text-body'>Δείτε</p>
+		Όλα τα κείμενα
+	</GridItem>
+</section>

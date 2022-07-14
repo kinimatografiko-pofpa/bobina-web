@@ -16,6 +16,14 @@
 	letter-spacing: -0.02em;
 }
 
+.text-xxlarge {
+	font-family: Syne, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+	font-weight: 500;
+	font-size: 56px;
+	line-height: 56px;
+	letter-spacing: -0.02em;
+}
+
 .title-xlarge {
 	font-family: Syne, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 	font-weight: 400;
