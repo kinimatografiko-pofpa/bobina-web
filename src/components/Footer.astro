@@ -1,0 +1,86 @@
+---
+import Collapse from './Collapse.astro';
+
+const categories = [
+	{ title: 'Αναλύσεις / Κριτικές', href: '' },
+	{ title: 'Αφιερώματα', href: '' },
+	{ title: 'Βιογραφίες', href: '' },
+	{ title: 'Συνεντεύξεις', href: '' },
+	{ title: 'Εκπαιδευτικά άρθρα', href: '' },
+	{ title: 'Όλα τα κείμενα', href: '' },
+];
+---
+
+<footer class='bg-black text-white px-5 pb-12'>
+	<Collapse>
+		<div slot='title' class='w-full'>
+			<div class='flex justify-between items-center'>
+				<h5 class='py-8 title-small text-left'>Κατηγορίες</h5>
+				<p>▼</p>
+			</div>
+			<hr class='border-[#313131]' />
+		</div>
+
+		<div slot='content'>
+			<ul class='text-body-small'>
+				{categories.map((c) => (
+					<li class="py-2 block">
+						<a href={c.href}>{c.title}</a>
+					</li>
+				))}
+			</ul>
+		</div>
+	</Collapse>
+	<Collapse>
+		<div slot='title' class='w-full'>
+			<div class='flex justify-between items-center'>
+				<h5 class='py-8 title-small text-left'>Το Περιοδικό</h5>
+				<p>▼</p>
+			</div>
+			<hr class='border-[#313131]' />
+		</div>
+
+		<div slot='content'>
+			<ul class='text-body-small'>
+				<li class='py-2 block'>
+					<a href=''>Σχετικά</a>
+				</li>
+				<li class='py-2 block'>
+					<a href=''>Επικοινωνία</a>
+				</li>
+				<li class='py-2 block'>
+					<a href=''>Τα τεύχη online</a>
+				</li>
+			</ul>
+		</div>
+	</Collapse>
+
+	<Collapse>
+		<div slot='title' class='w-full'>
+			<div class='flex justify-between items-center'>
+				<h5 class='py-8 title-small text-left'>Social Links</h5>
+				<p>▼</p>
+			</div>
+			<hr class='border-[#313131]' />
+		</div>
+
+		<div slot='content'>
+			<ul class='text-body-small'>
+				<li class='py-2 block'>
+					<a href=''>Facebook Μπομπίνας</a>
+				</li>
+				<li class='py-2 block'>
+					<a href=''>Facebook Κινηματογραφικού Τομέα</a>
+				</li>
+				<li class='py-2 block'>
+					<a href=''>Issuu</a>
+				</li>
+			</ul>
+		</div>
+	</Collapse>
+	<h5 class='mt-8 mb-6 title-small'>Αναζήτηση</h5>
+	<input
+		placeholder='type something'
+		class='bg-black border-b border-white placeholder:text-gray-500'
+	/>
+</footer>
