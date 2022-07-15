@@ -17,18 +17,24 @@ const { title, author, publishDate, heroImage, alt, text } = Astro.props;
 const parsed_post = parse(text);
 ---
 
-<div class='layout'>
-	<article class='content'>
+<div class='layout mb-20'>
+	<article class='px-5'>
 		<div>
 			<header>
-				<!-- {heroImage && <img width="720" height="420" class="hero-image" loading="lazy" src={heroImage} alt={alt} />} -->
-				<p class='publish-date'>
-					{new Date(publishDate).toLocaleDateString('el-gr')}
-				</p>
-				<h1 class='title'>{title}</h1>
+				{heroImage && (
+					<img
+						width="720"
+						height="420"
+						class="hero-image object-cover max-w-full"
+						loading="lazy"
+						src={heroImage}
+						alt={alt}
+					/>
+				)}
+				<h1 class='title-large mb-4'>{title}</h1>
 			</header>
 
-			<main>
+			<main class='text-body'>
 				{parsed_post.childNodes.map((v) => {
 					if (v.childNodes.length > 0) {
 						for (let n of v.childNodes) {
@@ -42,6 +48,7 @@ const parsed_post = parse(text);
 											'data-image-title'
 										)}
 										height={n.getAttribute('height')}
+										class="my-4"
 									/>
 								)
 							}
@@ -50,19 +57,22 @@ const parsed_post = parse(text);
 					return v
 				})}
 			</main>
+
+			<p class='publish-date'>
+				{new Date(publishDate).toLocaleDateString('el-gr')}
+			</p>
 		</div>
 	</article>
 </div>
 
 <style>
-	.hero-image {
-		width: 100vw;
+	/* .hero-image {
 		object-fit: cover;
 		object-position: center;
 		margin-top: 2rem;
 		margin-bottom: 4rem;
-		max-width: 1280px;
-	}
+		max-width: calc(min(1280px, 100%));
+	} */
 
 	@media (max-width: 50em) {
 		.hero-image {
@@ -72,7 +82,7 @@ const parsed_post = parse(text);
 		}
 	}
 
-	.content {
+	/* .content {
 		margin-bottom: 8rem;
 	}
 
@@ -82,9 +92,9 @@ const parsed_post = parse(text);
 
 	.content :global(h2) {
 		margin-top: 4rem;
-	}
+	} */
 
-	header {
+	/* header {
 		display: flex;
 		flex-direction: column;
 		text-align: center;
@@ -94,21 +104,5 @@ const parsed_post = parse(text);
 		padding-bottom: 2rem;
 		margin-bottom: 2rem;
 		border-bottom: 4px solid var(--theme-divider);
-	}
-
-	.title,
-	.author,
-	.publish-date {
-		margin: 0;
-	}
-
-	.publish-date,
-	.author {
-		color: var(--theme-text-lighter);
-	}
-
-	.title {
-		font-size: 2.25rem;
-		font-weight: 700;
-	}
+	} */
 </style>

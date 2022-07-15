@@ -1,4 +1,7 @@
 ---
+import BaseHead from '../../components/BaseHead.astro';
+import Analytics from '../../components/Analytics.astro';
+import BlogHeader from '../../components/BlogHeader.astro';
 import BlogPost from '../../layouts/BlogPost.astro';
 
 export async function getStaticPaths() {
@@ -6,6 +9,7 @@ export async function getStaticPaths() {
 		'https://public-api.wordpress.com/rest/v1.1/sites/mpompina.wordpress.com/posts'
 	);
 	const { posts } = await req.json();
+	console.log(posts[0].featured_image);
 
 	return posts.map((p) => ({
 		params: {
@@ -18,7 +22,8 @@ export async function getStaticPaths() {
 }
 
 const post = Astro.props.post_obj;
-const img = Object.values(post.attachments)[0]?.URL;
+// const img = Object.values(post.attachments)[0]?.URL;
+const img = post.featured_image;
 const content = {
 	title: post.title,
 	description: post.excerpt,
