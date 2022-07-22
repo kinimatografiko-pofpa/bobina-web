@@ -14,13 +14,16 @@ let post_categories = Object.keys(post.categories);
 ---
 
 <article>
-	<a href={`/posts/${post.ID}`}>
+	<a
+		href={`/posts/${post.ID}`}
+		class='flex flex-col md:flex-row md:items-center'
+	>
 		<img
 			src={post.featured_image}
 			alt=''
-			class='w-full max-h-[240px] object-cover'
+			class='w-full max-h-[240px] md:max-h-[383px] object-cover md:max-w-[555px] md:flex-1'
 		/>
-		<div>
+		<div class='md:my-11 md:ml-11 md:flex-1'>
 			<p class='text-overline mt-6'>{post_categories}</p>
 			<h3 class='title-large my-4'>{post.title}</h3>
 			<p class='text-body'>
