@@ -5,16 +5,24 @@ const { class: cl } = Astro.props;
 ---
 
 <section class={cl}>
-	<div class='flex'>
-		<GridItem class='mr-2 mb-2'>Βιογραφίες</GridItem>
-		<GridItem class='mb-2 ml-2'>Βιογραφίες</GridItem>
+	<div class='md:flex md:h-[400px]'>
+		<div>
+			<div class='flex w-full'>
+				<GridItem class='mr-2 mb-2'>Βιογραφίες1</GridItem>
+				<GridItem class='mb-2 ml-2'>Βιογραφίες2</GridItem>
+			</div>
+			<div class='flex w-full'>
+				<GridItem class='my-2 md:mt-2 md:mb-0 mr-2'
+					>Βιογραφίες3
+				</GridItem>
+				<GridItem class='my-2 md:mt-2 md:mb-0 ml-2'
+					>Βιογραφίες4
+				</GridItem>
+			</div>
+		</div>
+		<GridItem size='full' class='md:flex-grow md:h-full md:ml-4'>
+			<p class='text-center text-body'>Δείτε</p>
+			Όλα τα κείμενα
+		</GridItem>
 	</div>
-	<div class='flex'>
-		<GridItem class='my-2 mr-2'>Βιογραφίες</GridItem>
-		<GridItem class='my-2 ml-2'>Βιογραφίες</GridItem>
-	</div>
-	<GridItem size='full'>
-		<p class='text-center text-body'>Δείτε</p>
-		Όλα τα κείμενα
-	</GridItem>
 </section>
