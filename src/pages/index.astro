@@ -44,14 +44,22 @@ let permalink = 'https://mpompina-test-site.netlify.app/';
 	<body>
 		<Analytics />
 		<BlogHeader />
-		<main>
+		<main class='max-w-[1200px] md:mx-auto'>
 			<div class='px-5'>
 				<HeroSection />
-				<TitleSeparator title='Προσφατα' />
-				<PlainArticleList />
-				<TitleSeparator title='Αφιερωματα' />
-				<Card />
-				<ArticleList />
+				<div class='md:flex'>
+					<div class='md:mr-7'>
+						<TitleSeparator title='Αφιερωματα' />
+						<Card />
+					</div>
+					<div>
+						<TitleSeparator title='Προσφατα' />
+						<PlainArticleList />
+					</div>
+				</div>
+				<div class='max-w-[750px]'>
+					<ArticleList />
+				</div>
 			</div>
 			<section class='bg-black px-5 py-9 mt-14'>
 				<h1 class='title-large font-medium text-primary'>
