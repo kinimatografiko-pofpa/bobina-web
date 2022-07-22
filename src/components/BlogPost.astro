@@ -15,6 +15,10 @@ export interface Props {
 const { title, author, publishDate, heroImage, alt, text } = Astro.props;
 
 const parsed_post = parse(text);
+function addIframeClasses(node) {
+	node.classList.add('outline-none');
+	node.classList.add('w-full');
+}
 
 // remove first image since it's the hero image:
 parsed_post.getElementsByTagName('img')[0].remove();
@@ -58,9 +62,12 @@ parsed_post.getElementsByTagName('img')[0].remove();
 										class="my-4"
 									/>
 								)
+							} else if (n.tagName == 'IFRAME') {
+								addIframeClasses(n)
 							}
 						}
 					}
+
 					return v
 				})}
 			</main>
