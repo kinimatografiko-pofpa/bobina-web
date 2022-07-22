@@ -15,6 +15,9 @@ export interface Props {
 const { title, author, publishDate, heroImage, alt, text } = Astro.props;
 
 const parsed_post = parse(text);
+
+// remove first image since it's the hero image:
+parsed_post.getElementsByTagName('img')[0].remove();
 ---
 
 <div class='layout mb-20'>
@@ -36,6 +39,10 @@ const parsed_post = parse(text);
 
 			<main class='text-body'>
 				{parsed_post.childNodes.map((v) => {
+					if (v.tagName != null) {
+						v.classList.add('my-4')
+					}
+
 					if (v.childNodes.length > 0) {
 						for (let n of v.childNodes) {
 							if (n.tagName == 'IMG') {
