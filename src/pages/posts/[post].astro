@@ -4,12 +4,12 @@ import Analytics from '../../components/Analytics.astro';
 import BlogHeader from '../../components/BlogHeader.astro';
 import BlogPost from '../../layouts/BlogPost.astro';
 
+import wordpress from '../../wordpress';
+
 export async function getStaticPaths() {
-	const req = await fetch(
-		'https://public-api.wordpress.com/rest/v1.1/sites/mpompina.wordpress.com/posts'
-	);
-	const { posts } = await req.json();
-	console.log(posts[0].featured_image);
+	const {
+		data: { posts },
+	} = await wordpress.getPosts(100);
 
 	return posts.map((p) => ({
 		params: {
