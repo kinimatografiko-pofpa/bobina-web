@@ -1,5 +1,10 @@
 ---
 import 'glider-js/glider.min.css';
+import wordpress from '../wordpress';
+
+let {
+	data: { posts },
+} = await wordpress.getPosts(3, '', 'ανάλυση-κριτική-ταινιών');
 
 let article = {
 	image: 'https://mpompina.files.wordpress.com/2022/06/maxresdefault-2.jpg',
@@ -7,11 +12,11 @@ let article = {
 	link: 'https://www.google.com',
 };
 
-let content = [];
-
-for (let i = 0; i < 3; i++) {
-	content.push(article);
-}
+let content = posts.map((p) => ({
+	image: p.featured_image,
+	title: p.title,
+	link: '/posts/' + p.ID,
+}));
 ---
 
 <script>
