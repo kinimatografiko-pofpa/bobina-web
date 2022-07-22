@@ -12,6 +12,16 @@ async function getPosts(max = 20, page_handle = '', category = '') {
 	return { data, resp };
 }
 
+async function getStickyPosts(max = 20, page_handle = '') {
+	let resp = await fetch(
+		siteUrl +
+			`/posts?number=${max}&page_handle=${page_handle}&sticky=require`
+	);
+
+	let data = await resp.json();
+
+	return { data, resp };
+}
 // async function getAllPosts() {
 // 	let allPosts = [];
 
@@ -24,4 +34,5 @@ async function getPosts(max = 20, page_handle = '', category = '') {
 
 export default {
 	getPosts,
+	getStickyPosts,
 };

@@ -1,20 +1,31 @@
 ---
 //script here
+import wordpress from '../wordpress';
+import { parse } from 'node-html-parser';
+
+let {
+	data: { posts },
+} = await wordpress.getStickyPosts();
+
+let post = posts[0];
+// console.log(post.categories);
+
+let post_categories = Object.keys(post.categories);
 ---
 
 <article>
-	<img
-		src='https://mpompina.files.wordpress.com/2019/07/cea3cf8ccf87ceb5ceb9-ce99cebcceb1cebccebfcf8dcf81ceb1.jpg'
-		alt=''
-	/>
-	<div>
-		<p class='text-overline mt-6'>βιογραφιες</p>
-		<h3 class='title-large my-4'>Σόχει Ιμαμούρα: Μια πρώτη ανάγνωση</h3>
-		<p class='text-body'>
-			Ο Σόχει Ιμαμούρα είναι αναμφίβολα ένα σύμβολο του ιαπωνικού νέου
-			κύματος. Μιας γενιάς κινηματογραφιστών που πέρα από την ετερόκλητη
-			σύνθεση της, είχε μια κοινή δίψα να δημιουργήσει χωρίς την κηδεμονία
-			και τις διαταγές των μεγάλων στούντιο.
-		</p>
-	</div>
+	<a href={`/posts/${post.ID}`}>
+		<img
+			src={post.featured_image}
+			alt=''
+			class='w-full max-h-[240px] object-cover'
+		/>
+		<div>
+			<p class='text-overline mt-6'>{post_categories}</p>
+			<h3 class='title-large my-4'>{post.title}</h3>
+			<p class='text-body'>
+				{parse(post.excerpt).text}
+			</p>
+		</div>
+	</a>
 </article>
