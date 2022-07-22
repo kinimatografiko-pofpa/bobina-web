@@ -44,8 +44,8 @@ let permalink = 'https://mpompina-test-site.netlify.app/';
 	<body>
 		<Analytics />
 		<BlogHeader />
-		<main class='max-w-[1200px] md:mx-auto'>
-			<div class='px-5'>
+		<main class=''>
+			<div class='px-5 max-w-[1200px] md:mx-auto'>
 				<HeroSection />
 				<div class='md:flex'>
 					<div class='md:mr-7'>
@@ -61,13 +61,15 @@ let permalink = 'https://mpompina-test-site.netlify.app/';
 					<ArticleList />
 				</div>
 			</div>
-			<section class='bg-black px-5 py-9 mt-14'>
-				<h1 class='title-large font-medium text-primary'>
-					Αναλύσεις / Κριτικές Ταινιών
-				</h1>
-				<Carousel />
+			<section class='bg-black px-5 py-9 mt-14 '>
+				<div class='max-w-[1200px] md:mx-auto'>
+					<h1 class='title-large font-medium text-primary'>
+						Αναλύσεις / Κριτικές Ταινιών
+					</h1>
+					<Carousel />
+				</div>
 			</section>
-			<div class='px-5'>
+			<div class='px-5 max-w-[1200px] md:mx-auto'>
 				<TitleSeparator title='Γενικες κατηγοριες' />
 				<MainGrid class='md:mb-12' />
 				<div class='md:flex md:items-stretch'>
@@ -78,7 +80,9 @@ let permalink = 'https://mpompina-test-site.netlify.app/';
 							Γίνε <br /> μέρος <br /> του <br /> περιο- <br /> δικού
 						</div>
 					</div>
-					<p class='text-body mt-8 md:mt-0 md:py-14 md:px-16'>
+					<p
+						class='text-body mt-8 md:mt-0 md:pt-14 md:pb-24 md:px-16'
+					>
 						Η Μπομπίνα αποτελεί το επίσημο περιοδικό του
 						Κινηματογραφικού Τομέα Π.Ο.Φ.Π.Α. Στις σελίδες της
 						φιλοξενεί ένα πολύπλευρο σύνολο από κείμενα που
@@ -99,23 +103,26 @@ let permalink = 'https://mpompina-test-site.netlify.app/';
 					</p>
 				</div>
 			</div>
-			<img src='assets/video.jpg' class='mt-11' />
-			<div class='px-5 pt-16 pb-20 bg-black text-white'>
-				<h2 class='title-large' style='letter-spacing: initial'>
-					Κινηματογραφικός Τομέας ΠΟΦΠΑ
-				</h2>
-				<p class='text-body mt-6 mb-10'>
-					Σήμερα ο Κινηματογραφικός Τομέας έχει ένα πλήρες εβδομαδιαίο
-					πρόγραμμα σεμιναρίων και προβολών σε φίλμ 35mm και
-					βιντεοπροτζέκτορα, το οποίο καθημερινά βελτιώνεται και
-					εμπλουτίζεται.
-				</p>
-				<a
-					href='https://kinimatografiko.gr'
-					class='text-button hover:underline'
-				>
-					Δείτε περισσότερα
-				</a>
+			<div class='mt-11 md:flex md:w-full'>
+				<img src='assets/video.jpg' class='md:max-w-[50%] object-cover'
+				/>
+				<div class='px-5 pt-16 pb-20 bg-black text-white md:flex-grow'>
+					<h2 class='title-large' style='letter-spacing: initial'>
+						Κινηματογραφικός Τομέας ΠΟΦΠΑ
+					</h2>
+					<p class='text-body mt-6 mb-10'>
+						Σήμερα ο Κινηματογραφικός Τομέας έχει ένα πλήρες
+						εβδομαδιαίο πρόγραμμα σεμιναρίων και προβολών σε φίλμ
+						35mm και βιντεοπροτζέκτορα, το οποίο καθημερινά
+						βελτιώνεται και εμπλουτίζεται.
+					</p>
+					<a
+						href='https://kinimatografiko.gr'
+						class='text-button hover:underline'
+					>
+						Δείτε περισσότερα
+					</a>
+				</div>
 			</div>
 		</main>
 		<Footer />
