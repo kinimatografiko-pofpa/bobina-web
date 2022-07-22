@@ -1,5 +1,6 @@
 ---
 import Collapse from './Collapse.astro';
+import FooterSearch from './FooterSearch.astro';
 
 const categories = [
 	{ title: 'Αναλύσεις / Κριτικές', href: '' },
@@ -9,78 +10,72 @@ const categories = [
 	{ title: 'Εκπαιδευτικά άρθρα', href: '' },
 	{ title: 'Όλα τα κείμενα', href: '' },
 ];
+
+const footer_data = [
+	{ title: 'Κατηγορίες', content: categories },
+	{
+		title: 'Το Περιοδικό',
+		content: [
+			{ title: 'Σχετικά', href: '' },
+			{ title: 'Επικοινωνία', href: '' },
+			{ title: 'Τα τεύχη online', href: '' },
+		],
+	},
+	{
+		title: 'Social links',
+		content: [
+			{ title: 'Facebook Μπομπίνας', href: '' },
+			{ title: 'Facebook Κινηματογραφικού Τομέα', href: '' },
+			{ title: 'Issuu', href: '' },
+		],
+	},
+];
 ---
 
-<footer class='bg-black text-white px-5 pb-12'>
-	<Collapse>
-		<div slot='title' class='w-full'>
-			<div class='flex justify-between items-center'>
-				<h5 class='py-8 title-small text-left'>Κατηγορίες</h5>
-				<p>▼</p>
+<footer class='bg-black text-white  pb-12 md:pb-28'>
+	<div class='md:hidden px-5'>
+		{footer_data.map((f) => (
+			<Collapse>
+				<div slot="title" class="w-full">
+					<div class="flex justify-between items-center">
+						<h5 class="py-8 title-small text-left">{f.title}</h5>
+						<p>▼</p>
+					</div>
+					<hr class="border-[#313131]" />
+				</div>
+
+				<div slot="content">
+					<ul class="text-body-small">
+						{f.content.map((c) => (
+							<li class="py-2 block">
+								<a href={c.href}>{c.title}</a>
+							</li>
+						))}
+					</ul>
+				</div>
+			</Collapse>
+		))}
+		<FooterSearch class='mt-8' />
+	</div>
+
+	<hr class='hidden md:block border-[#313131]' />
+
+	<div
+		class='hidden md:flex justify-around max-w-[1200px] mx-auto px-5 pt-16 items-start'
+	>
+		{footer_data.map((f) => (
+			<div>
+				<h5 class="mb-6 title-small text-left">{f.title}</h5>
+
+				<ul class="text-body-small">
+					{f.content.map((c) => (
+						<li class="py-2 block first:pt-0">
+							<a href={c.href}>{c.title}</a>
+						</li>
+					))}
+				</ul>
 			</div>
-			<hr class='border-[#313131]' />
-		</div>
-
-		<div slot='content'>
-			<ul class='text-body-small'>
-				{categories.map((c) => (
-					<li class="py-2 block">
-						<a href={c.href}>{c.title}</a>
-					</li>
-				))}
-			</ul>
-		</div>
-	</Collapse>
-	<Collapse>
-		<div slot='title' class='w-full'>
-			<div class='flex justify-between items-center'>
-				<h5 class='py-8 title-small text-left'>Το Περιοδικό</h5>
-				<p>▼</p>
-			</div>
-			<hr class='border-[#313131]' />
-		</div>
-
-		<div slot='content'>
-			<ul class='text-body-small'>
-				<li class='py-2 block'>
-					<a href=''>Σχετικά</a>
-				</li>
-				<li class='py-2 block'>
-					<a href=''>Επικοινωνία</a>
-				</li>
-				<li class='py-2 block'>
-					<a href=''>Τα τεύχη online</a>
-				</li>
-			</ul>
-		</div>
-	</Collapse>
-
-	<Collapse>
-		<div slot='title' class='w-full'>
-			<div class='flex justify-between items-center'>
-				<h5 class='py-8 title-small text-left'>Social Links</h5>
-				<p>▼</p>
-			</div>
-			<hr class='border-[#313131]' />
-		</div>
-
-		<div slot='content'>
-			<ul class='text-body-small'>
-				<li class='py-2 block'>
-					<a href=''>Facebook Μπομπίνας</a>
-				</li>
-				<li class='py-2 block'>
-					<a href=''>Facebook Κινηματογραφικού Τομέα</a>
-				</li>
-				<li class='py-2 block'>
-					<a href=''>Issuu</a>
-				</li>
-			</ul>
-		</div>
-	</Collapse>
-	<h5 class='mt-8 mb-6 title-small'>Αναζήτηση</h5>
-	<input
-		placeholder='type something'
-		class='bg-black border-b border-white placeholder:text-gray-500'
-	/>
+		))}
+		<FooterSearch />
+	</div>
 </footer>
