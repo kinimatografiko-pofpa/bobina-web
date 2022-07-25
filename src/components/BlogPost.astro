@@ -2,6 +2,7 @@
 import Author from './Author.astro';
 import BlogPicture from './BlogPicture.astro';
 import { parse } from 'node-html-parser';
+import RecommendedPost from './RecommendedPost.astro';
 
 export interface Props {
 	title: string;
@@ -19,6 +20,29 @@ function addIframeClasses(node) {
 	node.classList.add('outline-none');
 	node.classList.add('w-full');
 }
+
+let recommended = [
+	{
+		title: 'Ιαπωνικός Κινηματογράφος: ‘‘Like grains of sand’’',
+		image: 'https://mpompina.files.wordpress.com/2022/06/maxresdefault-2.jpg',
+		id: '1630',
+	},
+	{
+		title: 'Ιαπωνικός Κινηματογράφος: ‘‘Like grains of sand’’',
+		image: 'https://mpompina.files.wordpress.com/2022/06/maxresdefault-2.jpg',
+		id: '1630',
+	},
+	{
+		title: 'Ιαπωνικός Κινηματογράφος: ‘‘Like grains of sand’’',
+		image: 'https://mpompina.files.wordpress.com/2022/06/maxresdefault-2.jpg',
+		id: '1630',
+	},
+	{
+		title: 'Ιαπωνικός Κινηματογράφος: ‘‘Like grains of sand’’',
+		image: 'https://mpompina.files.wordpress.com/2022/06/maxresdefault-2.jpg',
+		id: '1630',
+	},
+];
 
 // remove first image since it's the hero image:
 parsed_post.getElementsByTagName('img')[0]?.remove();
@@ -78,6 +102,22 @@ parsed_post.getElementsByTagName('img')[0]?.remove();
 					'el-gr'
 				)}
 			</p>
+
+			<div class='md:max-w-[1140px] mx-auto'>
+				<h5 class='mt-14 mb-10 title-medium md:text-center'>
+					Διαβάστε ακόμα
+				</h5>
+				<div class='md:flex md:justify-center'>
+					{recommended.map((r) => (
+						<RecommendedPost
+							title={r.title}
+							image={r.image}
+							id={r.id}
+							class="mb-5 md:mx-2"
+						/>
+					))}
+				</div>
+			</div>
 		</div>
 	</article>
 </div>
