@@ -24,7 +24,7 @@ let list = posts.map((p) => ({
 			class="object-cover w-full h-96 mb-4 md:flex-1 md:w-[263px] md:h-full md:mb-0"
 		/>
 		<div class="md:ml-7">
-			<a>
+			<a href={`/posts/${article.id}`}>
 				<h3 class="title-small">{article.title}</h3>
 				<span class="text-overline-small">
 					{article.date.toLocaleDateString('el-gr')}
