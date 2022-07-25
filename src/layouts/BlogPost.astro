@@ -15,6 +15,7 @@ const {
 	permalink,
 	alt,
 	text,
+	id,
 } = content;
 ---
 
@@ -26,7 +27,7 @@ const {
 	<body>
 		<Analytics />
 		<BlogHeader />
-		<BlogPost {title} {author} {heroImage} {publishDate} {alt} {text}>
+		<BlogPost {title} {author} {heroImage} {publishDate} {alt} {text} {id}>
 			<slot></slot>
 		</BlogPost>
 		<Footer />

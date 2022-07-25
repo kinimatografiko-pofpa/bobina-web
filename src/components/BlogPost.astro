@@ -13,7 +13,7 @@ export interface Props {
 	text: string;
 }
 
-const { title, author, publishDate, heroImage, alt, text } = Astro.props;
+const { title, author, publishDate, heroImage, alt, text, id } = Astro.props;
 
 const parsed_post = parse(text);
 function addIframeClasses(node) {
@@ -21,28 +21,64 @@ function addIframeClasses(node) {
 	node.classList.add('w-full');
 }
 
-let recommended = [
-	{
-		title: 'Ιαπωνικός Κινηματογράφος: ‘‘Like grains of sand’’',
-		image: 'https://mpompina.files.wordpress.com/2022/06/maxresdefault-2.jpg',
-		id: '1630',
-	},
-	{
-		title: 'Ιαπωνικός Κινηματογράφος: ‘‘Like grains of sand’’',
-		image: 'https://mpompina.files.wordpress.com/2022/06/maxresdefault-2.jpg',
-		id: '1630',
-	},
-	{
-		title: 'Ιαπωνικός Κινηματογράφος: ‘‘Like grains of sand’’',
-		image: 'https://mpompina.files.wordpress.com/2022/06/maxresdefault-2.jpg',
-		id: '1630',
-	},
-	{
-		title: 'Ιαπωνικός Κινηματογράφος: ‘‘Like grains of sand’’',
-		image: 'https://mpompina.files.wordpress.com/2022/06/maxresdefault-2.jpg',
-		id: '1630',
-	},
-];
+let recommended = [];
+
+try {
+	let resp = await fetch(
+		'http://N33J498LJ3-dsn.algolia.net/1/indexes/*/recommendations',
+		{
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+				'X-Algolia-Api-Key': import.meta.env.ALGOLIA_KEY,
+				'X-Algolia-Application-ID': import.meta.env.ALGOLIA_APPLICATION,
+			},
+			body: JSON.stringify({
+				requests: [
+					{
+						indexName: 'dev_mpompina',
+						model: 'related-products',
+						objectID: id.toString(),
+						threshold: 0,
+						maxRecommendations: 4,
+					},
+				],
+			}),
+		}
+	);
+
+	let rec = await resp.json();
+	recommended = rec?.results?.[0]?.hits?.map((r) => ({
+		title: r.title,
+		id: r.objectID,
+		image: r.imageUrl,
+	}));
+} catch (error) {
+	console.error(error);
+}
+
+// recommended = [
+// 	{
+// 		title: 'Ιαπωνικός Κινηματογράφος: ‘‘Like grains of sand’’',
+// 		image: 'https://mpompina.files.wordpress.com/2022/06/maxresdefault-2.jpg',
+// 		id: '1630',
+// 	},
+// 	{
+// 		title: 'Ιαπωνικός Κινηματογράφος: ‘‘Like grains of sand’’',
+// 		image: 'https://mpompina.files.wordpress.com/2022/06/maxresdefault-2.jpg',
+// 		id: '1630',
+// 	},
+// 	{
+// 		title: 'Ιαπωνικός Κινηματογράφος: ‘‘Like grains of sand’’',
+// 		image: 'https://mpompina.files.wordpress.com/2022/06/maxresdefault-2.jpg',
+// 		id: '1630',
+// 	},
+// 	{
+// 		title: 'Ιαπωνικός Κινηματογράφος: ‘‘Like grains of sand’’',
+// 		image: 'https://mpompina.files.wordpress.com/2022/06/maxresdefault-2.jpg',
+// 		id: '1630',
+// 	},
+// ];
 
 // remove first image since it's the hero image:
 parsed_post.getElementsByTagName('img')[0]?.remove();
