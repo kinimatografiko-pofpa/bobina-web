@@ -21,7 +21,7 @@ function addIframeClasses(node) {
 }
 
 // remove first image since it's the hero image:
-parsed_post.getElementsByTagName('img')[0].remove();
+parsed_post.getElementsByTagName('img')[0]?.remove();
 ---
 
 <div class='layout mb-20'>
