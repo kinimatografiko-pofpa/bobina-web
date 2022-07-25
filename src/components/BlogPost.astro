@@ -50,7 +50,6 @@ parsed_post.getElementsByTagName('img')[0]?.remove();
 					if (v.childNodes.length > 0) {
 						for (let n of v.childNodes) {
 							if (n.tagName == 'IMG') {
-								// console.log(n.getAttribute('data-orig-file'))
 								return (
 									<BlogPicture
 										src={n.getAttribute('data-orig-file')}
