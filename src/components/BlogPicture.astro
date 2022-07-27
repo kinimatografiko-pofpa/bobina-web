@@ -16,7 +16,7 @@ const { src, alt, height, title, class: cl } = Astro.props;
 					includeSourceFormat={false}
 					loading="lazy"
 					objectPosition="center"
-					class="md:max-w-xl"
+					attributes={{ class: 'md:max-w-xl' }}
 				/>
 			</div>
 			<figcaption>{title}</figcaption>

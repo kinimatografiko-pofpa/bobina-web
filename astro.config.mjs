@@ -1,12 +1,10 @@
 import { defineConfig } from 'astro/config';
-import astroImagePlugin from 'astro-imagetools/plugin';
+
+import { astroImageTools } from 'astro-imagetools';
 
 import tailwind from '@astrojs/tailwind';
 
 // https://astro.build/config
 export default defineConfig({
-	integrations: [tailwind()],
-	vite: {
-		plugins: [astroImagePlugin],
-	},
+	integrations: [tailwind(), astroImageTools],
 });
