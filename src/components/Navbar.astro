@@ -1,5 +1,19 @@
 ---
 //script here
+const items = [
+	{
+		href: '/',
+		text: 'Σχετικά',
+	},
+	{
+		href: '/',
+		text: 'Κατηγορίες',
+	},
+	{
+		href: '/',
+		text: 'Επικοινωνία',
+	},
+];
 ---
 
 <style>
@@ -11,24 +25,14 @@
 	}
 </style>
 <nav
-	class='flex justify-center mt-4 border-t-3 border-b-3 border-black text-center '
+	class="flex justify-evenly md:justify-center mt-4 border-t-3 border-b-3 border-black text-center"
 >
-	<a
-		href='/'
-		class='px-5 py-2 min-h-full grow hover:bg-black hover:text-white'
-	>
-		Σχετικά
-	</a>
-	<a
-		href='/'
-		class='px-5 py-2 min-h-full grow hover:bg-black hover:text-white'
-	>
-		Κατηγορίες
-	</a>
-	<a
-		href='/'
-		class='px-5 py-2 min-h-full grow hover:bg-black hover:text-white'
-	>
-		Επικοινωνία
-	</a>
+	{items.map((it) => (
+		<a
+			href={it.href}
+			class="px-5 md:px-10 py-2 min-h-full hover:bg-black hover:text-white"
+		>
+			{it.text}
+		</a>
+	))}
 </nav>
