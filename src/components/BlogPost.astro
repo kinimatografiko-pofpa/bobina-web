@@ -1,8 +1,8 @@
 ---
-import Author from './Author.astro';
-import BlogPicture from './BlogPicture.astro';
-import { parse } from 'node-html-parser';
-import RecommendedPost from './RecommendedPost.astro';
+import Author from "./Author.astro";
+import BlogPicture from "./BlogPicture.astro";
+import { parse } from "node-html-parser";
+import RecommendedPost from "./RecommendedPost.astro";
 
 export interface Props {
 	title: string;
@@ -17,27 +17,27 @@ const { title, author, publishDate, heroImage, alt, text, id } = Astro.props;
 
 const parsed_post = parse(text);
 function addIframeClasses(node) {
-	node.classList.add('outline-none');
-	node.classList.add('w-full');
+	node.classList.add("outline-none");
+	node.classList.add("w-full");
 }
 
 let recommended = [];
 
 try {
 	let resp = await fetch(
-		'http://N33J498LJ3-dsn.algolia.net/1/indexes/*/recommendations',
+		"http://N33J498LJ3-dsn.algolia.net/1/indexes/*/recommendations",
 		{
-			method: 'POST',
+			method: "POST",
 			headers: {
-				'Content-Type': 'application/json',
-				'X-Algolia-Api-Key': import.meta.env.ALGOLIA_KEY,
-				'X-Algolia-Application-ID': import.meta.env.ALGOLIA_APPLICATION,
+				"Content-Type": "application/json",
+				"X-Algolia-Api-Key": import.meta.env.ALGOLIA_KEY,
+				"X-Algolia-Application-ID": import.meta.env.ALGOLIA_APPLICATION,
 			},
 			body: JSON.stringify({
 				requests: [
 					{
-						indexName: 'dev_mpompina',
-						model: 'related-products',
+						indexName: "dev_mpompina",
+						model: "related-products",
 						objectID: id.toString(),
 						threshold: 0,
 						maxRecommendations: 4,
@@ -81,13 +81,33 @@ try {
 // ];
 
 // remove first image since it's the hero image:
-parsed_post.getElementsByTagName('img')[0]?.remove();
+parsed_post.getElementsByTagName("img")[0]?.remove();
+
+let processed_post = parsed_post.childNodes.map((v) => {
+	if (v.tagName != null) {
+		v.classList.add("my-4");
+		v.classList.add("mx-auto");
+		v.classList.add("md:max-w-[750px]");
+	}
+
+	if (v.childNodes.length > 0) {
+		for (let n of v.childNodes) {
+			if (n.tagName == "IMG") {
+				return n;
+			} else if (n.tagName == "IFRAME") {
+				addIframeClasses(n);
+			}
+		}
+	}
+
+	return v;
+});
 ---
 
-<div class='layout mb-20 mx-auto'>
-	<article class='px-5'>
+<div class="layout mb-20 mx-auto">
+	<article class="px-5">
 		<div>
-			<header class='md:max-w-[750px] mx-auto'>
+			<header class="md:max-w-[750px] mx-auto">
 				{heroImage && (
 					<img
 						width="720"
@@ -98,52 +118,38 @@ parsed_post.getElementsByTagName('img')[0]?.remove();
 						alt={alt}
 					/>
 				)}
-				<h1 class='title-large mb-4 mt-5'>{title}</h1>
+				<h1 class="title-large mb-4 mt-5">{title}</h1>
 			</header>
 
-			<main class='text-body'>
-				{parsed_post.childNodes.map((v) => {
-					if (v.tagName != null) {
-						v.classList.add('my-4')
-						v.classList.add('mx-auto')
-						v.classList.add('md:max-w-[750px]')
+			<main class="text-body">
+				{processed_post.map((v) => {
+					if (v.tagName == "IMG") {
+						return (
+							<BlogPicture
+								src={v.getAttribute("data-orig-file")}
+								alt={v.getAttribute("alt")}
+								title={v.getAttribute("data-image-title")}
+								height={v.getAttribute("height")}
+								class="my-4 md:max-w-xl"
+							/>
+						);
 					}
 
-					if (v.childNodes.length > 0) {
-						for (let n of v.childNodes) {
-							if (n.tagName == 'IMG') {
-								return (
-									<BlogPicture
-										src={n.getAttribute('data-orig-file')}
-										alt={n.getAttribute('alt')}
-										title={n.getAttribute(
-											'data-image-title'
-										)}
-										height={n.getAttribute('height')}
-										class="my-4 md:max-w-xl"
-									/>
-								)
-							} else if (n.tagName == 'IFRAME') {
-								addIframeClasses(n)
-							}
-						}
-					}
-
-					return v
+					return v;
 				})}
 			</main>
 
-			<p class='md:max-w-[750px] mx-auto text-body italic'>
+			<p class="md:max-w-[750px] mx-auto text-body italic">
 				Δημοσιεύθηκε στις {new Date(publishDate).toLocaleDateString(
-					'el-gr'
+					"el-gr"
 				)}
 			</p>
 
-			<div class='md:max-w-[1140px] mx-auto'>
-				<h5 class='mt-14 mb-10 title-medium md:text-center'>
+			<div class="md:max-w-[1140px] mx-auto">
+				<h5 class="mt-14 mb-10 title-medium md:text-center">
 					Διαβάστε ακόμα
 				</h5>
-				<div class='md:flex md:justify-center'>
+				<div class="md:flex md:justify-center">
 					{recommended.map((r) => (
 						<RecommendedPost
 							title={r.title}
