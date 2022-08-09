@@ -28,6 +28,12 @@ let permalink = 'https://mpompina-test-site.netlify.app/';
 // 	(a, b) => new Date(b.date).valueOf() - new Date(a.date).valueOf()
 // );
 
+//get θέσεις-σκηνοθετών
+
+let {
+	data: { posts: afieromata },
+} = await wp.getPosts(2, '', 'θέσεις-σκηνοθετών');
+
 // Full Astro Component Syntax:
 // https://docs.astro.build/core-concepts/astro-components/
 ---
@@ -50,9 +56,16 @@ let permalink = 'https://mpompina-test-site.netlify.app/';
 				<div class='md:flex'>
 					<div class='md:mr-7'>
 						<TitleSeparator title='Αφιερωματα' />
-						<Card />
+						<div class='flex'>
+							{afieromata.map((af) => (
+								<Card
+									post={af}
+									class='hidden first:block first:ml-0 last:mr-0 mx-3 md:block md:max-w-[360px] grow-0'
+								/>
+							))}
+						</div>
 					</div>
-					<div>
+					<div class='md:max-w-[35%]'>
 						<TitleSeparator title='Προσφατα' />
 						<PlainArticleList />
 					</div>
