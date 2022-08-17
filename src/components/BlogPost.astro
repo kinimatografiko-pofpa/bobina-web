@@ -91,12 +91,10 @@ let processed_post = parsed_post.childNodes.map((v) => {
 	}
 
 	if (v.childNodes.length > 0) {
-		for (let n of v.childNodes) {
-			if (n.tagName == 'IMG') {
-				return n;
-			} else if (n.tagName == 'IFRAME') {
-				addIframeClasses(n);
-			}
+		if (v.querySelector('img') != null) {
+			return v.querySelector('img');
+		} else if (v.querySelector('iframe')) {
+			addIframeClasses(v.querySelector('img'));
 		}
 	}
 
@@ -133,7 +131,7 @@ let processed_post = parsed_post.childNodes.map((v) => {
 									alt={v.getAttribute('alt')}
 									title={v.getAttribute('data-image-title')}
 									height={v.getAttribute('height')}
-									class="my-4 md:max-w-xl"
+									class="my-4 md:max-w-xl md:mx-auto"
 								/>
 							);
 						}

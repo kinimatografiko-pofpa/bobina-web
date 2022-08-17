@@ -3,28 +3,32 @@ import { Picture } from 'astro-imagetools/components';
 const { src, alt, height, title, class: cl } = Astro.props;
 ---
 
-{src != null && src.length > 0 ? (
-	<div class={cl}>
-		<figure>
-			<div class="center-content">
-				<Picture
-					src={src}
-					alt={title}
-					height={Math.min(height, 700)}
-					format={['avif', 'webp']}
-					fallbackFormat="jpeg"
-					includeSourceFormat={false}
-					loading="lazy"
-					objectPosition="center"
-					attributes={{ class: 'md:max-w-xl' }}
-				/>
-			</div>
-			<figcaption>{title}</figcaption>
-		</figure>
-	</div>
-) : (
-	''
-)}
+{
+	src != null && src.length > 0 ? (
+		<div class={cl}>
+			<figure>
+				<a href={src}>
+					<div class="center-content">
+						<Picture
+							src={src}
+							alt={alt}
+							height={Math.min(height, 700)}
+							format={['avif', 'webp']}
+							fallbackFormat="jpeg"
+							includeSourceFormat={false}
+							loading="lazy"
+							objectPosition="center"
+							attributes={{ class: cl }}
+						/>
+					</div>
+				</a>
+				<figcaption>{alt}</figcaption>
+			</figure>
+		</div>
+	) : (
+		''
+	)
+}
 <style>
 	.center-content {
 		display: flex;
