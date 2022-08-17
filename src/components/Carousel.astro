@@ -25,6 +25,8 @@ let content = posts.map((p) => ({
 	new glider(document.querySelector('.glider'), {
 		dots: document.querySelector('#dots'),
 		scrollLock: true,
+		itemWidth: 360,
+		slidesToShow: 1,
 		responsive: [
 			{
 				// screens greater than >= 775px
@@ -67,19 +69,30 @@ let content = posts.map((p) => ({
 		padding: 0;
 		margin: 0;
 	}
+
+	@media only screen and (min-width: 777px) {
+		.glider-dot {
+			display: none;
+		}
+
+		.glider-track {
+			display: flex;
+			justify-content: space-between;
+		}
+	}
 </style>
 
 <div class="glider-wrap bg-black text-white mt-8">
 	<div class="glider">
 		{
 			content.map((art) => (
-				<div class="flex justify-center">
-					<div class="flex justify-center border-[#3D3D3D] border max-w-md">
-						<a class="glider-img overflow-hidden">
-							<div class="overflow-hidden max-w-[350px] max-h-[350px]">
+				<div class="flex justify-items-center md:max-w-[360px] md:mx-2">
+					<div class="border-[#3D3D3D] border max-w-md">
+						<a class="glider-img overflow-hidden" href={art.link}>
+							<div class="overflow-hidden max-h-[350px]">
 								<img
 									src={art.image}
-									class="transition-transform ease-in-out hover:scale-110 object-cover w-[350px] h-[350px]"
+									class="transition-transform ease-in-out hover:scale-110 object-cover w-full h-full"
 								/>
 							</div>
 							<h4 class="py-4 px-2 title-medium-2">
