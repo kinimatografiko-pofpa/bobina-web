@@ -1,10 +1,11 @@
 ---
 import wordpress from '../wordpress';
+import {parse} from 'node-html-parser';
 
 let {data: {posts}} = await wordpress.getPosts(6);
 
 let list = posts.map(p => ({
-	title: p.title,
+	title: parse(p.title).text,
 	date: new Date(p.date),
 	categories: Object.keys(p.categories),
 	id: p.ID,

@@ -1,4 +1,6 @@
 ---
+import { parse } from 'node-html-parser';
+
 export interface Props {
 	post: any;
 }
@@ -6,12 +8,14 @@ export interface Props {
 const { post } = Astro.props;
 ---
 
-<article class='post-preview'>
+<article class="post-preview">
 	<header>
-		<p class='publish-date'>
+		<p class="publish-date">
 			{new Date(post.date).toLocaleDateString('el-gr')}
 		</p>
-		<a href={`/posts/${post.ID}`}><h1 class='title'>{post.title}</h1></a>
+		<a href={`/posts/${post.ID}`}>
+			<h1 class="title">{parse(post.title).text}</h1>
+		</a>
 	</header>
 	<p set:html={post.excerpt}></p>
 	<a href={`/posts/${post.ID}`}>Read more</a>

@@ -1,6 +1,7 @@
 ---
 import 'glider-js/glider.min.css';
 import wordpress from '../wordpress';
+import { parse } from 'node-html-parser';
 
 let {
 	data: { posts },
@@ -14,7 +15,7 @@ let article = {
 
 let content = posts.map((p) => ({
 	image: p.featured_image,
-	title: p.title,
+	title: parse(p.title).text,
 	link: '/posts/' + p.ID,
 }));
 ---
@@ -68,23 +69,27 @@ let content = posts.map((p) => ({
 	}
 </style>
 
-<div class='glider-wrap bg-black text-white mt-8'>
-	<div class='glider '>
-		{content.map((art) => (
-			<div class="flex justify-center">
-				<div class="flex justify-center border-[#3D3D3D] border max-w-md">
-					<a class="glider-img overflow-hidden">
-						<div class="overflow-hidden max-w-[350px] max-h-[350px]">
-							<img
-								src={art.image}
-								class="transition-transform ease-in-out hover:scale-110 object-cover w-[350px] h-[350px]"
-							/>
-						</div>
-						<h4 class="py-4 px-2 title-medium-2">{art.title}</h4>
-					</a>
+<div class="glider-wrap bg-black text-white mt-8">
+	<div class="glider">
+		{
+			content.map((art) => (
+				<div class="flex justify-center">
+					<div class="flex justify-center border-[#3D3D3D] border max-w-md">
+						<a class="glider-img overflow-hidden">
+							<div class="overflow-hidden max-w-[350px] max-h-[350px]">
+								<img
+									src={art.image}
+									class="transition-transform ease-in-out hover:scale-110 object-cover w-[350px] h-[350px]"
+								/>
+							</div>
+							<h4 class="py-4 px-2 title-medium-2">
+								{art.title}
+							</h4>
+						</a>
+					</div>
 				</div>
-			</div>
-		))}
+			))
+		}
 	</div>
-	<div role='tablist' id='dots' class='mt-14'></div>
+	<div role="tablist" id="dots" class="mt-14"></div>
 </div>

@@ -13,22 +13,22 @@ let summary = parse(post.excerpt).text;
 </style>
 <article class={'group relative overflow-hidden' + ' ' + cl}>
 	<a href={'/posts/' + post.ID}>
-		<div class='flex flex-col text-white h-full'>
-			<h1 class='title-xlarge mt-7 pt-4 px-4'>
-				{post.title}
+		<div class="flex flex-col text-white h-full">
+			<h1 class="title-xlarge mt-7 pt-4 px-4">
+				{parse(post.title).text}
 			</h1>
-			<div class='relative mt-auto z-0'>
-				<div class='text-body-small px-3 pt-4 pb-6'>
+			<div class="relative mt-auto z-0">
+				<div class="text-body-small px-3 pt-4 pb-6">
 					{summary}
 				</div><div
-					class='-z-[1] absolute bg-primary bg-opacity-70 transition-all top-0 right-0 h-[4px] left-[30px] group-hover:left-0 group-hover:h-full'
+					class="-z-[1] absolute bg-primary bg-opacity-70 transition-all top-0 right-0 h-[4px] left-[30px] group-hover:left-0 group-hover:h-full"
 				>
 				</div>
 			</div>
 		</div>
 		<div
 			style={`background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${post.featured_image})`}
-			class='bg-cover bg-center absolute top-0 w-full h-full -z-10 transition-all group-hover:scale-105'
+			class="bg-cover bg-center absolute top-0 w-full h-full -z-10 transition-all group-hover:scale-105"
 		>
 		</div>
 	</a>
