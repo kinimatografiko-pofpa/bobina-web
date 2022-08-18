@@ -1,4 +1,6 @@
 ---
+import OptimizedPicture from './OptimizedPicture.astro';
+
 import 'glider-js/glider.min.css';
 import wordpress from '../wordpress';
 import { parse } from 'node-html-parser';
@@ -90,8 +92,9 @@ let content = posts.map((p) => ({
 					<div class="border-[#3D3D3D] border max-w-md">
 						<a class="glider-img overflow-hidden" href={art.link}>
 							<div class="overflow-hidden max-h-[350px]">
-								<img
+								<OptimizedPicture
 									src={art.image}
+									alt={art.title}
 									class="transition-transform ease-in-out hover:scale-110 object-cover w-full h-full"
 								/>
 							</div>
