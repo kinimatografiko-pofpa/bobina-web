@@ -1,5 +1,5 @@
 ---
-//script here
+import OptimizedPicture from './OptimizedPicture.astro';
 import wordpress from '../wordpress';
 import { parse } from 'node-html-parser';
 
@@ -18,10 +18,15 @@ let post_categories = Object.keys(post.categories);
 		href={`/posts/${post.ID}`}
 		class="flex flex-col md:flex-row md:items-center"
 	>
-		<img
+		<!-- <img
 			src={post.featured_image}
 			alt=""
 			class="w-full max-h-[240px] md:max-h-[383px] object-cover md:max-w-[555px] md:flex-1"
+		/> -->
+		<OptimizedPicture
+			src={post.featured_image}
+			alt={parse(post.title).text}
+			class="w-full overflow-hidden max-h-[240px] md:max-h-[383px] object-cover md:max-w-[555px] md:flex-1"
 		/>
 		<div class="md:my-11 md:ml-11 md:flex-1">
 			<p class="text-overline mt-6">{post_categories}</p>
