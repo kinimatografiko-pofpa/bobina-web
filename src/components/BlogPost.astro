@@ -3,6 +3,7 @@ import Author from './Author.astro';
 import BlogPicture from './BlogPicture.astro';
 import { parse } from 'node-html-parser';
 import RecommendedPost from './RecommendedPost.astro';
+import OptimizedPicture from './OptimizedPicture.astro';
 
 export interface Props {
 	title: string;
@@ -68,16 +69,6 @@ try {
 // 		image: 'https://mpompina.files.wordpress.com/2022/06/maxresdefault-2.jpg',
 // 		id: '1630',
 // 	},
-// 	{
-// 		title: 'Ιαπωνικός Κινηματογράφος: ‘‘Like grains of sand’’',
-// 		image: 'https://mpompina.files.wordpress.com/2022/06/maxresdefault-2.jpg',
-// 		id: '1630',
-// 	},
-// 	{
-// 		title: 'Ιαπωνικός Κινηματογράφος: ‘‘Like grains of sand’’',
-// 		image: 'https://mpompina.files.wordpress.com/2022/06/maxresdefault-2.jpg',
-// 		id: '1630',
-// 	},
 // ];
 
 // remove first image since it's the hero image:
@@ -112,9 +103,7 @@ let processed_post = parsed_post.childNodes.map((v) => {
 			<header class="md:max-w-[750px] mx-auto">
 				{
 					heroImage && (
-						<img
-							width="720"
-							height="420"
+						<OptimizedPicture
 							class="object-cover max-w-full "
 							loading="lazy"
 							src={heroImage}
