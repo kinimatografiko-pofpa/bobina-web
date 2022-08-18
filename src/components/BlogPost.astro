@@ -84,6 +84,8 @@ try {
 parsed_post.getElementsByTagName('img')[0]?.remove();
 
 let processed_post = parsed_post.childNodes.map((v) => {
+	if (v == null) return;
+
 	if (v.tagName != null) {
 		v.classList.add('my-4');
 		v.classList.add('mx-auto');
@@ -91,10 +93,12 @@ let processed_post = parsed_post.childNodes.map((v) => {
 	}
 
 	if (v.childNodes.length > 0) {
-		if (v.querySelector('img') != null) {
-			return v.querySelector('img');
-		} else if (v.querySelector('iframe')) {
-			addIframeClasses(v.querySelector('img'));
+		if (v.tagName === 'IMG' || v.querySelector('img') != null) {
+			return v.tagName === 'IMG' ? v : v.querySelector('img');
+		} else if (v.tagName === 'IFRAME' || v.querySelector('iframe')) {
+			// addIframeClasses(
+			// 	v.tagName === 'IFRAME' ? v : v.querySelector('iframe')
+			// );
 		}
 	}
 
