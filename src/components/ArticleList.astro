@@ -2,6 +2,7 @@
 import { parse } from 'node-html-parser';
 
 import wordpress from '../wordpress';
+import OptimizedPicture from './OptimizedPicture.astro';
 
 let {
 	data: { posts },
@@ -20,9 +21,10 @@ let list = posts.map((p) => ({
 {
 	list.map((article) => (
 		<article class="mt-10 md:flex md:items-center md:h-[263px]">
-			<img
+			<OptimizedPicture
 				src={article.image}
-				class="object-cover w-full h-96 mb-4 md:flex-1 md:w-[263px] md:h-full md:mb-0"
+				class="object-cover w-full h-96 mb-4 md:min-w-[263px] md:h-full md:mb-0"
+				alt={article.title}
 			/>
 			<div class="md:ml-7">
 				<a href={`/posts/${article.id}`}>

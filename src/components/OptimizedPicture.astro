@@ -1,0 +1,25 @@
+---
+import { Picture } from 'astro-imagetools/components';
+
+const { src, alt, height, class: cl } = Astro.props;
+---
+
+{
+	src != null && src.length > 0 ? (
+		<div class={cl}>
+			<Picture
+				src={src}
+				alt={alt}
+				height={height}
+				format={['avif', 'webp']}
+				fallbackFormat="jpeg"
+				includeSourceFormat={false}
+				loading="lazy"
+				objectPosition="center"
+				layout="fill"
+			/>
+		</div>
+	) : (
+		''
+	)
+}
