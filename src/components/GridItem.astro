@@ -1,4 +1,6 @@
 ---
+import OptimizedPicture from './OptimizedPicture.astro';
+
 const { size, href, class: cl } = Astro.props;
 ---
 
@@ -14,13 +16,14 @@ const { size, href, class: cl } = Astro.props;
 	href={href}
 	class={'relative group overflow-hidden h-[185px] block ' + ' ' + cl}
 >
-	<img
-		src='https://mpompina.files.wordpress.com/2019/07/cea3cf8ccf87ceb5ceb9-ce99cebcceb1cebccebfcf8dcf81ceb1.jpg'
-		class='group-hover:scale-110 transition custom-colorize h-full w-full object-cover'
+	<OptimizedPicture
+		src="https://mpompina.files.wordpress.com/2019/07/cea3cf8ccf87ceb5ceb9-ce99cebcceb1cebccebfcf8dcf81ceb1.jpg"
+		alt="category"
+		class="group-hover:scale-110 transition custom-colorize h-full w-full object-cover"
 	/>
 	<div
-		class='absolute top-0 bottom-0 left-0 right-0 flex justify-center align-middle bubblehover'
+		class="absolute top-0 bottom-0 left-0 right-0 flex justify-center align-middle bubblehover"
 	>
-		<h5 class='relative my-auto title-medium text-white'><slot></slot></h5>
+		<h5 class="relative my-auto title-medium text-white"><slot /></h5>
 	</div>
 </a>
