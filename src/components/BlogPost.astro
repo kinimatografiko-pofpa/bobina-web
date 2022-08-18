@@ -103,12 +103,14 @@ let processed_post = parsed_post.childNodes.map((v) => {
 			<header class="md:max-w-[750px] mx-auto">
 				{
 					heroImage && (
-						<OptimizedPicture
-							class="object-cover max-w-full "
-							loading="lazy"
-							src={heroImage}
-							alt={alt}
-						/>
+						<a href={heroImage}>
+							<OptimizedPicture
+								class="object-cover max-w-full "
+								loading="lazy"
+								src={heroImage}
+								alt={alt}
+							/>
+						</a>
 					)
 				}
 				<h1 class="title-large mb-4 mt-5">{title}</h1>
