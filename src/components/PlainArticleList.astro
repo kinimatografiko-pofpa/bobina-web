@@ -9,6 +9,7 @@ let list = posts.map(p => ({
 	date: new Date(p.date),
 	categories: Object.keys(p.categories),
 	id: p.ID,
+	slug: p.slug,
 }))
 
 // let list = [
@@ -27,7 +28,7 @@ let list = posts.map(p => ({
 
 {list.map((article) => (
 	<article class="py-9 first:pt-0">
-		<a href={`/posts/${article.id}`}>
+		<a href={`/posts/${article.slug}`}>
 			<h5 class="title-small">{article.title}</h5>
 			<span class="text-overline-small">
 				{article.date.toLocaleDateString('el-gr')}{' '}

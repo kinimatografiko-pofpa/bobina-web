@@ -12,7 +12,7 @@ let summary = parse(post.excerpt).text;
 	}
 </style>
 <article class={'group relative overflow-hidden' + ' ' + cl}>
-	<a href={'/posts/' + post.ID}>
+	<a href={'/posts/' + post.slug}>
 		<div class="flex flex-col text-white h-full">
 			<h1 class="title-xlarge mt-7 pt-4 px-4">
 				{parse(post.title).text}

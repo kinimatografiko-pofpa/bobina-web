@@ -1,10 +1,13 @@
 ---
+import wordpress from '../wordpress';
 const { title, image, id, class: cl } = Astro.props;
+
+let { data: post } = await wordpress.getPost(id);
 ---
 
 <article class={cl}>
-	<a href={'/posts/' + id}>
-		<img src={image} class='object-cover w-full md:h-[186px]' />
-		<h6 class='title-medium-2 mt-2'>{title}</h6>
+	<a href={'/posts/' + post.slug}>
+		<img src={image} class="object-cover w-full md:h-[186px]" />
+		<h6 class="title-medium-2 mt-2">{title}</h6>
 	</a>
 </article>

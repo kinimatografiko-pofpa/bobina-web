@@ -18,7 +18,7 @@ let article = {
 let content = posts.map((p) => ({
 	image: p.featured_image,
 	title: parse(p.title).text,
-	link: '/posts/' + p.ID,
+	link: '/posts/' + p.slug,
 }));
 ---
 

@@ -22,6 +22,14 @@ async function getStickyPosts(max = 20, page_handle = '') {
 
 	return { data, resp };
 }
+
+async function getPost(id) {
+	let resp = await fetch(siteUrl + `/posts/${id}`);
+
+	let data = await resp.json();
+
+	return { data, resp };
+}
 // async function getAllPosts() {
 // 	let allPosts = [];
 
@@ -35,4 +43,5 @@ async function getStickyPosts(max = 20, page_handle = '') {
 export default {
 	getPosts,
 	getStickyPosts,
+	getPost,
 };

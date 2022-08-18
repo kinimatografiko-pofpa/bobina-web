@@ -13,12 +13,12 @@ const { post } = Astro.props;
 		<p class="publish-date">
 			{new Date(post.date).toLocaleDateString('el-gr')}
 		</p>
-		<a href={`/posts/${post.ID}`}>
+		<a href={`/posts/${post.slug}`}>
 			<h1 class="title">{parse(post.title).text}</h1>
 		</a>
 	</header>
 	<p set:html={post.excerpt}></p>
-	<a href={`/posts/${post.ID}`}>Read more</a>
+	<a href={`/posts/${post.slug}`}>Read more</a>
 </article>
 
 <style>
