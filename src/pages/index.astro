@@ -32,13 +32,13 @@ let permalink = 'https://mpompina-test-site.netlify.app/';
 
 let {
 	data: { posts: afieromata },
-} = await wp.getPosts(2, '', 'θέσεις-σκηνοθετών');
+} = await wp.getPosts(3, '', 'θέσεις-σκηνοθετών');
 
 // Full Astro Component Syntax:
 // https://docs.astro.build/core-concepts/astro-components/
 ---
 
-<html lang='en'>
+<html lang="en">
 	<head>
 		<BaseHead {title} {description} {permalink} />
 
@@ -50,51 +50,51 @@ let {
 	<body>
 		<Analytics />
 		<BlogHeader />
-		<main class=''>
-			<div class='px-5 max-w-[1200px] md:mx-auto'>
+		<main class="">
+			<div class="px-5 max-w-[1200px] md:mx-auto">
 				<HeroSection />
-				<div class='md:flex'>
-					<div class='md:mr-7'>
-						<TitleSeparator title='Αφιερωματα' />
-						<div class='flex'>
+				<div class="md:flex">
+					<div class="md:mr-7">
+						<TitleSeparator title="Αφιερωματα" />
+						<div class="flex">
 							{afieromata.map((af) => (
 								<Card
 									post={af}
-									class='hidden first:block first:ml-0 last:mr-0 mx-3 md:block md:max-w-[360px] grow-0'
+									class="hidden first:block first:ml-0 last:mr-0 mx-3 md:block md:max-w-[360px] grow-0"
 								/>
 							))}
 						</div>
 					</div>
-					<div class='md:max-w-[35%]'>
+					<!-- <div class='md:max-w-[35%]'>
 						<TitleSeparator title='Προσφατα' />
 						<PlainArticleList />
-					</div>
+					</div> -->
 				</div>
-				<div class='max-w-[750px]'>
+				<div class="max-w-[750px]">
 					<ArticleList />
 				</div>
 			</div>
-			<section class='bg-black px-5 py-9 mt-14 '>
-				<div class='max-w-[1200px] md:mx-auto'>
-					<h1 class='title-large font-medium text-primary'>
+			<section class="bg-black px-5 py-9 mt-14 ">
+				<div class="max-w-[1200px] md:mx-auto">
+					<h1 class="title-large font-medium text-primary">
 						Αναλύσεις / Κριτικές Ταινιών
 					</h1>
 					<Carousel />
 				</div>
 			</section>
-			<div class='px-5 max-w-[1200px] md:mx-auto'>
-				<TitleSeparator title='Γενικες κατηγοριες' />
-				<MainGrid class='md:mb-12' />
-				<div class='md:flex md:items-stretch'>
+			<div class="px-5 max-w-[1200px] md:mx-auto">
+				<TitleSeparator title="Γενικες κατηγοριες" />
+				<MainGrid class="md:mb-12" />
+				<div class="md:flex md:items-stretch">
 					<div
-						class='mt-14 md:mt-0 bg-black text-white py-14 px-11 md:py-16 md:pr-20 h-[440px] md:max-w-[360px] md:h-auto md:self-stretch flex'
+						class="mt-14 md:mt-0 bg-black text-white py-14 px-11 md:py-16 md:pr-20 h-[440px] md:max-w-[360px] md:h-auto md:self-stretch flex"
 					>
-						<div class='text-xxlarge md:my-auto'>
+						<div class="text-xxlarge md:my-auto">
 							Γίνε <br /> μέρος <br /> του <br /> περιο- <br /> δικού
 						</div>
 					</div>
 					<p
-						class='text-body mt-8 md:mt-0 md:pt-14 md:pb-24 md:px-16'
+						class="text-body mt-8 md:mt-0 md:pt-14 md:pb-24 md:px-16"
 					>
 						Η Μπομπίνα αποτελεί το επίσημο περιοδικό του
 						Κινηματογραφικού Τομέα Π.Ο.Φ.Π.Α. Στις σελίδες της
@@ -116,22 +116,22 @@ let {
 					</p>
 				</div>
 			</div>
-			<div class='mt-11 md:flex md:w-full'>
-				<img src='assets/video.jpg' class='md:max-w-[50%] object-cover'
+			<div class="mt-11 md:flex md:w-full">
+				<img src="assets/video.jpg" class="md:max-w-[50%] object-cover"
 				/>
-				<div class='px-5 pt-16 pb-20 bg-black text-white md:flex-grow'>
-					<h2 class='title-large' style='letter-spacing: initial'>
+				<div class="px-5 pt-16 pb-20 bg-black text-white md:flex-grow">
+					<h2 class="title-large" style="letter-spacing: initial">
 						Κινηματογραφικός Τομέας ΠΟΦΠΑ
 					</h2>
-					<p class='text-body mt-6 mb-10'>
+					<p class="text-body mt-6 mb-10">
 						Σήμερα ο Κινηματογραφικός Τομέας έχει ένα πλήρες
 						εβδομαδιαίο πρόγραμμα σεμιναρίων και προβολών σε φίλμ
 						35mm και βιντεοπροτζέκτορα, το οποίο καθημερινά
 						βελτιώνεται και εμπλουτίζεται.
 					</p>
 					<a
-						href='https://kinimatografiko.gr'
-						class='text-button hover:underline'
+						href="https://kinimatografiko.gr"
+						class="text-button hover:underline"
 					>
 						Δείτε περισσότερα
 					</a>

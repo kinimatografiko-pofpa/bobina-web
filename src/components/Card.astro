@@ -4,6 +4,7 @@ import { parse } from 'node-html-parser';
 const { post, class: cl } = Astro.props;
 
 let summary = parse(post.excerpt).text;
+summary = summary.split(' ').slice(0, 20).join(' ');
 ---
 
 <style>

@@ -5,12 +5,12 @@ import { parse } from 'node-html-parser';
 
 let {
 	data: { posts },
-} = await wordpress.getStickyPosts();
+} = await wordpress.getPosts();
 
 let post = posts[0];
 // console.log(post.categories);
 
-let post_categories = Object.keys(post.categories);
+let post_categories = Object.keys(post.categories).join(' ');
 ---
 
 <article>

@@ -2,7 +2,7 @@
 import wordpress from '../wordpress';
 import {parse} from 'node-html-parser';
 
-let {data: {posts}} = await wordpress.getPosts(6);
+let {data: {posts}} = await wordpress.getPosts(4);
 
 let list = posts.map(p => ({
 	title: parse(p.title).text,
