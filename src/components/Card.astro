@@ -1,10 +1,10 @@
 ---
 import { parse } from 'node-html-parser';
+import wordpress from '../wordpress';
 
 const { post, class: cl } = Astro.props;
 
-let summary = parse(post.excerpt).text;
-summary = summary.split(' ').slice(0, 20).join(' ');
+let summary = wordpress.getExcerptFromPost(post, 120);
 ---
 
 <style>

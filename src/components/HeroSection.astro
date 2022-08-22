@@ -32,7 +32,7 @@ let post_categories = wordpress.getCategoriesFromPost(post).join(' ');
 			<p class="text-overline mt-6">{post_categories}</p>
 			<h3 class="title-large my-4">{parse(post.title).text}</h3>
 			<p class="text-body">
-				{parse(post.excerpt).text}
+				{wordpress.getExcerptFromPost(post)}
 			</p>
 		</div>
 	</a>

@@ -27,7 +27,7 @@ const post = Astro.props.post_obj;
 const img = post.featured_image;
 const content = {
 	title: parse(post.title).text,
-	description: post.excerpt,
+	description: wordpress.getExcerptFromPost(post),
 	publishDate: post.date,
 	author: 'test',
 	heroImage: img,

@@ -1,3 +1,5 @@
+import { parse } from 'node-html-parser';
+
 const siteUrl =
 	'https://public-api.wordpress.com/rest/v1.1/sites/mpompina.wordpress.com';
 
@@ -45,6 +47,46 @@ function getCategoriesFromPost(post) {
 	}
 	return ret;
 }
+
+/**
+ * returns the post excerpt with the author removed
+ * @param {Object} post
+ * @param {Number} [max_chars] max char count excl ending of excerpt. Will be cut to the nearest word.
+ * @returns {String} excerpt
+ */
+function getExcerptFromPost(post, max_chars) {
+	const EXCERPT_END = '[…]';
+	let parsedPost = parse(post.content);
+	let paragraphElems = parsedPost.querySelectorAll('p');
+	let authorText;
+
+	//iterate over paragraph elements to find the first with text, usually the first contains the author text
+	for (const el of paragraphElems) {
+		if (el.text.length > 0) {
+			authorText = el.text;
+			break;
+		}
+	}
+
+	let exc = parse(post.excerpt).text;
+	exc = exc.replace(authorText, '');
+
+	if (max_chars != null && !isNaN(max_chars) && max_chars >= 0) {
+		let words = exc.split(' ');
+		let total = 0;
+		exc = ''; //empty for reconstruction
+		for (const word of words) {
+			//add +1 because of space
+			if (total + word.length + 1 <= max_chars) {
+				total += word.length + 1;
+				exc += word + ' ';
+			}
+		}
+		exc += EXCERPT_END;
+	}
+
+	return exc;
+}
 // async function getAllPosts() {
 // 	let allPosts = [];
 
@@ -60,4 +102,5 @@ export default {
 	getStickyPosts,
 	getPost,
 	getCategoriesFromPost,
+	getExcerptFromPost,
 };

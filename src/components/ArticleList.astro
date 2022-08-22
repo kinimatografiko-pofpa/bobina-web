@@ -12,7 +12,7 @@ let list = posts.map((p) => ({
 	title: parse(p.title).text,
 	date: new Date(p.date),
 	categories: wordpress.getCategoriesFromPost(p),
-	shortText: parse(p.excerpt).text,
+	shortText: wordpress.getExcerptFromPost(p, 275),
 	image: p.featured_image,
 	id: p.ID,
 	slug: p.slug,
@@ -24,7 +24,7 @@ let list = posts.map((p) => ({
 		<article class="mt-10 md:flex md:items-center md:h-[263px]">
 			<OptimizedPicture
 				src={article.image}
-				class="object-cover w-full h-96 mb-4 md:min-w-[263px] md:h-full md:mb-0"
+				class="object-cover w-full h-96 mb-4 md:min-w-[263px] md:max-w-[263px] md:h-full md:mb-0"
 				alt={article.title}
 			/>
 			<div class="md:ml-7">
