@@ -44,7 +44,7 @@ let content = posts.map((p) => ({
 
 <style is:inline>
 	.glider-dot {
-		width: 50px;
+		width: 8px;
 		height: 8px;
 		border-radius: 0px;
 		background-color: white;
@@ -73,9 +73,12 @@ let content = posts.map((p) => ({
 	}
 
 	@media only screen and (min-width: 777px) {
-		/* .glider-dot {
-			display: none;
-		} */
+		.glider-dot {
+			width: 50px;
+			height: 8px;
+			border-radius: 0px;
+			background-color: white;
+		}
 
 		.glider-track {
 			display: flex;
@@ -86,22 +89,26 @@ let content = posts.map((p) => ({
 
 <div class="glider-wrap bg-black text-white mt-8">
 	<div class="glider">
-		{content.map((art) => (
-			<div class="flex justify-items-center md:max-w-[360px] md:mx-2">
-				<div class="border-[#3D3D3D] border max-w-md">
-					<a class="glider-img overflow-hidden" href={art.link}>
-						<div class="overflow-hidden max-h-[350px]">
-							<OptimizedPicture
-								src={art.image}
-								alt={art.title}
-								class="transition-transform ease-in-out hover:scale-110 object-cover w-full h-full"
-							/>
-						</div>
-						<h4 class="py-4 px-2 title-medium-2">{art.title}</h4>
-					</a>
+		{
+			content.map((art) => (
+				<div class="flex justify-items-center md:max-w-[360px] md:mx-2">
+					<div class="border-[#3D3D3D] border max-w-md">
+						<a class="glider-img overflow-hidden" href={art.link}>
+							<div class="overflow-hidden max-h-[350px]">
+								<OptimizedPicture
+									src={art.image}
+									alt={art.title}
+									class="transition-transform ease-in-out hover:scale-110 object-cover w-full h-full"
+								/>
+							</div>
+							<h4 class="py-4 px-2 title-medium-2">
+								{art.title}
+							</h4>
+						</a>
+					</div>
 				</div>
-			</div>
-		))}
+			))
+		}
 	</div>
 	<div role="tablist" id="dots" class="mt-14"></div>
 </div>
