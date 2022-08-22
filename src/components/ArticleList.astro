@@ -6,7 +6,7 @@ import OptimizedPicture from './OptimizedPicture.astro';
 
 let {
 	data: { posts },
-} = await wordpress.getPosts(6, '', 'θέσεις-σκηνοθετών');
+} = await wordpress.getPosts(6, '');
 
 let list = posts.map((p) => ({
 	title: parse(p.title).text,

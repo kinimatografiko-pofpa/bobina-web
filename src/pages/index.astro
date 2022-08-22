@@ -57,12 +57,14 @@ let {
 					<div class="md:mr-7">
 						<TitleSeparator title="Αφιερωματα" />
 						<div class="flex">
-							{afieromata.map((af) => (
-								<Card
-									post={af}
-									class="hidden first:block first:ml-0 last:mr-0 mx-3 md:block md:max-w-[360px] grow-0"
-								/>
-							))}
+							{
+								afieromata.map((af) => (
+									<Card
+										post={af}
+										class="hidden first:block first:ml-0 last:mr-0 mx-3 md:block md:max-w-[360px] grow-0"
+									/>
+								))
+							}
 						</div>
 					</div>
 					<!-- <div class='md:max-w-[35%]'>
@@ -74,7 +76,7 @@ let {
 					<ArticleList />
 				</div>
 			</div>
-			<section class="bg-black px-5 py-9 mt-14 ">
+			<section class="bg-black px-5 py-9 mt-14">
 				<div class="max-w-[1200px] md:mx-auto">
 					<h1 class="title-large font-medium text-primary">
 						Αναλύσεις / Κριτικές Ταινιών
