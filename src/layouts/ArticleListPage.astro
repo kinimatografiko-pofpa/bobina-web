@@ -1,0 +1,26 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import BlogHeader from '../components/BlogHeader.astro';
+import Analytics from '../components/Analytics.astro';
+import Footer from '../components/Footer.astro';
+
+const { title, description, permalink, category } = Astro.props;
+---
+
+<html lang="el">
+	<head>
+		<BaseHead {title} {description} {permalink} />
+	</head>
+
+	<body>
+		<Analytics />
+		<BlogHeader />
+		<h1>
+			{category.name}
+			{category.ID}
+			{category.slug}
+		</h1>
+
+		<Footer />
+	</body>
+</html>

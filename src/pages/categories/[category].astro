@@ -1,0 +1,27 @@
+---
+import ArticleListPage from '../../layouts/ArticleListPage.astro';
+
+import wordpress from '../../wordpress';
+
+export async function getStaticPaths() {
+	const { data: categories } = await wordpress.getCategories();
+
+	return categories.map((c) => ({
+		params: {
+			category: decodeURI(c.slug),
+		},
+		props: {
+			category_obj: c,
+		},
+	}));
+}
+
+const category = Astro.props.category_obj;
+---
+
+<ArticleListPage
+	title={category.name}
+	description={category.name}
+	permalink={'/categories/' + category.slug}
+	category={category}
+/>

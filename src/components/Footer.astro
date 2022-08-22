@@ -2,14 +2,14 @@
 import Collapse from './Collapse.astro';
 import FooterSearch from './FooterSearch.astro';
 
-const categories = [
-	{ title: 'Αναλύσεις / Κριτικές', href: '' },
-	{ title: 'Αφιερώματα', href: '' },
-	{ title: 'Βιογραφίες', href: '' },
-	{ title: 'Συνεντεύξεις', href: '' },
-	{ title: 'Εκπαιδευτικά άρθρα', href: '' },
-	{ title: 'Όλα τα κείμενα', href: '' },
-];
+import wordpress from '../wordpress';
+
+let { data: categories } = await wordpress.getCategories();
+
+categories = categories.map((c) => ({
+	title: c.name,
+	href: '/categories/' + c.slug,
+}));
 
 const footer_data = [
 	{ title: 'Κατηγορίες', content: categories },
@@ -32,50 +32,56 @@ const footer_data = [
 ];
 ---
 
-<footer class='bg-black text-white  pb-12 md:pb-28'>
-	<div class='md:hidden px-5'>
-		{footer_data.map((f) => (
-			<Collapse>
-				<div slot="title" class="w-full">
-					<div class="flex justify-between items-center">
-						<h5 class="py-8 title-small text-left">{f.title}</h5>
-						<p>▼</p>
+<footer class="bg-black text-white pb-12 md:pb-28">
+	<div class="md:hidden px-5">
+		{
+			footer_data.map((f) => (
+				<Collapse>
+					<div slot="title" class="w-full">
+						<div class="flex justify-between items-center">
+							<h5 class="py-8 title-small text-left">
+								{f.title}
+							</h5>
+							<p>▼</p>
+						</div>
+						<hr class="border-[#313131]" />
 					</div>
-					<hr class="border-[#313131]" />
-				</div>
 
-				<div slot="content">
+					<div slot="content">
+						<ul class="text-body-small">
+							{f.content.map((c) => (
+								<li class="py-2 block">
+									<a href={c.href}>{c.title}</a>
+								</li>
+							))}
+						</ul>
+					</div>
+				</Collapse>
+			))
+		}
+		<FooterSearch class="mt-8" />
+	</div>
+
+	<hr class="hidden md:block border-[#313131]" />
+
+	<div
+		class="hidden md:flex justify-around max-w-[1200px] mx-auto px-5 pt-16 items-start"
+	>
+		{
+			footer_data.map((f) => (
+				<div>
+					<h5 class="mb-6 title-small text-left">{f.title}</h5>
+
 					<ul class="text-body-small">
 						{f.content.map((c) => (
-							<li class="py-2 block">
+							<li class="py-2 block first:pt-0">
 								<a href={c.href}>{c.title}</a>
 							</li>
 						))}
 					</ul>
 				</div>
-			</Collapse>
-		))}
-		<FooterSearch class='mt-8' />
-	</div>
-
-	<hr class='hidden md:block border-[#313131]' />
-
-	<div
-		class='hidden md:flex justify-around max-w-[1200px] mx-auto px-5 pt-16 items-start'
-	>
-		{footer_data.map((f) => (
-			<div>
-				<h5 class="mb-6 title-small text-left">{f.title}</h5>
-
-				<ul class="text-body-small">
-					{f.content.map((c) => (
-						<li class="py-2 block first:pt-0">
-							<a href={c.href}>{c.title}</a>
-						</li>
-					))}
-				</ul>
-			</div>
-		))}
+			))
+		}
 		<FooterSearch />
 	</div>
 </footer>
