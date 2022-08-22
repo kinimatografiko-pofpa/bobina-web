@@ -7,7 +7,7 @@ let {data: {posts}} = await wordpress.getPosts(4);
 let list = posts.map(p => ({
 	title: parse(p.title).text,
 	date: new Date(p.date),
-	categories: Object.keys(p.categories),
+	categories: wordpress.getCategoriesFromPost(p),
 	id: p.ID,
 	slug: p.slug,
 }))

@@ -10,7 +10,7 @@ let {
 let post = posts[0];
 // console.log(post.categories);
 
-let post_categories = Object.keys(post.categories).join(' ');
+let post_categories = wordpress.getCategoriesFromPost(post).join(' ');
 ---
 
 <article>

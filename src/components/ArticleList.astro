@@ -11,7 +11,7 @@ let {
 let list = posts.map((p) => ({
 	title: parse(p.title).text,
 	date: new Date(p.date),
-	categories: Object.keys(p.categories),
+	categories: wordpress.getCategoriesFromPost(p),
 	shortText: parse(p.excerpt).text,
 	image: p.featured_image,
 	id: p.ID,
@@ -19,28 +19,30 @@ let list = posts.map((p) => ({
 }));
 ---
 
-{list.map((article) => (
-	<article class="mt-10 md:flex md:items-center md:h-[263px]">
-		<OptimizedPicture
-			src={article.image}
-			class="object-cover w-full h-96 mb-4 md:min-w-[263px] md:h-full md:mb-0"
-			alt={article.title}
-		/>
-		<div class="md:ml-7">
-			<a href={`/posts/${article.slug}`}>
-				<h3 class="title-small">{article.title}</h3>
-				<span class="text-overline-small">
-					{article.date.toLocaleDateString('el-gr')} •
-					{article.categories.map((c) => c + ' ')}
-				</span>
-			</a>
-			<p class="text-body-small mt-4"> {article.shortText} </p>
-			<a
-				class="block mt-6 text-button hover:text-primary"
-				href={`/posts/${article.slug}`}
-			>
-				Περισσότερα
-			</a>
-		</div>
-	</article>
-))}
+{
+	list.map((article) => (
+		<article class="mt-10 md:flex md:items-center md:h-[263px]">
+			<OptimizedPicture
+				src={article.image}
+				class="object-cover w-full h-96 mb-4 md:min-w-[263px] md:h-full md:mb-0"
+				alt={article.title}
+			/>
+			<div class="md:ml-7">
+				<a href={`/posts/${article.slug}`}>
+					<h3 class="title-small">{article.title}</h3>
+					<span class="text-overline-small">
+						{article.date.toLocaleDateString('el-gr')} •
+						{article.categories.map((c) => c + ' ')}
+					</span>
+				</a>
+				<p class="text-body-small mt-4"> {article.shortText} </p>
+				<a
+					class="block mt-6 text-button hover:text-primary"
+					href={`/posts/${article.slug}`}
+				>
+					Περισσότερα
+				</a>
+			</div>
+		</article>
+	))
+}

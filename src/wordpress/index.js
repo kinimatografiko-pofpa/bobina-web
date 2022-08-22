@@ -1,6 +1,8 @@
 const siteUrl =
 	'https://public-api.wordpress.com/rest/v1.1/sites/mpompina.wordpress.com';
 
+const DEFAULT_CATEGORY = 48775454;
+
 async function getPosts(max = 20, page_handle = '', category = '') {
 	let resp = await fetch(
 		siteUrl +
@@ -30,6 +32,19 @@ async function getPost(id) {
 
 	return { data, resp };
 }
+
+/**
+ * Removes the default category from the posts' categories
+ * @param {Object} post
+ * @returns {String[]} array with the names of the categories of a given post
+ */
+function getCategoriesFromPost(post) {
+	let ret = [];
+	for (let cat in post.categories) {
+		if (post.categories[cat].ID != DEFAULT_CATEGORY) ret.push(cat);
+	}
+	return ret;
+}
 // async function getAllPosts() {
 // 	let allPosts = [];
 
@@ -44,4 +59,5 @@ export default {
 	getPosts,
 	getStickyPosts,
 	getPost,
+	getCategoriesFromPost,
 };
