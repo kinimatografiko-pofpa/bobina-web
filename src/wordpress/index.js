@@ -35,6 +35,13 @@ async function getPost(id) {
 	return { data, resp };
 }
 
+async function getCategories() {
+	let resp = await fetch(siteUrl + '/categories');
+	let { categories: data } = await resp.json();
+
+	return { data, resp };
+}
+
 /**
  * Removes the default category from the posts' categories
  * @param {Object} post
@@ -101,6 +108,7 @@ export default {
 	getPosts,
 	getStickyPosts,
 	getPost,
+	getCategories,
 	getCategoriesFromPost,
 	getExcerptFromPost,
 };

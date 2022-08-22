@@ -1,4 +1,8 @@
 ---
+import wordpress from '../wordpress';
+
+let { data: categories } = await wordpress.getCategories();
+
 //script here
 const items = [
 	{
@@ -6,8 +10,12 @@ const items = [
 		text: 'Σχετικά',
 	},
 	{
-		href: '/',
+		href: '#',
 		text: 'Κατηγορίες',
+		subitems: categories.map((c) => ({
+			text: c.name,
+			href: '/categories/' + c.slug,
+		})),
 	},
 	{
 		href: '/',
@@ -17,22 +25,44 @@ const items = [
 ---
 
 <style>
-	a {
-		font-family: 'Syne';
-		font-weight: 500;
-		font-size: 16px;
-		line-height: 24px;
+	.dropdown {
+		top: 100%; /* 3px is the border size */
+		left: 0;
+		right: 0;
+		z-index: 100;
+	}
+
+	a:focus + .dropdown {
+		display: block;
 	}
 </style>
 <nav
-	class="flex justify-evenly md:justify-center mt-4 border-t-3 border-b-3 border-black text-center"
+	class="flex justify-evenly md:justify-center mt-4 border-t-3 border-b-3 border-black text-center relative"
 >
-	{items.map((it) => (
-		<a
-			href={it.href}
-			class="px-5 md:px-10 py-2 min-h-full hover:bg-black hover:text-white"
-		>
-			{it.text}
-		</a>
-	))}
+	{
+		items.map((it) => {
+			return (
+				<div class="group px-5 md:px-10 py-2 min-h-full hover:bg-black hover:text-white focus-within:bg-black focus-within:text-white">
+					<a href={it.href} class="min-h-full title-small">
+						{it.text}
+					</a>
+					{it.subitems != null ? (
+						<div class="dropdown absolute hidden bg-white group-hover:block group-active:block text-black  border-t-3 border-black py-1">
+							<ul>
+								{it.subitems.map((i) => (
+									<a class="hover:underline" href={i.href}>
+										<li class="py-3 title-small">
+											{i.text}
+										</li>
+									</a>
+								))}
+							</ul>
+						</div>
+					) : (
+						''
+					)}
+				</div>
+			);
+		})
+	}
 </nav>
