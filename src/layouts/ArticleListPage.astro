@@ -4,7 +4,7 @@ import BlogHeader from '../components/BlogHeader.astro';
 import Analytics from '../components/Analytics.astro';
 import Footer from '../components/Footer.astro';
 
-const { title, description, permalink, category } = Astro.props;
+const { title, description, permalink } = Astro.props;
 ---
 
 <html lang="el">
@@ -15,12 +15,7 @@ const { title, description, permalink, category } = Astro.props;
 	<body>
 		<Analytics />
 		<BlogHeader />
-		<h1>
-			{category.name}
-			{category.ID}
-			{category.slug}
-		</h1>
-
+		<slot />
 		<Footer />
 	</body>
 </html>

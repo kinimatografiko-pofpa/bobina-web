@@ -1,4 +1,5 @@
 ---
+import CategoryPage from '../../components/CategoryPage.astro';
 import ArticleListPage from '../../layouts/ArticleListPage.astro';
 
 import wordpress from '../../wordpress';
@@ -23,5 +24,6 @@ const category = Astro.props.category_obj;
 	title={category.name}
 	description={category.name}
 	permalink={'/categories/' + category.slug}
-	category={category}
-/>
+>
+	<CategoryPage category={category} />
+</ArticleListPage>
