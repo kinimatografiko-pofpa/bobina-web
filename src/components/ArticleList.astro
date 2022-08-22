@@ -4,9 +4,7 @@ import { parse } from 'node-html-parser';
 import wordpress from '../wordpress';
 import OptimizedPicture from './OptimizedPicture.astro';
 
-let {
-	data: { posts },
-} = await wordpress.getPosts(6, '');
+const { posts } = Astro.props;
 
 let list = posts.map((p) => ({
 	title: parse(p.title).text,

@@ -4,7 +4,6 @@ import BaseHead from '../components/BaseHead.astro';
 import BlogHeader from '../components/BlogHeader.astro';
 import BlogPostPreview from '../components/BlogPostPreview.astro';
 import Analytics from '../components/Analytics.astro';
-import wp from '../wordpress';
 import HeroSection from '../components/HeroSection.astro';
 import TitleSeparator from '../components/TitleSeparator.astro';
 import PlainArticleList from '../components/PlainArticleList.astro';
@@ -13,6 +12,8 @@ import Card from '../components/Card.astro';
 import Carousel from '../components/Carousel.astro';
 import MainGrid from '../components/MainGrid.astro';
 import Footer from '../components/Footer.astro';
+
+import wp from '../wordpress';
 
 // Component Script:
 // You can write any JavaScript/TypeScript that you'd like here.
@@ -33,6 +34,10 @@ let permalink = 'https://mpompina-test-site.netlify.app/';
 let {
 	data: { posts: afieromata },
 } = await wp.getPosts(3, '', 'θέσεις-σκηνοθετών');
+
+let {
+	data: { posts: article_list_posts },
+} = await wp.getPosts(6);
 
 // Full Astro Component Syntax:
 // https://docs.astro.build/core-concepts/astro-components/
@@ -73,7 +78,7 @@ let {
 					</div> -->
 				</div>
 				<div class="max-w-[750px]">
-					<ArticleList />
+					<ArticleList posts={article_list_posts} />
 				</div>
 			</div>
 			<section class="bg-black px-5 py-9 mt-14">
