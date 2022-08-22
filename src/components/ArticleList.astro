@@ -30,7 +30,14 @@ let list = posts.map((p) => ({
 					<h3 class="title-small">{article.title}</h3>
 					<span class="text-overline-small">
 						{article.date.toLocaleDateString('el-gr')} •
-						{article.categories.map((c) => c + ' ')}
+						{article.categories.map((c) => (
+							<a
+								href={'/categories/' + c}
+								class="text-overline-small hover:text-primary"
+							>
+								{c}
+							</a>
+						))}
 					</span>
 				</a>
 				<p class="text-body-small mt-4"> {article.shortText} </p>
