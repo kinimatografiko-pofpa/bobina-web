@@ -1,0 +1,40 @@
+---
+import ArticleListPage from '../layouts/ArticleListPage.astro';
+import ArticleList from '../components/ArticleList.astro';
+
+import wordpress from '../wordpress';
+
+// const category = Astro.props.category_obj;
+---
+
+<ArticleListPage title="Search" description="search" permalink="search">
+	<div id="searchbox"></div>
+	<div id="hits"></div>
+	<script>
+		import algoliasearch from 'algoliasearch/lite';
+		import instantsearch from 'instantsearch.js';
+		import { searchBox, hits } from 'instantsearch.js/es/widgets';
+
+		const searchClient = algoliasearch(
+			'N33J498LJ3',
+			'4950452eedff51fa5d5b9c166d1216a7'
+		);
+
+		const search = instantsearch({
+			indexName: 'dev_mpompina',
+			searchClient,
+		});
+
+		search.addWidgets([
+			searchBox({
+				container: '#searchbox',
+			}),
+
+			hits({
+				container: '#hits',
+			}),
+		]);
+
+		search.start('κινηματογραφος');
+	</script>
+</ArticleListPage>
