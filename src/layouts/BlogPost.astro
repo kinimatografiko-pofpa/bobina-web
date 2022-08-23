@@ -16,6 +16,7 @@ const {
 	alt,
 	text,
 	id,
+	tags,
 } = content;
 ---
 
@@ -27,8 +28,17 @@ const {
 	<body>
 		<Analytics />
 		<BlogHeader />
-		<BlogPost {title} {author} {heroImage} {publishDate} {alt} {text} {id}>
-			<slot></slot>
+		<BlogPost
+			{title}
+			{author}
+			{heroImage}
+			{publishDate}
+			{alt}
+			{text}
+			{id}
+			{tags}
+		>
+			<slot />
 		</BlogPost>
 		<Footer />
 	</body>
