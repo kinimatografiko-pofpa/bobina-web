@@ -58,25 +58,19 @@ let {
 		<main class="">
 			<div class="px-5 max-w-[1200px] md:mx-auto">
 				<HeroSection />
-				<div class="md:flex">
-					<div class="md:mr-7">
-						<TitleSeparator title="Αφιερωματα" />
-						<div class="flex">
-							{
-								afieromata.map((af) => (
-									<Card
-										post={af}
-										class="hidden first:block first:ml-0 last:mr-0 mx-3 md:block md:max-w-[360px] grow-0"
-									/>
-								))
-							}
-						</div>
-					</div>
-					<!-- <div class='md:max-w-[35%]'>
-						<TitleSeparator title='Προσφατα' />
-						<PlainArticleList />
-					</div> -->
-				</div>
+				<TitleSeparator title="Αφιερωματα" />
+			</div>
+			<div
+				class="flex px-5 md:justify-between w-screen md:w-full mx-auto overflow-x-auto max-w-[1200px]"
+			>
+				{afieromata.map((af) => (
+					<Card
+						post={af}
+						class="first:ml-0 last:mr-0 mx-3 shrink-0 w-[364px] md:max-w-[360px] grow-0"
+					/>
+				))}
+			</div>
+			<div class="px-5 max-w-[1200px] md:mx-auto">
 				<div class="max-w-[750px]">
 					<ArticleList posts={article_list_posts} />
 				</div>
