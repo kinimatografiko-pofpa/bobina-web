@@ -1,5 +1,4 @@
 ---
-import ArticleList from '../../components/ArticleList.astro';
 import ArticleListPage from '../../components/ArticleListPage.astro';
 import BasePage from '../../layouts/BasePage.astro';
 
@@ -7,18 +6,17 @@ import wordpress from '../../wordpress';
 
 export async function getStaticPaths() {
 	const { data: categories } = await wordpress.getCategories();
-
 	return categories.map((c) => ({
 		params: {
 			category: decodeURI(c.slug),
 		},
 		props: {
-			category_obj: c,
+			category: c,
 		},
 	}));
 }
 
-const category = Astro.props.category_obj;
+const category = Astro.props.category;
 
 let {
 	data: { posts },

@@ -5,10 +5,10 @@ const siteUrl =
 
 const DEFAULT_CATEGORY = 48775454;
 
-async function getPosts(max = 20, page_handle = '', category = '') {
+async function getPosts(max = 20, page_handle = '', category = '', tag = '') {
 	let resp = await fetch(
 		siteUrl +
-			`/posts?number=${max}&page_handle=${page_handle}&category=${category}`
+			`/posts?number=${max}&page_handle=${page_handle}&category=${category}&tag=${tag}`
 	);
 
 	let data = await resp.json();
@@ -38,6 +38,13 @@ async function getPost(id) {
 async function getCategories() {
 	let resp = await fetch(siteUrl + '/categories');
 	let { categories: data } = await resp.json();
+
+	return { data, resp };
+}
+
+async function getTags() {
+	let resp = await fetch(siteUrl + '/tags');
+	let { tags: data } = await resp.json();
 
 	return { data, resp };
 }
@@ -108,6 +115,7 @@ export default {
 	getPosts,
 	getStickyPosts,
 	getPost,
+	getTags,
 	getCategories,
 	getCategoriesFromPost,
 	getExcerptFromPost,

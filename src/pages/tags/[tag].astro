@@ -1,0 +1,32 @@
+---
+import ArticleListPage from '../../components/ArticleListPage.astro';
+import BasePage from '../../layouts/BasePage.astro';
+
+import wordpress from '../../wordpress';
+
+export async function getStaticPaths() {
+	const { data: tags } = await wordpress.getTags();
+	return tags.map((t) => ({
+		params: {
+			tag: decodeURI(t.slug),
+		},
+		props: {
+			tag: t,
+		},
+	}));
+}
+
+const tag = Astro.props.tag;
+
+let {
+	data: { posts },
+} = await wordpress.getPosts(100, '', '', tag.slug);
+---
+
+<BasePage
+	title={tag.name}
+	description={tag.name}
+	permalink={'/tags/' + tag.slug}
+>
+	<ArticleListPage posts={posts} title={'/ ' + tag.name + ' /'} />
+</BasePage>
