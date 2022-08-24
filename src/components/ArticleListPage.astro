@@ -3,16 +3,12 @@ import ArticleList from './ArticleList.astro';
 
 import wordpress from '../wordpress';
 
-const { category } = Astro.props;
-
-let {
-	data: { posts },
-} = await wordpress.getPosts(100, '', category.slug);
+const { posts, title } = Astro.props;
 ---
 
 <div class="px-5 max-w-[750px] mx-auto mb-24">
 	<h1 class="title-large text-center mb-5 mt-20">
-		{category.name}
+		{title}
 	</h1>
 	<ArticleList posts={posts} />
 </div>
