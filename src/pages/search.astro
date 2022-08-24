@@ -1,5 +1,5 @@
 ---
-import ArticleListPage from '../layouts/ArticleListPage.astro';
+import BasePage from '../layouts/BasePage.astro';
 import ArticleList from '../components/ArticleList.astro';
 
 import wordpress from '../wordpress';
@@ -7,7 +7,7 @@ import wordpress from '../wordpress';
 // const category = Astro.props.category_obj;
 ---
 
-<ArticleListPage title="Search" description="search" permalink="search">
+<BasePage title="Search" description="search" permalink="search">
 	<div class="px-5 max-w-[750px] mx-auto mb-24">
 		<div id="searchbox"></div>
 		<div id="hits"></div>
@@ -102,4 +102,4 @@ import wordpress from '../wordpress';
 		// 	}
 		// }, 500);
 	</script>
-</ArticleListPage>
+</BasePage>
