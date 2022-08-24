@@ -8,12 +8,50 @@ import wordpress from '../wordpress';
 ---
 
 <ArticleListPage title="Search" description="search" permalink="search">
-	<div id="searchbox"></div>
-	<div id="hits"></div>
+	<div class="px-5 max-w-[750px] mx-auto mb-24">
+		<div id="searchbox"></div>
+		<div id="hits"></div>
+	</div>
 	<script>
 		import algoliasearch from 'algoliasearch/lite';
 		import instantsearch from 'instantsearch.js';
 		import { searchBox, hits } from 'instantsearch.js/es/widgets';
+		import { connectHits } from 'instantsearch.js/es/connectors';
+
+		function articleListPlain(article) {
+			return `
+			<article class="mt-10 md:flex md:items-center md:h-[263px]">
+				<img
+					src=${article.image}
+					class="object-cover w-full h-96 mb-4 md:min-w-[263px] md:max-w-[263px] md:h-full md:mb-0"
+					alt=${article.title}
+				>
+				<div class="md:ml-7">
+					<a href=${`/posts/${article.slug}`}>
+						<h3 class="title-small">${article.title}</h3>
+						<span class="text-overline-small">
+							${new Date(article.date).toLocaleDateString('el-gr')} •
+							${Object.values(article.categories).map(
+								(c) =>
+									`<a
+									href=${'/categories/' + c.slug}
+									class="text-overline-small hover:text-primary"
+								>
+									${c.name}
+								</a>`
+							)}
+						</span>
+					</a>
+					<p class="text-body-small mt-4"> ${article.shortText} </p>
+					<a
+						class="block mt-6 text-button hover:text-primary"
+						href=${`/posts/${article.slug}`}
+					>
+						Περισσότερα
+					</a>
+				</div>
+			</article>`;
+		}
 
 		const searchClient = algoliasearch(
 			'N33J498LJ3',
@@ -23,18 +61,45 @@ import wordpress from '../wordpress';
 		const search = instantsearch({
 			indexName: 'dev_mpompina',
 			searchClient,
+			routing: true,
 		});
+
+		// Create the render function
+		const renderHits = (renderOptions, isFirstRender) => {
+			const { hits, widgetParams } = renderOptions;
+
+			widgetParams.container.innerHTML = `
+    <ul>
+      ${hits.map((item) => articleListPlain(item)).join('')}
+    </ul>
+  `;
+		};
+
+		// Create the custom widget
+		const customHits = connectHits(renderHits);
 
 		search.addWidgets([
 			searchBox({
 				container: '#searchbox',
 			}),
 
-			hits({
-				container: '#hits',
+			customHits({
+				container: document.querySelector('#hits'),
 			}),
 		]);
 
-		search.start('κινηματογραφος');
+		let params = new URL(document.location.toString()).searchParams;
+
+		// let q = params.get('query');
+		search.start();
+
+		// setTimeout(() => {
+		// 	if (q != null && q.length > 0) {
+		// 		let sb = document.querySelector('.ais-SearchBox-input');
+		// 		sb.value = q;
+		// 		search.
+		// 		// sb.dispatchEvent(new Event('input'));
+		// 	}
+		// }, 500);
 	</script>
 </ArticleListPage>
