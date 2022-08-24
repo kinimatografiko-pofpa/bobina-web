@@ -54,7 +54,7 @@ try {
 	recommended = rec?.results?.[0]?.hits?.map((r) => ({
 		title: r.title,
 		id: r.objectID,
-		image: r.imageUrl,
+		image: r.image,
 	}));
 } catch (error) {
 	console.error(error);
