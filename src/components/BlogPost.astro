@@ -1,9 +1,9 @@
 ---
-import Author from './Author.astro';
 import BlogPicture from './BlogPicture.astro';
-import { parse } from 'node-html-parser';
 import RecommendedPost from './RecommendedPost.astro';
 import OptimizedPicture from './OptimizedPicture.astro';
+import { parse } from 'node-html-parser';
+import axios from 'axios';
 
 export interface Props {
 	title: string;
@@ -27,7 +27,7 @@ function addIframeClasses(node) {
 let recommended = [];
 
 try {
-	let resp = await fetch(
+	let resp = await axios(
 		'http://N33J498LJ3-dsn.algolia.net/1/indexes/*/recommendations',
 		{
 			method: 'POST',
@@ -36,7 +36,7 @@ try {
 				'X-Algolia-Api-Key': import.meta.env.ALGOLIA_KEY,
 				'X-Algolia-Application-ID': import.meta.env.ALGOLIA_APPLICATION,
 			},
-			body: JSON.stringify({
+			data: {
 				requests: [
 					{
 						indexName: 'dev_mpompina',
@@ -46,11 +46,11 @@ try {
 						maxRecommendations: 4,
 					},
 				],
-			}),
+			},
 		}
 	);
 
-	let rec = await resp.json();
+	let rec = resp.data;
 	recommended = rec?.results?.[0]?.hits?.map((r) => ({
 		title: r.title,
 		id: r.objectID,
@@ -103,50 +103,56 @@ let processed_post = parsed_post.childNodes.map((v) => {
 	<article class="px-5">
 		<div>
 			<header class="md:max-w-[750px] mx-auto">
-				{heroImage && (
-					<a href={heroImage}>
-						<OptimizedPicture
-							class="object-cover max-w-full "
-							loading="lazy"
-							src={heroImage}
-							alt={alt}
-						/>
-					</a>
-				)}
+				{
+					heroImage && (
+						<a href={heroImage}>
+							<OptimizedPicture
+								class="object-cover max-w-full "
+								loading="lazy"
+								src={heroImage}
+								alt={alt}
+							/>
+						</a>
+					)
+				}
 				<h1 class="title-large mb-4 mt-5">{title}</h1>
 			</header>
 
 			<main class="text-body">
-				{processed_post.map((v) => {
-					if (v.tagName == 'IMG') {
-						return (
-							<BlogPicture
-								src={v.getAttribute('data-orig-file')}
-								alt={v.getAttribute('alt')}
-								title={v.getAttribute('data-image-title')}
-								height={v.getAttribute('height')}
-								class="my-4 md:max-w-xl md:mx-auto"
-							/>
-						);
-					}
+				{
+					processed_post.map((v) => {
+						if (v.tagName == 'IMG') {
+							return (
+								<BlogPicture
+									src={v.getAttribute('data-orig-file')}
+									alt={v.getAttribute('alt')}
+									title={v.getAttribute('data-image-title')}
+									height={v.getAttribute('height')}
+									class="my-4 md:max-w-xl md:mx-auto"
+								/>
+							);
+						}
 
-					return v;
-				})}
+						return v;
+					})
+				}
 			</main>
 
 			<p class="md:max-w-[750px] mx-auto text-body italic">
-				Δημοσιεύθηκε στις {new Date(publishDate).toLocaleDateString(
-					'el-gr'
-				)}
+				Δημοσιεύθηκε στις {
+					new Date(publishDate).toLocaleDateString('el-gr')
+				}
 			</p>
 			<p class="md:max-w-[750px] mx-auto text-body mt-2">
 				<span class="mr-1" style="font-weight: 400">TAGS</span>
-				/ {Object.keys(tags).length > 0 &&
+				/ {
+					Object.keys(tags).length > 0 &&
 					Object.values(tags).map((t) => (
 						<>
 							<a href={'/tags/' + t.slug}>{t.name}</a> /
 						</>
-					))}
+					))
+				}
 			</p>
 
 			<div class="md:max-w-[1140px] mx-auto">
@@ -154,7 +160,8 @@ let processed_post = parsed_post.childNodes.map((v) => {
 					Διαβάστε ακόμα
 				</h5>
 				<div class="md:flex md:justify-center">
-					{recommended &&
+					{
+						recommended &&
 						recommended.map((r) => {
 							return (
 								<RecommendedPost
@@ -164,7 +171,8 @@ let processed_post = parsed_post.childNodes.map((v) => {
 									class="mb-5 md:mx-2 md:max-w-[25%]"
 								/>
 							);
-						})}
+						})
+					}
 				</div>
 			</div>
 		</div>

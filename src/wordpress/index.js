@@ -1,4 +1,5 @@
 import { parse } from 'node-html-parser';
+import axios from 'axios';
 
 const siteUrl =
 	'https://public-api.wordpress.com/rest/v1.1/sites/mpompina.wordpress.com';
@@ -6,45 +7,57 @@ const siteUrl =
 const DEFAULT_CATEGORY = 48775454;
 
 async function getPosts(max = 20, page_handle = '', category = '', tag = '') {
-	let resp = await fetch(
-		siteUrl +
-			`/posts?number=${max}&page_handle=${page_handle}&category=${category}&tag=${tag}`
-	);
+	let resp = await axios({
+		url: siteUrl + '/posts',
+		method: 'GET',
+		params: {
+			number: max,
+			page_handle: page_handle,
+			category,
+			tag,
+		},
+	});
 
-	let data = await resp.json();
+	let data = resp.data;
 
 	return { data, resp };
 }
 
 async function getStickyPosts(max = 20, page_handle = '') {
-	let resp = await fetch(
-		siteUrl +
-			`/posts?number=${max}&page_handle=${page_handle}&sticky=require`
-	);
+	let resp = await axios({
+		url: siteUrl + '/posts',
+		method: 'GET',
+		params: {
+			number: max,
+			page_handle: page_handle,
+			sticky: 'require',
+		},
+	});
+	console.log('works');
 
-	let data = await resp.json();
+	let data = resp.data;
 
 	return { data, resp };
 }
 
 async function getPost(id) {
-	let resp = await fetch(siteUrl + `/posts/${id}`);
+	let resp = await axios(siteUrl + `/posts/${id}`);
 
-	let data = await resp.json();
+	let data = resp.data;
 
 	return { data, resp };
 }
 
 async function getCategories() {
-	let resp = await fetch(siteUrl + '/categories');
-	let { categories: data } = await resp.json();
+	let resp = await axios(siteUrl + '/categories');
+	let { categories: data } = resp.data;
 
 	return { data, resp };
 }
 
 async function getTags() {
-	let resp = await fetch(siteUrl + '/tags');
-	let { tags: data } = await resp.json();
+	let resp = await axios(siteUrl + '/tags');
+	let { tags: data } = resp.data;
 
 	return { data, resp };
 }
