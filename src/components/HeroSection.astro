@@ -10,7 +10,7 @@ let {
 let post = posts[0];
 // console.log(post.categories);
 
-let post_categories = wordpress.getCategoriesFromPost(post).join(' ');
+let post_categories = wordpress.getCategoriesFromPost(post);
 ---
 
 <article>
@@ -29,7 +29,14 @@ let post_categories = wordpress.getCategoriesFromPost(post).join(' ');
 			class="w-full overflow-hidden max-h-[240px] md:max-h-[383px] object-cover md:max-w-[555px] md:flex-1"
 		/>
 		<div class="md:my-11 md:ml-11 md:flex-1">
-			<p class="text-overline mt-6">{post_categories}</p>
+			<p class="text-overline mt-6">
+				{
+					//todo: fix this so it has an <a> elem instead of span
+					post_categories.map((c) => (
+						<span href={'/categories/' + c.slug}>{c.name}</span>
+					))
+				}
+			</p>
 			<h3 class="title-large my-4">{parse(post.title).text}</h3>
 			<p class="text-body">
 				{wordpress.getExcerptFromPost(post)}

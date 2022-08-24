@@ -32,10 +32,10 @@ let list = posts.map((p) => ({
 						{article.date.toLocaleDateString('el-gr')} •
 						{article.categories.map((c) => (
 							<a
-								href={'/categories/' + c}
+								href={'/categories/' + c.slug}
 								class="text-overline-small hover:text-primary"
 							>
-								{c}
+								{c.name}
 							</a>
 						))}
 					</span>

@@ -65,12 +65,13 @@ async function getTags() {
 /**
  * Removes the default category from the posts' categories
  * @param {Object} post
- * @returns {String[]} array with the names of the categories of a given post
+ * @returns {Object[]} array with the categories of a given post
  */
 function getCategoriesFromPost(post) {
 	let ret = [];
-	for (let cat in post.categories) {
-		if (post.categories[cat].ID != DEFAULT_CATEGORY) ret.push(cat);
+	for (let c in post.categories) {
+		const cat = post.categories[c];
+		if (cat.ID != DEFAULT_CATEGORY) ret.push(cat);
 	}
 	return ret;
 }
