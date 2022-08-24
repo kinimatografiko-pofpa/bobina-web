@@ -1,6 +1,6 @@
 ---
 import CategoryPage from '../../components/CategoryPage.astro';
-import ArticleListPage from '../../layouts/ArticleListPage.astro';
+import BasePage from '../../layouts/BasePage.astro';
 
 import wordpress from '../../wordpress';
 
@@ -20,10 +20,10 @@ export async function getStaticPaths() {
 const category = Astro.props.category_obj;
 ---
 
-<ArticleListPage
+<BasePage
 	title={category.name}
 	description={category.name}
 	permalink={'/categories/' + category.slug}
 >
 	<CategoryPage category={category} />
-</ArticleListPage>
+</BasePage>
