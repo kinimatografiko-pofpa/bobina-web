@@ -1,11 +1,15 @@
 ---
-import wordpress from '../wordpress';
+import OptimizedPicture from './OptimizedPicture.astro';
 const { title, image, href, class: cl } = Astro.props;
 ---
 
 <article class={cl}>
 	<a href={href}>
-		<img src={image} class="object-cover w-full md:h-[186px]" />
+		<OptimizedPicture
+			src={image}
+			class="object-cover w-full md:h-[186px]"
+			alt={title}
+		/>
 		<h6 class="title-medium-2 mt-2">{title}</h6>
 	</a>
 </article>
