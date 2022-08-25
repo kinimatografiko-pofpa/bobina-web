@@ -37,6 +37,7 @@ postsByYear.sort((a, b) => b.year - a.year);
 								title={p.title}
 								image={p.featured_image}
 								href={'/posts/' + p.slug}
+								categories={wordpress.getCategoriesFromPost(p)}
 								class="md:max-w-[263px] mb-14 overflow-hidden"
 							/>
 						))}

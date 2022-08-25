@@ -5,10 +5,11 @@ export interface Props {
 	title: string;
 	image: string;
 	href: string;
+	categories?: string[];
 	class?: string;
 }
 
-const { title, image, href, class: cl } = Astro.props;
+const { title, image, href, categories, class: cl } = Astro.props;
 ---
 
 <article class={cl}>
@@ -19,5 +20,16 @@ const { title, image, href, class: cl } = Astro.props;
 			alt={title}
 		/>
 		<h6 class="title-small mt-2">{title}</h6>
+		{
+			categories &&
+			categories.map((c) => (
+				<a
+					href={'/categories/' + c.slug}
+					class="text-overline-small hover:text-primary"
+				>
+					{c.name}
+				</a>
+			))
+		}
 	</a>
 </article>
