@@ -1,17 +1,21 @@
 ---
 import { Picture } from 'astro-imagetools/components';
 const { src, alt, height, title, class: cl } = Astro.props;
-let fileExtRe = /\.[a-zA-Z0-9]+$/g;
-let matches = src.match(fileExtRe);
+const fileExtRe = /\.[a-zA-Z0-9]+$/g;
 let skip = false;
-//only allow the following image formats to be transformed
-if (
-	matches.length > 0 &&
-	['.jpg', '.jpeg', '.png', '.tiff', '.bmp', '.gif', '.webp'].indexOf(
-		matches[0]
-	) == -1
-) {
-	skip = true;
+if (src != null) {
+	let matches = src.match(fileExtRe);
+	//only allow the following image formats to be transformed
+	if (
+		matches != null &&
+		matches.length > 0 &&
+		['.jpg', '.jpeg', '.png', '.tiff', '.bmp', '.gif', '.webp'].indexOf(
+			matches[0]
+		) == -1
+	) {
+		console.log(matches[0]);
+		skip = true;
+	}
 }
 ---
 

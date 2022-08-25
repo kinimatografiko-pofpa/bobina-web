@@ -8,10 +8,26 @@ export interface Props {
 }
 
 const { src, alt, class: cl } = Astro.props;
+const fileExtRe = /\.[a-zA-Z0-9]+$/g;
+let skip = false;
+if (src != null) {
+	let matches = src.match(fileExtRe);
+	//only allow the following image formats to be transformed
+	if (
+		matches != null &&
+		matches.length > 0 &&
+		['.jpg', '.jpeg', '.png', '.tiff', '.bmp', '.gif', '.webp'].indexOf(
+			matches[0]
+		) == -1
+	) {
+		console.log(matches[0]);
+		skip = true;
+	}
+}
 ---
 
 {
-	src != null && src.length > 0 ? (
+	!skip && src != null && src.length > 0 ? (
 		<div class={cl}>
 			<Picture
 				src={src}
