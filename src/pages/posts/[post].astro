@@ -2,7 +2,9 @@
 import BaseHead from '../../components/BaseHead.astro';
 import Analytics from '../../components/Analytics.astro';
 import BlogHeader from '../../components/BlogHeader.astro';
-import BlogPost from '../../layouts/BlogPost.astro';
+import BasePage from '../../layouts/BasePage.astro';
+import BlogPost from '../../components/BlogPost.astro';
+
 import { parse } from 'node-html-parser';
 
 import wordpress from '../../wordpress';
@@ -31,7 +33,6 @@ const content = {
 	publishDate: post.date,
 	author: 'test',
 	heroImage: img,
-	permalink: 'test',
 	alt: post.slug,
 	text: post.content,
 	id: post.ID,
@@ -42,4 +43,19 @@ const content = {
 // console.log(post.content)
 ---
 
-<BlogPost content={content} />
+<BasePage
+	title={content.title}
+	description={content.description}
+	permalink={'/posts/' + content.slug}
+>
+	<BlogPost
+		title={content.title}
+		author={content.author}
+		tags={content.tags}
+		publishDate={content.publishDate}
+		heroImage={content.heroImage}
+		alt={content.alt}
+		text={content.text}
+		id={content.id}
+	/>
+</BasePage>
