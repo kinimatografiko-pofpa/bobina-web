@@ -1,0 +1,27 @@
+---
+import BasePage from '../layouts/BasePage.astro';
+import PlainImagePost from '../components/PlainImagePost.astro';
+---
+
+<BasePage title="Search" description="search" permalink="search">
+	<div class="px-5 max-w-[750px] mx-auto mb-24">
+		<h1 class="title-large text-center mb-14 mt-20">Τα τεύχη online</h1>
+		<p class="text-body text-center mb-7">
+			Ξεφυλλίστε στο issuu παλαιότερα τεύχη του περιοδικού.
+		</p>
+		<div class="md:flex md:justify-center">
+			<PlainImagePost
+				title="Α’ Περίοδος: 1996-2005"
+				image="/assets/mpompina-tefxos-1.jpg"
+				href="https://issuu.com/kinimatografiko/stacks/6aafd775d7fb44baa285f0733f391a41"
+				class="mb-5 md:mx-2 md:w-[360px]"
+			/>
+			<PlainImagePost
+				title="Β’ Περίοδος: 2012-"
+				image="/assets/mpompina-tefxos-2.jpg"
+				href="https://issuu.com/kinimatografiko/stacks/95380270034f4ee9a8e67b3b15ef0426"
+				class="mb-5 md:mx-2 md:w-[360px]"
+			/>
+		</div>
+	</div>
+</BasePage>
