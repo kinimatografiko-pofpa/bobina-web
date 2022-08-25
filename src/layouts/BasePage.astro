@@ -4,6 +4,12 @@ import BlogHeader from '../components/BlogHeader.astro';
 import Analytics from '../components/Analytics.astro';
 import Footer from '../components/Footer.astro';
 
+export interface Props {
+	title: string;
+	description?: string;
+	permalink: string;
+}
+
 const { title, description, permalink } = Astro.props;
 ---
 

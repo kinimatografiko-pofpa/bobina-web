@@ -1,5 +1,13 @@
 ---
 import OptimizedPicture from './OptimizedPicture.astro';
+
+export interface Props {
+	title: string;
+	image: string;
+	href: string;
+	class?: string;
+}
+
 const { title, image, href, class: cl } = Astro.props;
 ---
 
@@ -7,9 +15,9 @@ const { title, image, href, class: cl } = Astro.props;
 	<a href={href}>
 		<OptimizedPicture
 			src={image}
-			class="object-cover w-full md:h-[186px]"
+			class="object-cover w-full md:h-[186px] max-h-[247px] overflow-hidden"
 			alt={title}
 		/>
-		<h6 class="title-medium-2 mt-2">{title}</h6>
+		<h6 class="title-small mt-2">{title}</h6>
 	</a>
 </article>

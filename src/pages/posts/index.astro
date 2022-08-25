@@ -1,0 +1,48 @@
+---
+import BasePage from '../../layouts/BasePage.astro';
+import PlainImagePost from '../../components/PlainImagePost.astro';
+
+import wordpress from '../../wordpress';
+
+let {
+	data: { posts },
+} = await wordpress.getPosts(100);
+
+//group posts by year
+let postsByYear = {};
+for (const post of posts) {
+	let date = new Date(post.date);
+	let year = date.getFullYear();
+	if (postsByYear[year] == null) postsByYear[year] = { year, posts: [] };
+	postsByYear[year].posts.push(post);
+}
+
+//turn into array and sort by newest
+postsByYear = Object.values(postsByYear);
+postsByYear.sort((a, b) => b.year - a.year);
+---
+
+<BasePage title="Όλα τα άρθρα" permalink="/posts">
+	<div class="px-5 max-w-[920px] mx-auto mb-24">
+		<h1 class="title-large text-center mb-14 mt-20">Όλα τα άρθρα</h1>
+		{
+			postsByYear.map((y) => (
+				<div class="md:flex">
+					<p class="title-small text-[#424242] md:mr-4 text-center mb-6 md:text-left">
+						{y.year}
+					</p>
+					<div class="md:flex flex-wrap justify-around">
+						{y.posts.map((p) => (
+							<PlainImagePost
+								title={p.title}
+								image={p.featured_image}
+								href={'/posts/' + p.slug}
+								class="md:max-w-[263px] mb-14 overflow-hidden"
+							/>
+						))}
+					</div>
+				</div>
+			))
+		}
+	</div>
+</BasePage>
