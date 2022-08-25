@@ -6,10 +6,18 @@ import wordpress from '../wordpress';
 
 let { data: categories } = await wordpress.getCategories();
 
-categories = categories.map((c) => ({
-	title: c.name,
-	href: '/categories/' + c.slug,
-}));
+categories = categories.map((c) => {
+	if (c.ID == wordpress.DEFAULT_CATEGORY) {
+		return {
+			title: 'Όλα τα άρθρα',
+			href: '/posts',
+		};
+	}
+	return {
+		title: c.name,
+		href: '/categories/' + c.slug,
+	};
+});
 
 const footer_data = [
 	{ title: 'Κατηγορίες', content: categories },

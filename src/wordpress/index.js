@@ -133,4 +133,5 @@ export default {
 	getCategories,
 	getCategoriesFromPost,
 	getExcerptFromPost,
+	DEFAULT_CATEGORY,
 };
