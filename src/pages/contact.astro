@@ -1,0 +1,31 @@
+---
+import BasePage from '../layouts/BasePage.astro';
+import OptimizedPicture from '../components/OptimizedPicture.astro';
+---
+
+<BasePage title="Eπικοινωνία" permalink="/contact">
+	<div class="px-5 max-w-[1200px] mx-auto mb-24 mt-10">
+		<div class="md:flex justify-around">
+			<OptimizedPicture
+				src="/public/assets/contact.png"
+				alt="φωτογραφία με τον ορισμό της λέξης 'μπομπίνα' απο λεξικό"
+				class="min-w-[40%]"
+			/>
+			<div
+				class="md:max-w-[362px] justify-self-center self-center ml-4 mt-14 md:mt-0"
+			>
+				<h1 class="title-large text-left mb-8">Eπικοινωνία</h1>
+				<p class="text-body">
+					Επικοινωνήστε μαζί μας στην ηλεκτρονική διεύθυνση
+					mpompina@gmail.com.
+					<br /><br />
+					Τα τεύχη της Μπομπίνας διατίθενται δωρεάν στο γραφείο του Κινηματογραφικού
+					Τομέα στον ημιώροφο της Πανεπιστημιακής Λέσχης (Ιπποκράτους 15
+					& Ακαδημίας 55).
+					<br /><br />
+					Για να ενημερωθείτε για τα νέα τεύχη ακολουθείστε μας στο facebook.
+				</p>
+			</div>
+		</div>
+	</div>
+</BasePage>
