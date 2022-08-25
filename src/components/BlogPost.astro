@@ -1,6 +1,6 @@
 ---
 import BlogPicture from './BlogPicture.astro';
-import RecommendedPost from './RecommendedPost.astro';
+import PlainImagePost from './PlainImagePost.astro';
 import OptimizedPicture from './OptimizedPicture.astro';
 import { parse } from 'node-html-parser';
 import axios from 'axios';
@@ -54,6 +54,7 @@ try {
 	recommended = rec?.results?.[0]?.hits?.map((r) => ({
 		title: r.title,
 		id: r.objectID,
+		slug: r.slug,
 		image: r.image,
 	}));
 } catch (error) {
@@ -164,10 +165,10 @@ let processed_post = parsed_post.childNodes.map((v) => {
 						recommended &&
 						recommended.map((r) => {
 							return (
-								<RecommendedPost
+								<PlainImagePost
 									title={r.title}
 									image={r.image}
-									id={r.id}
+									href={'/posts/' + r.slug}
 									class="mb-5 md:mx-2 md:max-w-[25%]"
 								/>
 							);
