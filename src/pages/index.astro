@@ -37,7 +37,7 @@ let {
 
 let {
 	data: { posts: article_list_posts },
-} = await wp.getPosts(6);
+} = await wp.getPosts(4);
 
 // Full Astro Component Syntax:
 // https://docs.astro.build/core-concepts/astro-components/
@@ -63,14 +63,17 @@ let {
 			<div
 				class="flex px-5 md:justify-between w-screen md:w-full mx-auto overflow-x-auto max-w-[1200px]"
 			>
-				{afieromata.map((af) => (
-					<Card
-						post={af}
-						class="first:ml-0 last:mr-0 mx-3 shrink-0 w-[364px] md:max-w-[360px] grow-0"
-					/>
-				))}
+				{
+					afieromata.map((af) => (
+						<Card
+							post={af}
+							class="first:ml-0 last:mr-0 mx-3 shrink-0 w-[364px] md:max-w-[360px] grow-0"
+						/>
+					))
+				}
 			</div>
 			<div class="px-5 max-w-[1200px] md:mx-auto">
+				<TitleSeparator title="Προσφατα" />
 				<div class="max-w-[750px]">
 					<ArticleList posts={article_list_posts} />
 				</div>
