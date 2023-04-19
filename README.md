@@ -1,54 +1,31 @@
-# Astro Starter Kit: Blog
+# Bobina website
+
+## About
+
+This is the repository for the **Μπομπίνα** magazine website. **Μπομπίνα** (Pronounced Bobina) is the magazine of the [Cinema Department](https://kinimatografiko.gr) of the Students' Cultural Society Club [(P.O.F.P.A.)](https://pofpa.gr) of the [University of Athens.](https://www.uoa.gr)
+
+The website is built on [Astro](https://astro.build/) and uses [wordpress.com](https://wordpress.com) as a back-end to fetch articles.
+
+## Running
+
+After cloning the repository, run yarn to get all the dependencies.
 
 ```
-npm init astro -- --template blog
+yarn
 ```
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/blog)
-
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
-
-Features:
-
--   ✅ SEO-friendly setup with canonical URLs and OpenGraph data
--   ✅ Full Markdown support
--   ✅ RSS 2.0 generation
--   ✅ Sitemap.xml generation
-
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
+To start the development server, run:
 
 ```
-/
-├── public/
-│   ├── robots.txt
-│   └── favicon.ico
-├── src/
-│   ├── components/
-│   │   └── Tour.astro
-│   └── pages/
-│       └── index.astro
-└── package.json
+yarn start
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+and to output a build (warning, this might take some time)
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+```
+yarn build
+```
 
-Any static assets, like images, can be placed in the `public/` directory.
+## Contributing
 
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command           | Action                                       |
-| :---------------- | :------------------------------------------- |
-| `npm install`     | Installs dependencies                        |
-| `npm run dev`     | Starts local dev server at `localhost:3000`  |
-| `npm run build`   | Build your production site to `./dist/`      |
-| `npm run preview` | Preview your build locally, before deploying |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://github.com/withastro/astro) or jump into our [Discord server](https://astro.build/chat).
+Contributions are welcome and encouraged! Please start an issue first before submitting a PR.
