@@ -1,5 +1,4 @@
 ---
-// Component Imports
 import BaseHead from '../components/BaseHead.astro';
 import BlogHeader from '../components/BlogHeader.astro';
 import BlogPostPreview from '../components/BlogPostPreview.astro';
@@ -15,21 +14,9 @@ import Footer from '../components/Footer.astro';
 
 import wp from '../wordpress';
 
-// Component Script:
-// You can write any JavaScript/TypeScript that you'd like here.
-// It will run during the build, but never in the browser.
-// All variables are available to use in the HTML template below.
 let title = 'Μπομπίνα';
 let description = 'Διαδικτυακό περιοδικό του Κινηματογραφικού Τομέα Π.Ο.Φ.Π.Α.';
 let permalink = 'https://mpompina-test-site.netlify.app/';
-
-// let { data } = await wp.getPosts(100);
-// let allPosts = data.posts;
-// allPosts = allPosts.sort(
-// 	(a, b) => new Date(b.date).valueOf() - new Date(a.date).valueOf()
-// );
-
-//get θέσεις-σκηνοθετών
 
 let {
 	data: { posts: afieromata },
@@ -38,9 +25,6 @@ let {
 let {
 	data: { posts: article_list_posts },
 } = await wp.getPosts(4);
-
-// Full Astro Component Syntax:
-// https://docs.astro.build/core-concepts/astro-components/
 ---
 
 <html lang="en">
@@ -146,7 +130,5 @@ let {
 			</div>
 		</main>
 		<Footer />
-
-		" >
 	</body>
 </html>
