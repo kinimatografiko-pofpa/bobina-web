@@ -25,6 +25,7 @@ let content = posts.map((p) => ({
 <script>
 	import glider from 'glider-js';
 	new glider(document.querySelector('.glider'), {
+		// Mobile-first defaults
 		dots: document.querySelector('#dots'),
 		scrollLock: true,
 		itemWidth: 360,
@@ -34,8 +35,8 @@ let content = posts.map((p) => ({
 				// screens greater than >= 775px
 				breakpoint: 775,
 				settings: {
-					slidesToShow: 3,
-					slidesToScroll: 3,
+					slidesToShow: 'auto',
+					slidesToScroll: 'auto',
 				},
 			},
 		],
