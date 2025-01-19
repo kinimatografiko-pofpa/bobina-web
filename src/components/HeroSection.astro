@@ -33,7 +33,16 @@ let post_categories = wordpress.getCategoriesFromPost(post);
 				{
 					//todo: fix this so it has an <a> elem instead of span
 					post_categories.map((c) => (
-						<span href={'/categories/' + c.slug}>{c.name}</span>
+						<span 
+							href={'/categories/' + c.slug} 
+							class="hover:text-primary"
+						>
+							{
+								c.name
+								.normalize('NFD')/*decompose accented characters into: character + diacritical mark*/
+								.replace(/[\u0300-\u036f]/g, "")/*remove diacritical marks from name*/
+							}
+						</span>
 					))
 				}
 			</p>
