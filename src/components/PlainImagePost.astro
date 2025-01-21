@@ -27,7 +27,13 @@ const { title, image, href, categories, class: cl } = Astro.props;
 					href={'/categories/' + c.slug}
 					class="text-overline-small hover:text-primary"
 				>
-					{c.name}
+					{
+						c.name
+						.normalize('NFD')/*decompose accented characters into: character + diacritical mark*/
+						.replace(/[\u0300-\u036f]/g, "")/*remove diacritical marks from name*/
+						/*category names show without accent marks here even without removing them from the string - 
+						not sure why*/
+					}
 				</a>
 			))
 		}

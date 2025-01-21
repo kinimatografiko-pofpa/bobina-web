@@ -1,4 +1,8 @@
 ---
+/**
+ * This extends the astro-imagetools picture component to display an image
+ * with a caption in a blogpost exactly what we want it.
+ */
 import { Picture } from 'astro-imagetools/components';
 const { src, alt, height, title, class: cl } = Astro.props;
 const fileExtRe = /\.[a-zA-Z0-9]+$/g;

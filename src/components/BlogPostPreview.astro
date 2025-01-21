@@ -22,6 +22,7 @@ const { post } = Astro.props;
 </article>
 
 <style>
+	/* break out of the module to include html embedded in the post body */
 	.content :global(main > * + *) {
 		margin-top: 1rem;
 	}

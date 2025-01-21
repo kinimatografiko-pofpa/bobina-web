@@ -35,7 +35,11 @@ let list = posts.map((p) => ({
 								href={'/categories/' + c.slug}
 								class="text-overline-small hover:text-primary"
 							>
-								{c.name}
+								{
+									c.name
+									.normalize('NFD')/*decompose accented characters into: character + diacritical mark*/
+									.replace(/[\u0300-\u036f]/g, "")/*remove diacritical marks from name*/
+								}
 							</a>
 						))}
 					</span>

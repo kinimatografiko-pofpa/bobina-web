@@ -6,6 +6,8 @@ import { parse } from 'node-html-parser';
 
 import wordpress from '../../wordpress';
 
+// categorize posts using the slug since slugs are guaranteed unique by wordpress
+// this generates prettier urls and makes it easier to find posts
 export async function getStaticPaths() {
 	const {
 		data: { posts },
