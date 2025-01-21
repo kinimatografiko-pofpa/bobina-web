@@ -27,7 +27,7 @@ let list = posts.map((p) => ({
 			/>
 			<div class="md:ml-7">
 				<a href={`/posts/${article.slug}`}>
-					<h3 class="title-small">{article.title}</h3>
+					<h3 class="title-small hover:text-hoverRed">{article.title}</h3>
 					<span class="text-overline-small">
 						{article.date.toLocaleDateString('el-gr')} •
 						{article.categories.map((c) => (

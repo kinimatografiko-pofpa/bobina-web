@@ -19,7 +19,7 @@ const { title, image, href, categories, class: cl } = Astro.props;
 			class="object-cover w-full md:h-[186px] max-h-[247px] overflow-hidden"
 			alt={title}
 		/>
-		<h6 class="title-small mt-2">{title}</h6>
+		<h6 class="title-small mt-2 hover:text-hoverRed">{title}</h6>
 		{
 			categories &&
 			categories.map((c) => (

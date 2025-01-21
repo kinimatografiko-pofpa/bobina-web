@@ -46,7 +46,7 @@ let post_categories = wordpress.getCategoriesFromPost(post);
 					))
 				}
 			</p>
-			<h3 class="title-large my-4">{parse(post.title).text}</h3>
+			<h3 class="title-large my-4 hover:text-hoverRed">{parse(post.title).text}</h3>
 			<p class="text-body">
 				{wordpress.getExcerptFromPost(post)}
 			</p>
