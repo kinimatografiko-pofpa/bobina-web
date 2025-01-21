@@ -9,19 +9,25 @@
 		"preview": "astro preview"
 	},
 	"devDependencies": {
-		"@astrojs/tailwind": "^1.0.0",
-		"astro": "1.0.0-rc.7",
+		"@astrojs/tailwind": "^5.1.5",
+		"astro": "5.1.8",
+		"find-up": "^7.0.0",
 		"prettier": "^2.7.1",
-		"prettier-plugin-astro": "^0.5.0"
+		"prettier-plugin-astro": "^0.13.0"
 	},
 	"dependencies": {
 		"algoliasearch": "^4.14.2",
-		"astro-imagetools": "^0.6.10",
+		"astro-imagetools": "^0.9.0",
 		"axios": "^0.27.2",
 		"glider-js": "^1.7.7",
 		"instantsearch.js": "^4.44.0",
 		"node-html-parser": "^5.3.3",
+		"tailwindcss": "^3.4.17",
 		"typescript": "^4.6.3"
 	},
-	"packageManager": "yarn@4.1.0"
+	"resolutions": {
+		"vite-imagetools": "^6.2.7",
+		"sharp": "^0.33.0"
+	},
+	"packageManager": "yarn@4.6.0"
 }
