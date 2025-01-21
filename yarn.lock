@@ -496,7 +496,7 @@ __metadata:
     "@astrojs/tailwind": "npm:^5.1.5"
     algoliasearch: "npm:^4.14.2"
     astro: "npm:5.1.8"
-    astro-imagetools: "npm:^0.6.10"
+    astro-imagetools: "npm:^0.9.0"
     axios: "npm:^0.27.2"
     find-up: "npm:^7.0.0"
     glider-js: "npm:^1.7.7"
@@ -1758,9 +1758,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"astro-imagetools@npm:^0.6.10":
-  version: 0.6.10
-  resolution: "astro-imagetools@npm:0.6.10"
+"astro-imagetools@npm:^0.9.0":
+  version: 0.9.0
+  resolution: "astro-imagetools@npm:0.9.0"
   dependencies:
     "@astropub/codecs": "npm:0.4.4"
     file-type: "npm:17.1.1"
@@ -1774,7 +1774,7 @@ __metadata:
   dependenciesMeta:
     imagetools-core:
       optional: true
-  checksum: 10c0/5579773eac40026c8989faf1ca408fcd25c78dd5742b033caff9537e82abf0ee60f9edd4e3408fdac0b44bc6913dbc8b43978d2710d565d0a90cf6928e4af117
+  checksum: 10c0/73862f67d01998fd55f0226d7ff06c5689798294d3657fb774d4888c8d6cb1de28011469f82af1c1d84c8d3d8227504bfe180b2113ab59530f21f62892c42023
   languageName: node
   linkType: hard
 
