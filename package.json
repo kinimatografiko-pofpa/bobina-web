@@ -11,6 +11,7 @@
 	"devDependencies": {
 		"@astrojs/tailwind": "^5.1.5",
 		"astro": "5.1.8",
+		"find-up": "^7.0.0",
 		"prettier": "^2.7.1",
 		"prettier-plugin-astro": "^0.13.0"
 	},
