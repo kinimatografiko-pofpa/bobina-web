@@ -504,8 +504,10 @@ __metadata:
     node-html-parser: "npm:^5.3.3"
     prettier: "npm:^2.7.1"
     prettier-plugin-astro: "npm:^0.13.0"
+    sharp: "npm:^0.33.0"
     tailwindcss: "npm:^3.4.17"
     typescript: "npm:^4.6.3"
+    vite-imagetools: "npm:^6.2.7"
   languageName: unknown
   linkType: soft
 
@@ -1234,7 +1236,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rollup/pluginutils@npm:^5.1.4":
+"@rollup/pluginutils@npm:^5.0.5, @rollup/pluginutils@npm:^5.1.4":
   version: 5.1.4
   resolution: "@rollup/pluginutils@npm:5.1.4"
   dependencies:
@@ -3406,6 +3408,15 @@ __metadata:
   dependencies:
     sharp: "npm:^0.29.3"
   checksum: 10c0/7c4af92336fca392368fd14479d0edcec3fbf982b1ee94b24d5ee110643045b9b4ba5ac2677ebe97a492fb04fa55518b5b61b25ba2e30dbb6850604cdaa9e181
+  languageName: node
+  linkType: hard
+
+"imagetools-core@npm:^6.0.4":
+  version: 6.0.4
+  resolution: "imagetools-core@npm:6.0.4"
+  dependencies:
+    sharp: "npm:^0.33.1"
+  checksum: 10c0/797ed971ec9b16b80ea70ed89fe44106152f6bb4e0c44f1974df3b4ecee6b8600833f79cae07af99949b914db3494e2ecfe46befe11fc758b7a750560901a244
   languageName: node
   linkType: hard
 
@@ -5753,7 +5764,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sharp@npm:^0.33.3":
+"sharp@npm:^0.33.0, sharp@npm:^0.33.1, sharp@npm:^0.33.3":
   version: 0.33.5
   resolution: "sharp@npm:0.33.5"
   dependencies:
@@ -6625,6 +6636,16 @@ __metadata:
     "@types/unist": "npm:^3.0.0"
     vfile-message: "npm:^4.0.0"
   checksum: 10c0/e5d9eb4810623f23758cfc2205323e33552fb5972e5c2e6587babe08fe4d24859866277404fb9e2a20afb71013860d96ec806cb257536ae463c87d70022ab9ef
+  languageName: node
+  linkType: hard
+
+"vite-imagetools@npm:^6.2.7":
+  version: 6.2.9
+  resolution: "vite-imagetools@npm:6.2.9"
+  dependencies:
+    "@rollup/pluginutils": "npm:^5.0.5"
+    imagetools-core: "npm:^6.0.4"
+  checksum: 10c0/c6004a8673b5e8041f5ad48aa9ab292505c3bb981acfbe2409a45e4c4a7b253b66689994df6a30bfd38f128a117362aee7443b3aea778d2e699233d03f93b284
   languageName: node
   linkType: hard
 
