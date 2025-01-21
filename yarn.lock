@@ -500,6 +500,7 @@ __metadata:
     axios: "npm:^0.27.2"
     find-up: "npm:^7.0.0"
     glider-js: "npm:^1.7.7"
+    imagetools-core: "npm:^7.0.2"
     instantsearch.js: "npm:^4.44.0"
     node-html-parser: "npm:^5.3.3"
     prettier: "npm:^2.7.1"
@@ -3417,6 +3418,13 @@ __metadata:
   dependencies:
     sharp: "npm:^0.33.1"
   checksum: 10c0/797ed971ec9b16b80ea70ed89fe44106152f6bb4e0c44f1974df3b4ecee6b8600833f79cae07af99949b914db3494e2ecfe46befe11fc758b7a750560901a244
+  languageName: node
+  linkType: hard
+
+"imagetools-core@npm:^7.0.2":
+  version: 7.0.2
+  resolution: "imagetools-core@npm:7.0.2"
+  checksum: 10c0/e0115391b5f7d35449f11909d5e9db7b13db334baac3004c9aa20cf5c97f55f80e0afe806f4e3fc11ee2a5f7425a71df4101f6a491b03fd06812c6f1c19b3439
   languageName: node
   linkType: hard
 
