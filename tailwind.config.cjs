@@ -9,10 +9,7 @@ module.exports = {
 			},
 			dropShadow: {
 				'3xl': '0 18px 15px rgba(0, 0, 0, 0.25)',
-			},
-			textColor: {
-				hoverRed: 'rgb(209, 85, 85)', 
-			},
+			}
 		},
 	},
 

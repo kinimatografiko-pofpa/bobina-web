@@ -12,6 +12,12 @@ export interface Props {
 const { title, image, href, categories, class: cl } = Astro.props;
 ---
 
+<style>
+	.title-small:hover {
+		color: rgb(209, 85, 85);
+	}
+</style>
+
 <article class={cl}>
 	<a href={href}>
 		<OptimizedPicture
@@ -19,23 +25,28 @@ const { title, image, href, categories, class: cl } = Astro.props;
 			class="object-cover w-full md:h-[186px] max-h-[247px] overflow-hidden"
 			alt={title}
 		/>
-		<h6 class="title-small mt-2 hover:text-hoverRed">{title}</h6>
+		<h6 class="title-small mt-2">{title}</h6>
 		{
 			categories &&
-			categories.map((c) => (
-				<a
-					href={'/categories/' + c.slug}
-					class="text-overline-small hover:text-primary"
-				>
-					{
-						c.name
-						.normalize('NFD')/*decompose accented characters into: character + diacritical mark*/
-						.replace(/[\u0300-\u036f]/g, "")/*remove diacritical marks from name*/
-						/*category names show without accent marks here even without removing them from the string - 
+				categories.map((c) => (
+					<a
+						href={'/categories/' + c.slug}
+						class="text-overline-small hover:text-primary"
+					>
+						{
+							c.name
+								.normalize(
+									'NFD'
+								) /*decompose accented characters into: character + diacritical mark*/
+								.replace(
+									/[\u0300-\u036f]/g,
+									''
+								) /*remove diacritical marks from name*/
+							/*category names show without accent marks here even without removing them from the string - 
 						not sure why*/
-					}
-				</a>
-			))
+						}
+					</a>
+				))
 		}
 	</a>
 </article>
