@@ -17,12 +17,6 @@ let list = posts.map((p) => ({
 }));
 ---
 
-<style>
-	.title-small:hover {
-		color: rgb(209, 85, 85);
-	}
-</style>
-
 {
 	list.map((article) => (
 		<article class="mt-10 md:flex md:items-center md:h-[263px]">
@@ -33,7 +27,7 @@ let list = posts.map((p) => ({
 			/>
 			<div class="md:ml-7">
 				<a href={`/posts/${article.slug}`}>
-					<h3 class="title-small">{article.title}</h3>
+					<h3 class="title-small hover:text-primary">{article.title}</h3>
 					<span class="text-overline-small">
 						{article.date.toLocaleDateString('el-gr')} •
 						{article.categories.map((c) => (
@@ -43,13 +37,8 @@ let list = posts.map((p) => ({
 							>
 								{
 									c.name
-										.normalize(
-											'NFD'
-										) /*decompose accented characters into: character + diacritical mark*/
-										.replace(
-											/[\u0300-\u036f]/g,
-											''
-										) /*remove diacritical marks from name*/
+									.normalize('NFD')/*decompose accented characters into: character + diacritical mark*/
+									.replace(/[\u0300-\u036f]/g, "")/*remove diacritical marks from name*/
 								}
 							</a>
 						))}
