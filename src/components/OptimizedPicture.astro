@@ -5,9 +5,10 @@ export interface Props {
 	src: string;
 	alt: string;
 	class?: string;
+	style?: string;
 }
 
-const { src, alt, class: cl } = Astro.props;
+const { src, alt, class: cl , style } = Astro.props;
 const fileExtRe = /\.[a-zA-Z0-9]+$/g;
 let skip = false;
 if (src != null) {
@@ -28,7 +29,7 @@ if (src != null) {
 
 {
 	!skip && src != null && src.length > 0 ? (
-		<div class={cl}>
+		<div class={cl} style={style}>
 			<Picture
 				src={src}
 				alt={alt}
