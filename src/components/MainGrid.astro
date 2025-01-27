@@ -1,28 +1,65 @@
 ---
 import GridItem from './GridItem.astro';
+import OptimizedPicture from './OptimizedPicture.astro';
 
 const { class: cl } = Astro.props;
 ---
 
 <section class={cl}>
-	<div class='md:flex md:h-[386px]'>
-		<div>
-			<div class='flex w-full'>
-				<GridItem class='mr-2 mb-2 w-[50%]'>Βιογραφίες1</GridItem>
-				<GridItem class='mb-2 ml-2 w-[50%]'>Βιογραφίες2</GridItem>
-			</div>
-			<div class='flex w-full'>
-				<GridItem class='my-2 w-[50%] md:mt-2 md:mb-0 mr-2'
-					>Βιογραφίες3
+	<!-- Gap between flex items is 20px -->
+	<div class="flex flex-wrap md:flex-nowrap gap-5">
+		<div class="flex flex-col gap-y-5 grow h-[400px]">
+			<div class='flex gap-x-5 grow h-[calc(50%-10px)]'>
+				<GridItem 
+					class='flex grow w-[50%]' img="assets/category_imgs/categories_biographies.png" href="/categories/βιογραφίες"
+					img_style="filter:brightness(75%) contrast(190%);"
+					overlay_color="rgba(255, 113, 113, 0.54)"
+					overlay_filter="brightness(65%) contrast(250%) saturate(210%)"
+					overlay_opacity="0.35";
+				>
+					Βιογραφίες
 				</GridItem>
-				<GridItem class='my-2 w-[50%] md:mt-2 md:mb-0 ml-2'
-					>Βιογραφίες4
+				<GridItem 
+					class='flex grow w-[50%]' img="assets/category_imgs/categories_director_positions.jpg" href="/categories/θέσεις-σκηνοθετών"
+					img_style="filter:brightness(70%) contrast(230%);"
+					overlay_color="rgba(197, 138, 138, 0.54)"
+					overlay_filter="brightness(65%) contrast(160%) saturate(190%)"
+					overlay_opacity="0.5";
+				>
+					Θέσεις σκηνοθετών
+				</GridItem>
+			</div>
+			<div class='flex gap-x-5 grow h-[calc(50%-10px)]'>
+				<GridItem 
+					class='flex grow w-[50%]' img="assets/category_imgs/categories_old_issues.png" href="/issues-online"
+					img_style="filter:brightness(55%) contrast(230%);"
+					overlay_color="rgba(136, 103, 20, 0.47)"
+					overlay_filter="brightness(65%) contrast(160%) saturate(210%)"
+					overlay_opacity="0.6";
+				>
+					Παλία Τεύχη
+				</GridItem>
+				<GridItem 
+					class='flex grow w-[50%]' img="assets/category_imgs/categories_reviews.png" href="/categories/ανάλυση-κριτική-ταινιών"
+					img_style="filter:brightness(60%) contrast(210%);"
+					overlay_color="rgba(181, 70, 90, 0.54)"
+					overlay_filter="brightness(65%) contrast(160%) saturate(190%)"
+					overlay_opacity="0.5";
+				>
+					Αναλύσεις / Κριτικές
 				</GridItem>
 			</div>
 		</div>
-		<GridItem size='full' class='md:flex-grow md:h-full md:ml-4'>
+		<GridItem 
+			class='flex basis-[200px] h-[190px] md:h-[400px] grow md:grow-0 w-max md:w-[30%]' img="assets/category_imgs/categories_all_articles.png" href="/posts" 
+			img_style="filter:brightness(20%) "
+		>
 			<p class='text-center text-body'>Δείτε</p>
 			Όλα τα κείμενα
 		</GridItem>
 	</div>
 </section>
+
+<style>
+	
+</style>
