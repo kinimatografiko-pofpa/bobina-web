@@ -13,28 +13,23 @@ let post = posts[0];
 let post_categories = wordpress.getCategoriesFromPost(post);
 ---
 
-<article>
-	<a
-		href={`/posts/${post.slug}`}
-		class="flex flex-col md:flex-row md:items-center"
-	>
-		<!-- <img
-			src={post.featured_image}
-			alt=""
-			class="w-full max-h-[240px] md:max-h-[383px] object-cover md:max-w-[555px] md:flex-1"
-		/> -->
-		<OptimizedPicture
-			src={post.featured_image}
-			alt={parse(post.title).text}
-			class="w-full overflow-hidden max-h-[240px] md:max-h-[383px] object-cover md:max-w-[555px] md:flex-1"
-		/>
-		<div class="md:my-11 md:ml-11 md:flex-1">
+<article class="flex flex-col md:flex-row md:items-center">
+		<a
+			href={`/posts/${post.slug}`}
+			class="h-[240px] md:min-h-[383px] bg-black md:w-[50%] grow" 
+		>
+			<OptimizedPicture
+				src={post.featured_image}
+				alt={parse(post.title).text}
+				class="object-cover w-full h-full"
+			/>
+		</a>
+		<div class="md:w-[50%] grow md:p-11">
 			<p class="text-overline mt-6">
 				{
-					//todo: fix this so it has an <a> elem instead of span
 					post_categories.map((c) => (
-						<span 
-							href={'/categories/' + c.slug} 
+						<a
+							href={'/categories/' + c.slug}
 							class="hover:text-primary"
 						>
 							{
@@ -42,14 +37,14 @@ let post_categories = wordpress.getCategoriesFromPost(post);
 								.normalize('NFD')/*decompose accented characters into: character + diacritical mark*/
 								.replace(/[\u0300-\u036f]/g, "")/*remove diacritical marks from name*/
 							}
-						</span>
+						</a>
 					))
 				}
 			</p>
-			<h3 class="title-large my-4 hover:text-primary">{parse(post.title).text}</h3>
+			
+			<a href={`/posts/${post.slug}`}><h3 class="title-large my-4 hover:text-primary">{parse(post.title).text}</h3></a>
 			<p class="text-body">
 				{wordpress.getExcerptFromPost(post)}
 			</p>
 		</div>
-	</a>
 </article>
