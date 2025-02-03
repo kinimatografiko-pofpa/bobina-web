@@ -5,7 +5,7 @@ export interface Props {
 	title: string;
 	image: string;
 	href: string;
-	categories?: string[];
+	categories?: {name:string, slug:string}[];
 	class?: string;
 }
 
@@ -16,7 +16,7 @@ const { title, image, href, categories, class: cl } = Astro.props;
 	<a href={href}>
 		<OptimizedPicture
 			src={image}
-			class="object-cover w-full md:h-[186px] max-h-[247px] overflow-hidden"
+			class="object-cover w-full md:h-[186px] h-[250px] overflow-hidden"
 			alt={title}
 		/>
 		<h6 class="title-small mt-2 hover:text-primary">{title}</h6>
@@ -25,7 +25,7 @@ const { title, image, href, categories, class: cl } = Astro.props;
 			categories.map((c) => (
 				<a
 					href={'/categories/' + c.slug}
-					class="text-overline-small hover:text-primary"
+					class="text-overline-small hover:text-primary mr-1"
 				>
 					{
 						c.name
