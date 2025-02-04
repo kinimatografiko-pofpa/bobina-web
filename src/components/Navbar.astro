@@ -10,7 +10,7 @@ const items = [
 		text: 'Σχετικά',
 	},
 	{
-		href: '#',
+		href: null,
 		text: 'Κατηγορίες',
 		subitems: categories.map((c) => {
 			if (c.ID == wordpress.DEFAULT_CATEGORY) {
@@ -40,26 +40,36 @@ const items = [
 		z-index: 100;
 	}
 
-	a:focus + .dropdown {
+	.dropdown-btn.expand + .dropdown  {
 		display: block;
 	}
 </style>
+
 <nav
 	class="flex justify-evenly md:justify-center mt-4 border-t-3 border-b-3 border-black text-center relative"
 >
 	{
 		items.map((it) => {
 			return (
-				<div class="group px-5 md:px-10 py-2 min-h-full hover:bg-black hover:text-white focus-within:bg-black focus-within:text-white">
-					<a href={it.href} class="min-h-full title-small">
-						{it.text}
-					</a>
+				<div class="group min-h-full hover:bg-black hover:text-white  [&>.dropdown-btn.expand]:bg-black [&>.dropdown-btn.expand]:text-white">
+					{it.href != null ? (
+						// Link
+						<a href={it.href} class="min-h-full title-small px-5 md:px-10 py-2 text-center mx-auto inline-block focus-visible:bg-black focus-visible:text-white">
+							{it.text}
+						</a>
+					) : (
+						// Dropdown menu expand button
+						<button class="dropdown-btn min-h-full title-small px-5 md:px-10 py-2 focus-visible:bg-black focus-visible:text-white">
+							{it.text}
+						</button>
+					)}
 					{it.subitems != null ? (
-						<div class="dropdown absolute hidden bg-white group-hover:block group-active:block text-black  border-t-3 border-black py-1 drop-shadow-3xl">
-							<ul>
+						// Dropdown menu
+						<div class="dropdown absolute hidden bg-white text-black  border-t-3 border-black py-1 drop-shadow-3xl w-full">
+							<ul class="inline-block">
 								{it.subitems.map((i) => (
-									<a class="hover:underline" href={i.href}>
-										<li class="py-3 title-small">
+									<a class="hover:underline mx-auto" href={i.href}>
+										<li class="py-3 title-small px-4">
 											{i.text}
 										</li>
 									</a>
@@ -74,3 +84,19 @@ const items = [
 		})
 	}
 </nav>
+
+
+<script>
+	const nav_items = document.getElementsByClassName('dropdown-btn');
+	var i: number;
+
+	for (i = 0; i < nav_items.length; i++) {
+	 	nav_items[i].addEventListener('click', function () {
+	 		this.classList.toggle("expand");
+	 	});
+
+		nav_items[i].addEventListener("blur", function() {
+			this.classList.remove("expand");
+		});
+	}
+</script>
