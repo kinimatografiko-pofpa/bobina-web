@@ -5,6 +5,7 @@ const siteUrl =
 	'https://public-api.wordpress.com/rest/v1.1/sites/mpompina.wordpress.com';
 
 const DEFAULT_CATEGORY = 48775454; //this is the ID of the "default" category on wordpress
+const NO_CATEGORY = 1; //this is the ID of the "uncategorized" category on wordpress
 
 /**
  * Returns an array of posts from the API
@@ -153,4 +154,5 @@ export default {
 	getCategoriesFromPost,
 	getExcerptFromPost,
 	DEFAULT_CATEGORY,
+	NO_CATEGORY,
 };
