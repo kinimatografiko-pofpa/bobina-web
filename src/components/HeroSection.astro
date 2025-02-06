@@ -5,7 +5,7 @@ import { parse } from 'node-html-parser';
 
 let {
 	data: { posts },
-} = await wordpress.getPosts();
+} = await wordpress.getStickyPosts(1);
 
 let post = posts[0];
 // console.log(post.categories);
@@ -30,7 +30,7 @@ let post_categories = wordpress.getCategoriesFromPost(post);
 					post_categories.map((c) => (
 						<a
 							href={'/categories/' + c.slug}
-							class="hover:text-primary"
+							class="hover:text-primary_bold"
 						>
 							{
 								c.name
@@ -42,7 +42,7 @@ let post_categories = wordpress.getCategoriesFromPost(post);
 				}
 			</p>
 			
-			<a href={`/posts/${post.slug}`}><h3 class="title-large my-4 hover:text-primary">{parse(post.title).text}</h3></a>
+			<a href={`/posts/${post.slug}`}><h3 class="title-large my-4 hover:text-primary_bold">{parse(post.title).text}</h3></a>
 			<p class="text-body">
 				{wordpress.getExcerptFromPost(post)}
 			</p>

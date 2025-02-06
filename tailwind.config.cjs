@@ -6,6 +6,7 @@ module.exports = {
 			colors: {
 				black: '#131313',
 				primary: '#B5465A',
+				primary_bold: '#E04460',
 			},
 			dropShadow: {
 				'3xl': '0 18px 15px rgba(0, 0, 0, 0.25)',

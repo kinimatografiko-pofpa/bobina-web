@@ -4,7 +4,7 @@ import { parse } from 'node-html-parser';
 import wordpress from '../wordpress';
 import OptimizedPicture from './OptimizedPicture.astro';
 
-const { posts } = Astro.props;
+const { posts , class: cl } = Astro.props;
 
 let list = posts.map((p) => ({
 	title: parse(p.title).text,
@@ -17,26 +17,32 @@ let list = posts.map((p) => ({
 }));
 ---
 
-{
-	list.map((article) => (
-		<article class="mt-10 md:flex md:items-center md:h-[263px]">
-			<a href={`/posts/${article.slug}`} class="w-full h-[250px] mb-4 md:min-w-[263px] md:max-w-[263px] md:h-full md:mb-0">
-				<OptimizedPicture
-					src={article.image}
-					class="object-cover w-full h-full"
-					alt={article.title}
-				/>
-			</a>
-			<div class="md:ml-7">
-				<a href={`/posts/${article.slug}`}>
-					<h3 class="title-small hover:text-primary">{article.title}</h3>
-					<span class="text-overline-small">
-						{article.date.toLocaleDateString('el-gr')} •
-					</span>
+
+<div class={cl}>
+	{
+		list.map((article) => (
+			<article class="mt-10 md:flex md:h-[263px] w-full items-center">
+				<a href={`/posts/${article.slug}`} class="md:h-full">
+					<OptimizedPicture
+						src={article.image}
+						class="object-cover w-full h-[250px] mb-4 md:w-[263px] md:h-full md:mb-0"
+						alt={article.title}
+					/>
+				</a>
+
+				<div class="md:ml-7">
+					<a href={`/posts/${article.slug}`}>
+						<h3 class="title-small hover:text-primary_bold">{article.title}</h3>
+					</a>
+					<a href={`/posts/${article.slug}`}>
+						<span class="text-overline-small">
+							{article.date.toLocaleDateString('el-gr')} •
+						</span>
+					</a>
 					{article.categories.map((c) => (
 						<a
 							href={'/categories/' + c.slug}
-							class="text-overline-small hover:text-primary mr-1"
+							class="text-overline-small hover:text-primary_bold mr-1"
 						>
 							{
 								c.name
@@ -45,15 +51,15 @@ let list = posts.map((p) => ({
 							}
 						</a>
 					))}
-				</a>
-				<p class="text-body-small mt-4"> {article.shortText} </p>
-				<a
-					class="block mt-6 text-button hover:text-primary"
-					href={`/posts/${article.slug}`}
-				>
-					Περισσότερα
-				</a>
-			</div>
-		</article>
-	))
-}
+					<p class="text-body-small mt-4"> {article.shortText} </p>
+					<a
+						class="block mt-6 text-button hover:underline underline-offset-4"
+						href={`/posts/${article.slug}`}
+					>
+						Περισσότερα
+					</a>
+				</div>
+			</article>
+		))
+	}
+</div>
