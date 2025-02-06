@@ -9,12 +9,6 @@ let {
 	data: { posts },
 } = await wordpress.getPosts(6, '', 'ανάλυση-κριτική-ταινιών');
 
-// let article = {
-// 	image: 'https://mpompina.files.wordpress.com/2022/06/maxresdefault-2.jpg',
-// 	title: 'Grandmother (1970) David Lynch',
-// 	link: 'https://www.google.com',
-// };
-
 let content = posts.map((p) => ({
 	image: p.featured_image,
 	title: parse(p.title).text,
