@@ -1,4 +1,5 @@
 ---
+import OptimizedPicture from './OptimizedPicture.astro';
 import { parse } from 'node-html-parser';
 import wordpress from '../wordpress';
 
@@ -8,29 +9,34 @@ let summary = wordpress.getExcerptFromPost(post, 120);
 ---
 
 <style>
-	article {
-		height: 520px;
+	.color_overlay {
+		background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
 	}
 </style>
-<article class={'group relative overflow-hidden' + ' ' + cl}>
+
+<article class={'group relative overflow-hidden content-stretch sm:content-normal sm:h-[420px] md:h-[520px]' + ' ' + cl}>
 	<a href={'/posts/' + post.slug}>
 		<div class="flex flex-col text-white h-full">
-			<h1 class="title-xlarge mt-7 pt-4 px-4">
+			<h1 class="title-medium md:title-xlarge mt-7 pt-4 px-4 mb-16 md:mb-0">
 				{parse(post.title).text}
 			</h1>
 			<div class="relative mt-auto z-0">
 				<div class="text-body-small px-3 pt-4 pb-6">
 					{summary}
-				</div><div
-					class="-z-[1] absolute bg-primary bg-opacity-70 transition-all top-0 right-0 left-0 h-full"
+				</div>
+				<div
+					class="-z-10 absolute bg-primary bg-opacity-70 transition-all top-0 right-0 left-0 h-full"
 				>
 				</div>
 			</div>
 		</div>
-		<div
-			style={`background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${post.featured_image})`}
-			class="bg-cover bg-center absolute top-0 w-full h-full -z-10 transition-all group-hover:scale-105"
-		>
-		</div>
+
+		<div class="color_overlay absolute top-0 left-0 w-full h-full -z-10"></div>
+		<OptimizedPicture
+			src={post.featured_image}
+			class="bg-cover bg-center absolute top-0 w-full h-full -z-20 transition-all group-hover:scale-105"
+			alt={post.title}
+			style='linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5))'
+		/>
 	</a>
 </article>
