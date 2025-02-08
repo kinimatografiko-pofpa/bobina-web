@@ -24,7 +24,7 @@ async function getPosts(max = 20, page_handle = '', category = '', tag = '', off
 			page_handle: page_handle,
 			category,
 			tag,
-			offset : offset,
+			offset,
 		},
 	});
 
