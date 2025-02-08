@@ -41,22 +41,27 @@ const footer_data = [
 ---
 
 <footer class="bg-black text-white pb-12 md:pb-28">
+	<!-- Divider -->
+	<div class="px-5 md:px-0">
+		<hr class="border-[#313131]" />
+	</div>
+
+	<!-- Footer on small screens -->
 	<div class="md:hidden px-5">
 		{
 			footer_data.map((f) => (
 				<Collapse>
 					<div slot="title" class="w-full">
 						<div class="flex justify-between items-center">
-							<h5 class="py-8 title-small text-left">
+							<h5 class="my-8 title-small text-left">
 								{f.title}
 							</h5>
 							<p>▼</p>
 						</div>
-						<hr class="border-[#313131]" />
 					</div>
 
 					<div slot="content">
-						<ul class="text-body-small">
+						<ul class="text-body-small mb-8">
 							{f.content.map((c) => (
 								<li class="py-2 block">
 									<a href={c.href}>{c.title}</a>
@@ -65,15 +70,15 @@ const footer_data = [
 						</ul>
 					</div>
 				</Collapse>
+				<hr class="border-[#313131]" />
 			))
 		}
-		<FooterSearch class="mt-8" />
+		<FooterSearch class="mt-8 max-w-[200px]" />
 	</div>
 
-	<hr class="hidden md:block border-[#313131]" />
-
+	<!-- Footer on large screens -->
 	<div
-		class="hidden md:flex justify-around max-w-[1200px] mx-auto px-5 pt-16 items-start"
+		class="hidden md:flex justify-between max-w-[1200px] mx-auto px-5 pt-16 items-start"
 	>
 		{
 			footer_data.map((f) => (

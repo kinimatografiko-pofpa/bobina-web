@@ -1,14 +1,39 @@
 ---
 const { class: cl } = Astro.props;
+
 ---
+
+<style>
+	#icon svg{
+		fill: white;
+	}
+	#input:focus + #icon svg{
+		@apply fill-primary_bold
+	}
+
+	#input:-webkit-autofill + #icon svg{
+		@apply fill-black;
+	}
+
+	#input:-webkit-autofill:focus + #icon svg{
+		@apply fill-primary_bold;
+	}
+</style>
 
 <div class={cl}>
 	<h5 class="mb-6 title-small">Αναζήτηση</h5>
-	<form action="/search" method="get">
+	<form action="/search" method="get" class="relative">
 		<input
-			placeholder="type something"
-			class="bg-black border-b border-white placeholder:text-gray-500"
+			placeholder="Αναζήτηση άρθρων"
+			class="bg-black pb-[3px] focus:pb-[2px] pt-[3px] border-b focus:border-b-2 border-white autofill:!border-black autofill:focus:!border-primary_bold focus:border-primary_bold  focus:outline-primary_bold placeholder:text-gray-500 pl-1 pr-[23px] text-body-small block w-full"
 			name="dev_mpompina[query]"
+			id="input"
 		/>
+		 
+		<div class="absolute top-[5px] bottom-0 right-[2px] flex" id="icon"> 
+			<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+				<path d="M13.1444 14L8.03056 8.88611C7.64167 9.22315 7.18796 9.48565 6.66944 9.67361C6.15093 9.86157 5.6 9.95555 5.01667 9.95555C3.61667 9.95555 2.43056 9.46944 1.45833 8.49722C0.486111 7.525 0 6.35185 0 4.97778C0 3.6037 0.486111 2.43056 1.45833 1.45833C2.43056 0.486111 3.61019 0 4.99722 0C6.3713 0 7.5412 0.486111 8.50694 1.45833C9.47269 2.43056 9.95556 3.6037 9.95556 4.97778C9.95556 5.53519 9.86481 6.07315 9.68333 6.59167C9.50185 7.11019 9.22963 7.5963 8.86667 8.05L14 13.1444L13.1444 14ZM4.99722 8.78889C6.04722 8.78889 6.94167 8.4162 7.68056 7.67083C8.41945 6.92546 8.78889 6.02778 8.78889 4.97778C8.78889 3.92778 8.41945 3.03009 7.68056 2.28472C6.94167 1.53935 6.04722 1.16667 4.99722 1.16667C3.93426 1.16667 3.03009 1.53935 2.28472 2.28472C1.53935 3.03009 1.16667 3.92778 1.16667 4.97778C1.16667 6.02778 1.53935 6.92546 2.28472 7.67083C3.03009 8.4162 3.93426 8.78889 4.99722 8.78889Z"/>
+			</svg>
+		</div>
 	</form>
 </div>

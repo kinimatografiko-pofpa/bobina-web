@@ -4,15 +4,17 @@ import wordpress from '../wordpress';
 let { data: categories } = await wordpress.getCategories();
 
 //script here
+const categories_filtered = categories.filter((category) => category.ID != wordpress.NO_CATEGORY);/* Remove 'uncategorized' category since it's not in use 
+Maybe we can remove it from wordpress itself*/
 const items = [
 	{
 		href: '/about',
 		text: 'Σχετικά',
 	},
 	{
-		href: '#',
+		href: null,
 		text: 'Κατηγορίες',
-		subitems: categories.map((c) => {
+		subitems: categories_filtered.map((c) => {
 			if (c.ID == wordpress.DEFAULT_CATEGORY) {
 				return {
 					text: 'Όλα τα άρθρα',
@@ -33,33 +35,44 @@ const items = [
 ---
 
 <style>
-	.dropdown {
+	.dropdown-menu {
 		top: 100%; /* 3px is the border size */
 		left: 0;
 		right: 0;
 		z-index: 100;
 	}
 
-	a:focus + .dropdown {
+	.dropdown.expand > .dropdown-menu  {
 		display: block;
 	}
 </style>
+
 <nav
-	class="flex justify-evenly md:justify-center mt-4 border-t-3 border-b-3 border-black text-center relative"
+	class="w-full mt-4 border-t-3 border-b-3 border-black text-center relative"
 >
+	<div class="inline-grid grid-flow-col auto-cols-fr mx-auto">
 	{
 		items.map((it) => {
-			return (
-				<div class="group px-5 md:px-10 py-2 min-h-full hover:bg-black hover:text-white focus-within:bg-black focus-within:text-white">
-					<a href={it.href} class="min-h-full title-small">
+			return (it.href != null ? (
+				// Link
+				<div class="min-h-full hover:bg-black hover:text-white">
+					<a href={it.href} class="min-h-full w-full title-small px-5 md:px-10 py-2 text-center mx-auto inline-block focus-visible:bg-black focus-visible:text-white">
 						{it.text}
 					</a>
+				</div>
+			) : (
+				// Dropdown menu
+				<div class="dropdown hover:bg-black hover:text-white  [&.expand]:bg-black [&.expand]:text-white">
+					<button class="dropdown-btn min-h-full w-full title-small px-5 md:px-10 py-2 focus-visible:bg-black focus-visible:text-white">
+						{it.text}
+					</button>
+
 					{it.subitems != null ? (
-						<div class="dropdown absolute hidden bg-white group-hover:block group-active:block text-black  border-t-3 border-black py-1 drop-shadow-3xl">
-							<ul>
+						<div class="dropdown-menu absolute hidden bg-white text-black  border-t-3 border-black py-1 drop-shadow-3xl w-full">
+							<ul class="inline-block">
 								{it.subitems.map((i) => (
-									<a class="hover:underline" href={i.href}>
-										<li class="py-3 title-small">
+									<a class="hover:underline mx-auto" href={i.href}>
+										<li class="py-3 title-small px-4">
 											{i.text}
 										</li>
 									</a>
@@ -70,7 +83,33 @@ const items = [
 						''
 					)}
 				</div>
+			)
 			);
 		})
 	}
+	</div>
 </nav>
+
+
+<script>
+	/* Dropdown Menu functionality */
+
+	var nav_items = Array.from(document.getElementsByClassName('dropdown'));
+
+	nav_items.forEach(function(dropdown) {
+		const button = dropdown.querySelector('.dropdown-btn');
+
+		// Dropdown expand button pressed - toggle dropdown menu
+		button.addEventListener('click', function () {
+	 		dropdown.classList.toggle("expand");
+	 	});
+
+		// Click is outside dropdown menu - close dropdown menu
+		document.addEventListener('click', function (event) {
+			if(dropdown.contains(event.target as HTMLElement)){
+				return;
+			}
+			dropdown.classList.remove("expand");
+		});
+	});
+</script>

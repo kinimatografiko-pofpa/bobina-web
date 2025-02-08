@@ -22,9 +22,12 @@
 		coll[i].addEventListener('click', function () {
 			this.classList.toggle('active');
 			var content = this.nextElementSibling;
+			// Close
 			if (content.style.maxHeight) {
 				content.style.maxHeight = null;
-			} else {
+			}
+			// Expand 
+			else {
 				content.style.maxHeight = content.scrollHeight + 'px';
 				setTimeout(
 					() =>
