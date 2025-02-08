@@ -7,7 +7,7 @@ import HeroSection from '../components/HeroSection.astro';
 import TitleSeparator from '../components/TitleSeparator.astro';
 import PlainArticleList from '../components/PlainArticleList.astro';
 import ArticleList from '../components/ArticleList.astro';
-import Card from '../components/Card.astro';
+import ScrollCards from '../components/ScrollCards.astro';
 import Carousel from '../components/Carousel.astro';
 import MainGrid from '../components/MainGrid.astro';
 import Footer from '../components/Footer.astro';
@@ -44,19 +44,10 @@ let {
 				<HeroSection />
 				<TitleSeparator title="Αφιερωματα" />
 			</div>
-			<!-- 'Afieromata' cards -->
-			<div
-				class="flex px-5 md:justify-between w-screen md:w-full mx-auto overflow-x-auto max-w-[1200px] pb-7"
-			>
-				{
-					afieromata.map((af) => (
-						<Card
-							post={af}
-							class="first:ml-0 last:mr-0 mx-3 shrink-0 w-[70vw] md:w-[60vw] lg:max-w-[360px] grow-0"
-						/>
-					))
-				}
-			</div>
+			<!-- 'Afieromata' scroll cards -->
+			<ScrollCards
+				posts={afieromata}
+			/>
 			<div class="px-5 max-w-[1200px] md:mx-auto">
 				<TitleSeparator title="Προσφατα" />
 				<div class="max-w-[750px]">
