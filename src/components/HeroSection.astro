@@ -5,10 +5,9 @@ import { parse } from 'node-html-parser';
 
 let {
 	data: { posts },
-} = await wordpress.getStickyPosts(1);
+} = await wordpress.getPosts(1);
 
 let post = posts[0];
-// console.log(post.categories);
 
 let post_categories = wordpress.getCategoriesFromPost(post);
 ---

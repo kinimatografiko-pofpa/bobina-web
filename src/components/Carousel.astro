@@ -97,17 +97,17 @@ let content = posts.map((p) => ({
 	<div class="glider">
 		{
 			content.map((art) => (
-				<div class="flex justify-items-center md:max-w-[360px] md:mx-2 self-start ">
+				<div class="flex justify-items-center md:max-w-[360px] md:mx-2 self-start group">
 					<div class="border-[#3D3D3D] border max-w-md">
 						<a class="glider-img overflow-hidden" href={art.link}>
 							<div class="overflow-hidden max-h-[350px] md:max-w-[360px] md:w-[360px] md:h-[300px]">
 								<OptimizedPicture
 									src={art.image}
 									alt={art.title}
-									class="transition-transform ease-in-out hover:scale-110 object-cover w-full h-full"
+									class="transition-transform ease-in-out group-hover:scale-110 object-cover w-full h-full"
 								/>
 							</div>
-							<h4 class="py-4 px-2 title-medium-2 hover:text-primary_bold">
+							<h4 class="py-4 px-2 title-medium-2 group-hover:text-primary_bold">
 								{art.title}
 							</h4>
 						</a>
