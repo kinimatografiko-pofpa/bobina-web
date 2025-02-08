@@ -91,20 +91,22 @@ const items = [
 </nav>
 
 
-<script define:vars={{categories}}>
+<script>
+	/* Dropdown Menu functionality */
+
 	var nav_items = Array.from(document.getElementsByClassName('dropdown'));
 
 	nav_items.forEach(function(dropdown) {
 		const button = dropdown.querySelector('.dropdown-btn');
 
-		// Dropdown button toggle
+		// Dropdown expand button pressed - toggle dropdown menu
 		button.addEventListener('click', function () {
 	 		dropdown.classList.toggle("expand");
 	 	});
 
-		// Click outside dropdown menu - close
+		// Click is outside dropdown menu - close dropdown menu
 		document.addEventListener('click', function (event) {
-			if(dropdown.contains(event.target)){
+			if(dropdown.contains(event.target as HTMLElement)){
 				return;
 			}
 			dropdown.classList.remove("expand");
