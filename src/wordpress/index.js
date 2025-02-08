@@ -13,9 +13,10 @@ const NO_CATEGORY = 1; //this is the ID of the "uncategorized" category on wordp
  * @param {String} [page_handle] used for pagination, the URL of the previous page //TODO: verfy that
  * @param {String} [category] the string of the category of the posts to filter by
  * @param {String} [tag] the string of the tag of the posts to filter by
+ * @param {Number} [offset] offset for first post to be retrieved
  * @returns {Object} {data: Object[], resp: Object} data is an array of posts, resp is the response object for whatever purposes
  */
-async function getPosts(max = 20, page_handle = '', category = '', tag = '') {
+async function getPosts(max = 20, page_handle = '', category = '', tag = '', offset=0) {
 	let resp = await axios({
 		url: siteUrl + '/posts',
 		method: 'GET',
@@ -24,6 +25,7 @@ async function getPosts(max = 20, page_handle = '', category = '', tag = '') {
 			page_handle: page_handle,
 			category,
 			tag,
+			offset,
 		},
 	});
 

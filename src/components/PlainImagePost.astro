@@ -13,19 +13,19 @@ const { title, image, href, categories, class: cl } = Astro.props;
 ---
 
 <article class={cl}>
-	<a href={href}>
-		<OptimizedPicture
-			src={image}
-			class="object-cover w-full md:h-[186px] h-[250px] overflow-hidden"
-			alt={title}
-		/>
-		<h6 class="title-small mt-2 hover:text-primary">{title}</h6>
+		<a href={href}>
+			<OptimizedPicture
+				src={image}
+				class="object-cover w-full md:h-[186px] h-[250px] overflow-hidden"
+				alt={title}
+			/>
+		</a>
+		<a href={href}><h6 class="title-small mt-2 hover:text-primary_bold">{title}</h6></a>
 		{
-			categories &&
 			categories.map((c) => (
 				<a
 					href={'/categories/' + c.slug}
-					class="text-overline-small hover:text-primary mr-1"
+					class="text-overline-small hover:text-primary_bold mr-1"
 				>
 					{
 						c.name
@@ -37,5 +37,4 @@ const { title, image, href, categories, class: cl } = Astro.props;
 				</a>
 			))
 		}
-	</a>
 </article>

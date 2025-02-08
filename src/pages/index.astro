@@ -58,13 +58,11 @@ let {
 			</div>
 			<div class="px-5 max-w-[1200px] md:mx-auto">
 				<TitleSeparator title="Προσφατα" />
-				<div class="max-w-[750px]">
-					<ArticleList posts={article_list_posts} />
-				</div>
+				<ArticleList class="max-w-[750px]" posts={article_list_posts} />
 			</div>
 			<section class="bg-black px-5 py-9 mt-14">
 				<div class="max-w-[1200px] md:mx-auto">
-					<h1 class="title-large font-medium text-primary">
+					<h1 class="title-large font-medium text-primary_bold">
 						Αναλύσεις / Κριτικές Ταινιών
 					</h1>
 					<Carousel />
@@ -120,7 +118,7 @@ let {
 						</p>
 						<a
 							href="https://kinimatografiko.gr"
-							class="text-button hover:text-primary"
+							class="text-button hover:text-primary_bold"
 							style="text-decoration: underline ; text-underline-offset: 4px;"
 							target="_blank"
 						>
