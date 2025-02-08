@@ -9,12 +9,6 @@ let {
 	data: { posts },
 } = await wordpress.getPosts(6, '', 'ανάλυση-κριτική-ταινιών');
 
-// let article = {
-// 	image: 'https://mpompina.files.wordpress.com/2022/06/maxresdefault-2.jpg',
-// 	title: 'Grandmother (1970) David Lynch',
-// 	link: 'https://www.google.com',
-// };
-
 let content = posts.map((p) => ({
 	image: p.featured_image,
 	title: parse(p.title).text,
@@ -103,7 +97,7 @@ let content = posts.map((p) => ({
 	<div class="glider">
 		{
 			content.map((art) => (
-				<div class="flex justify-items-center md:max-w-[360px] md:mx-2 self-start ">
+				<div class="flex justify-items-center md:max-w-[360px] md:mx-2 self-start">
 					<div class="border-[#3D3D3D] border max-w-md group">
 						<a class="glider-img overflow-hidden" href={art.link}>
 							<div class="overflow-hidden max-h-[350px] md:max-w-[360px] md:w-[360px] md:h-[300px]">
@@ -113,7 +107,7 @@ let content = posts.map((p) => ({
 									class="transition-transform ease-in-out group-hover:scale-110 object-cover w-full h-full"
 								/>
 							</div>
-							<h4 class="py-4 px-2 title-medium-2 group-hover:text-primary">
+							<h4 class="py-4 px-2 title-medium-2 group-hover:text-primary_bold">
 								{art.title}
 							</h4>
 						</a>

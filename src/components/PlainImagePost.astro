@@ -19,23 +19,22 @@ const { title, image, href, categories, class: cl } = Astro.props;
 			class="object-cover w-full md:h-[186px] h-[250px] overflow-hidden"
 			alt={title}
 		/>
-		<h6 class="title-small mt-2 hover:text-primary">{title}</h6>
-		{
-			categories &&
-			categories.map((c) => (
-				<a
-					href={'/categories/' + c.slug}
-					class="text-overline-small hover:text-primary mr-1"
-				>
-					{
-						c.name
-						.normalize('NFD')/*decompose accented characters into: character + diacritical mark*/
-						.replace(/[\u0300-\u036f]/g, "")/*remove diacritical marks from name*/
-						/*category names show without accent marks here even without removing them from the string - 
-						not sure why*/
-					}
-				</a>
-			))
-		}
 	</a>
+	<a href={href}><h6 class="title-small mt-3 md:mt-2 hover:text-primary_bold">{title}</h6></a>
+	{
+		categories.map((c) => (
+			<a
+				href={'/categories/' + c.slug}
+				class="text-overline-small hover:text-primary_bold mr-1"
+			>
+				{
+					c.name
+					.normalize('NFD')/*decompose accented characters into: character + diacritical mark*/
+					.replace(/[\u0300-\u036f]/g, "")/*remove diacritical marks from name*/
+					/*category names show without accent marks here even without removing them from the string - 
+					not sure why*/
+				}
+			</a>
+		))
+	}
 </article>

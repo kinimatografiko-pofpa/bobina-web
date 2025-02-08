@@ -5,6 +5,7 @@ const siteUrl =
 	'https://public-api.wordpress.com/rest/v1.1/sites/mpompina.wordpress.com';
 
 const DEFAULT_CATEGORY = 48775454; //this is the ID of the "default" category on wordpress
+const NO_CATEGORY = 1; //this is the ID of the "uncategorized" category on wordpress
 
 /**
  * Returns an array of posts from the API
@@ -12,9 +13,10 @@ const DEFAULT_CATEGORY = 48775454; //this is the ID of the "default" category on
  * @param {String} [page_handle] used for pagination, the URL of the previous page //TODO: verfy that
  * @param {String} [category] the string of the category of the posts to filter by
  * @param {String} [tag] the string of the tag of the posts to filter by
+ * @param {Number} [offset] offset for first post to be retrieved
  * @returns {Object} {data: Object[], resp: Object} data is an array of posts, resp is the response object for whatever purposes
  */
-async function getPosts(max = 20, page_handle = '', category = '', tag = '') {
+async function getPosts(max = 20, page_handle = '', category = '', tag = '', offset=0) {
 	let resp = await axios({
 		url: siteUrl + '/posts',
 		method: 'GET',
@@ -23,6 +25,7 @@ async function getPosts(max = 20, page_handle = '', category = '', tag = '') {
 			page_handle: page_handle,
 			category,
 			tag,
+			offset,
 		},
 	});
 
@@ -153,4 +156,5 @@ export default {
 	getCategoriesFromPost,
 	getExcerptFromPost,
 	DEFAULT_CATEGORY,
+	NO_CATEGORY,
 };

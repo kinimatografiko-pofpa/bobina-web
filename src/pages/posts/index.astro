@@ -3,6 +3,7 @@ import BasePage from '../../layouts/BasePage.astro';
 import PlainImagePost from '../../components/PlainImagePost.astro';
 
 import wordpress from '../../wordpress';
+import { parse } from 'node-html-parser';
 
 let {
 	data: { posts },
@@ -23,7 +24,7 @@ postsByYear.sort((a, b) => b.year - a.year);
 ---
 
 <BasePage title="Όλα τα άρθρα" permalink="/posts">
-	<div class="px-10 md:max-w-[1000px] mx-auto mb-24">
+	<div class="px-5 md:max-w-[1000px] mx-auto mb-24">
 		<h1 class="title-large text-center mb-14 mt-20">Όλα τα άρθρα</h1>
 		{
 			postsByYear.map((y) => (
@@ -34,7 +35,7 @@ postsByYear.sort((a, b) => b.year - a.year);
 					<div class="md:flex flex-wrap grow justify-start gap-x-5">
 						{y.posts.map((p) => (
 							<PlainImagePost
-								title={p.title}
+								title={parse(p.title).text}
 								image={p.featured_image}
 								href={'/posts/' + p.slug}
 								categories={wordpress.getCategoriesFromPost(p)}

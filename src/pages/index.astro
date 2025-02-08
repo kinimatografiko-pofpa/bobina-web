@@ -50,13 +50,11 @@ let {
 			/>
 			<div class="px-5 max-w-[1200px] md:mx-auto">
 				<TitleSeparator title="Προσφατα" />
-				<div class="max-w-[750px]">
-					<ArticleList posts={article_list_posts} />
-				</div>
+				<ArticleList class="max-w-[750px]" posts={article_list_posts} />
 			</div>
 			<section class="bg-black px-5 py-9 mt-14">
 				<div class="max-w-[1200px] md:mx-auto">
-					<h1 class="title-large font-medium text-primary">
+					<h1 class="title-large font-medium text-primary_bold">
 						Αναλύσεις / Κριτικές Ταινιών
 					</h1>
 					<Carousel />
@@ -102,24 +100,22 @@ let {
 						<source src="assets/video.webm" type="video/webm">
 						<source src="assets/video.mp4" type="video/mp4">
 					</video>
-					<div class="pl-10 pt-16 pb-20 text-white md:w-[40%]">
-						<div class="">
-							<h2 class="title-large md:max-w-[250px]" style="letter-spacing: initial">
-								Κινηματογραφικός Τομέας ΠΟΦΠΑ
-							</h2>
-							<p class="text-body mt-6 mb-10 paragraph">
-								Ο Κινηματογραφικός Τομέας του ΠΟΦΠΑ έχει σκοπό την καλλιέργεια της κινηματογραφικής παιδείας αλλά και την εμψύχωση για δημιουργία των μελών του. <br><br>
-								Σήμερα ο Κινηματογραφικός Τομέας έχει ένα πλήρες εβδομαδιαίο πρόγραμμα σεμιναρίων και προβολών σε φίλμ 35mm και βιντεοπροτζέκτορα, το οποίο καθημερινά βελτιώνεται και εμπλουτίζεται. Επίσης, παροτρύνει και υποστιρίζει τα μέλη του για τις κινηματογραφικές τους δημιουργίες.
-							</p>
-							<a
-								href="https://kinimatografiko.gr"
-								class="text-button hover:text-primary"
-								style="text-decoration: underline ; text-underline-offset: 4px;"
-								target="_blank"
-							>
-								Δείτε περισσότερα
-							</a>
-						</div>
+					<div class="px-5 md:px-0 md:pl-10 pt-16 pb-20 text-white md:w-[40%]">
+						<h2 class="title-large md:max-w-[250px]" style="letter-spacing: initial">
+							Κινηματογραφικός Τομέας ΠΟΦΠΑ
+						</h2>
+						<p class="text-body mt-6 mb-10 paragraph">
+							Ο Κινηματογραφικός Τομέας του ΠΟΦΠΑ έχει σκοπό την καλλιέργεια της κινηματογραφικής παιδείας αλλά και την εμψύχωση για δημιουργία των μελών του. <br><br>
+							Σήμερα ο Κινηματογραφικός Τομέας έχει ένα πλήρες εβδομαδιαίο πρόγραμμα σεμιναρίων και προβολών σε φίλμ 35mm και βιντεοπροτζέκτορα, το οποίο καθημερινά βελτιώνεται και εμπλουτίζεται. Επίσης, παροτρύνει και υποστιρίζει τα μέλη του για τις κινηματογραφικές τους δημιουργίες.
+						</p>
+						<a
+							href="https://kinimatografiko.gr"
+							class="text-button hover:text-primary_bold"
+							style="text-decoration: underline ; text-underline-offset: 4px;"
+							target="_blank"
+						>
+							Δείτε περισσότερα
+						</a>
 					</div>
 				</div>
 			</div>
