@@ -1,7 +1,7 @@
 ---
 import OptimizedPicture from './OptimizedPicture.astro';
 
-const { href, class: cl, img ,alt='', img_style, overlay_color='rgba(0, 0, 0, 0)',overlay_opacity='100%',overlay_filter=''} = Astro.props;
+const { href, class: cl, img ,alt='', img_style, overlay_color='rgba(0, 0, 0, 0)',overlay_opacity='100%',overlay_filter='',position} = Astro.props;
 ---
 
 <style
@@ -28,6 +28,7 @@ const { href, class: cl, img ,alt='', img_style, overlay_color='rgba(0, 0, 0, 0)
 		alt={alt}
 		class="group-hover:scale-110 transition grow object-cover"
 		style={img_style}
+		objectPosition={position}
 	/>
 	<div
 		class="absolute top-0 bottom-0 left-0 w-full h-full flex justify-center align-middle z-30"
