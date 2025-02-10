@@ -10,34 +10,42 @@
 </style>
 
 <button class='collapsible w-full'><slot name='title'></slot></button>
-<div class='content'>
+<div class='content hidden'>
 	<slot name='content'></slot>
 </div>
 
 <script>
-	var coll = document.getElementsByClassName('collapsible');
-	var i;
+	var coll = Array.from(document.getElementsByClassName('collapsible'));
 
-	for (i = 0; i < coll.length; i++) {
-		coll[i].addEventListener('click', function () {
-			this.classList.toggle('active');
-			var content = this.nextElementSibling;
+	coll.forEach(function(collapsible) {
+		var content = collapsible.nextElementSibling as HTMLElement;
+
+		collapsible.addEventListener('click', function () {
 			// Close
 			if (content.style.maxHeight) {
+				content.classList.remove('active'); 
 				content.style.maxHeight = null;
 			}
 			// Expand 
 			else {
+				content.classList.remove("hidden");
+				content.classList.add('active');
 				content.style.maxHeight = content.scrollHeight + 'px';
 				setTimeout(
 					() =>
 						content.scrollIntoView({
 							behavior: 'smooth',
-							block: 'end',
+							block: 'center',
 						}),
-					220
+					220,
 				);
 			}
 		});
-	}
+
+		content.addEventListener('transitionend' , function () {
+			if(!content.classList.contains('active')){
+				content.classList.add('hidden');
+			}
+		});
+	});
 </script>
