@@ -494,6 +494,8 @@ __metadata:
   resolution: "@example/blog@workspace:."
   dependencies:
     "@astrojs/tailwind": "npm:^5.1.5"
+    "@glidejs/glide": "npm:^3.7.1"
+    "@types/glidejs__glide": "npm:^3"
     algoliasearch: "npm:^4.14.2"
     astro: "npm:5.1.8"
     astro-imagetools: "npm:^0.9.0"
@@ -508,6 +510,13 @@ __metadata:
     typescript: "npm:^4.6.3"
   languageName: unknown
   linkType: soft
+
+"@glidejs/glide@npm:^3.7.1":
+  version: 3.7.1
+  resolution: "@glidejs/glide@npm:3.7.1"
+  checksum: 10c0/fd627fc80170abcb932bac7b72fe892330c0f2f6898acb4ee190ce3412ee1637083a4618b035a8e954935fb837c5588f8d2c22aa5392c1bf759bfff43ec27cda
+  languageName: node
+  linkType: hard
 
 "@img/sharp-darwin-arm64@npm:0.33.5":
   version: 0.33.5
@@ -1487,6 +1496,13 @@ __metadata:
   version: 1.0.0
   resolution: "@types/estree@npm:1.0.0"
   checksum: 10c0/4e73ff606bf7c7ccdaa66092de650c410a4ad2ecc388fdbed8242cac9dbcad72407e1ceff041b7da691babb02ff74ab885d6231fb09368fdd1eabbf1b5253d49
+  languageName: node
+  linkType: hard
+
+"@types/glidejs__glide@npm:^3":
+  version: 3.6.6
+  resolution: "@types/glidejs__glide@npm:3.6.6"
+  checksum: 10c0/e79be77eb2b34e04b7f78766a81cc6a1e3265512c4b1da64ef0b5657c47a663f63043c717b87adb1f95cd3e8badf32ed0b25e4d1061efff9f36fa63d198818e8
   languageName: node
   linkType: hard
 
