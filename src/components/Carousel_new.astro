@@ -37,8 +37,9 @@ let content = posts.map((p) => ({
             }
 	    }
     }).mount();
-
+    
     let glideDiv = document.getElementsByClassName('glide')[0] as HTMLElement;
+    // Move on horizontal mouse scroll
     glideDiv.addEventListener("wheel", (e) => {
         e.stopPropagation();
 
