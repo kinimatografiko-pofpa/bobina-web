@@ -5,6 +5,8 @@ import '@glidejs/glide/dist/css/glide.core.min.css';
 import wordpress from '../wordpress';
 import { parse } from 'node-html-parser';
 
+// TODO : fix some issues with scaling for 
+
 let {
 	data: { posts },
 } = await wordpress.getPosts(6, '', 'ανάλυση-κριτική-ταινιών');
@@ -17,15 +19,43 @@ let content = posts.map((p) => ({
 ---
 
 <script>
-    import Glide from '@glidejs/glide'
+    import Glide from '@glidejs/glide';
 
-    let glide = new Glide('.glide',{
+    const glideDiv = document.querySelector('.glide');
+
+    // Move on horizontal mouse scroll
+    glideDiv.addEventListener("wheel", (e:WheelEvent) => {
+        e.stopPropagation();
+
+        // Horizontal mousewheel movement
+        if (e.deltaX < 0) {
+            // left
+            glide.go("|<");
+        }
+        else if (e.deltaX > 0) {
+            // right
+            glide.go("|>");
+        }
+        else if (e.shiftKey){
+            // Shift + Scroll
+            if (e.deltaY < 0) {
+                // left
+                glide.go("|<");
+            }
+            else if (e.deltaY > 0) {
+                // right
+                glide.go("|>");
+            }
+        }
+    });
+
+    const glide = new Glide('.glide',{
         type: 'carousel',
         gap: 25,
+        perSwipe: '|',
+        animationDuration:500,
         // greater than lg - 3 slides
         perView: 3,
-        perSwipe: '|',
-        animationDuration:800,
         breakpoints: {
             // less than sm - 1 slide
             640: {
@@ -37,21 +67,6 @@ let content = posts.map((p) => ({
             }
 	    }
     }).mount();
-    
-    let glideDiv = document.getElementsByClassName('glide')[0] as HTMLElement;
-    // Move on horizontal mouse scroll
-    glideDiv.addEventListener("wheel", (e) => {
-        e.stopPropagation();
-
-        if (e.deltaX < 0) {
-            // left
-            glide.go("|<");
-        }
-        if (e.deltaX > 0) {
-            // right
-            glide.go("|>");
-        }
-    });
 </script>
 
 <style>
