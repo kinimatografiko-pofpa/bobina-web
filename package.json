@@ -21,7 +21,6 @@
 		"algoliasearch": "^4.14.2",
 		"astro-imagetools": "^0.9.0",
 		"axios": "^0.27.2",
-		"glider-js": "^1.7.7",
 		"instantsearch.js": "^4.44.0",
 		"node-html-parser": "^5.3.3",
 		"tailwindcss": "^3.4.17",
