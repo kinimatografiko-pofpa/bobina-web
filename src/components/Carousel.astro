@@ -1,7 +1,7 @@
 ---
 import OptimizedPicture from './OptimizedPicture.astro';
 
-import 'glider-js/glider.min.css';
+import '@glidejs/glide/dist/css/glide.core.min.css';
 import wordpress from '../wordpress';
 import { parse } from 'node-html-parser';
 
@@ -17,104 +17,174 @@ let content = posts.map((p) => ({
 ---
 
 <script>
-	import glider from 'glider-js';
-	new glider(document.querySelector('.glider'), {
-		// Mobile-first defaults
-		dots: document.querySelector('#dots'),
-		scrollLock: true,
-		itemWidth: 360,
-		slidesToShow: 1,
-		responsive: [
-			{
-				// screens greater than >= 775px
-				breakpoint: 775,
-				settings: {
-					slidesToShow: 2,
-					slidesToScroll: 2,
-				},
-			},
-			{
-				// screens greater than >= 1200px
-				breakpoint: 1200,
-				settings: {
-					slidesToShow: 3,
-					slidesToScroll: 3,
-				},
-			},
-		],
-	});
+    import Glide from '@glidejs/glide';
+    
+    function throttle(mainFunction, delay) {
+        /* https://dev.to/jeetvora331/throttling-in-javascript-easiest-explanation-1081 */
+        let timerFlag = null; // Variable to keep track of the timer
+
+        // Returning a throttled version 
+        return (...args) => {
+            if (timerFlag === null) { // If there is no timer currently running
+                mainFunction(...args); // Execute the main function 
+                timerFlag = setTimeout(() => { // Set a timer to clear the timerFlag after the specified delay
+                    timerFlag = null; // Clear the timerFlag to allow the main function to be executed again
+                }, delay);
+            }
+        };
+    }
+
+    const glideDiv = document.querySelector('.glide');
+
+    // Move on horizontal mouse scroll
+    glideDiv.addEventListener("wheel", throttle((e:WheelEvent) => {
+        e.stopPropagation();
+
+        // Horizontal mousewheel movement
+        if (e.deltaX < 0) {
+            // left
+            glide.go("|<");
+        }
+        else if (e.deltaX > 0) {
+            // right
+            glide.go("|>");
+        }
+        else if (e.shiftKey){
+            // Shift + Scroll
+            if (e.deltaY < 0) {
+                // left
+                glide.go("|<");
+            }
+            else if (e.deltaY > 0) {
+                // right
+                glide.go("|>");
+            }
+        }
+    },100),{passive: true});
+
+    var BreakpointChangeActive = function (Glide, Components, Events){
+        return{
+            mount() {
+                // Change active dot to nearest visible when window resizes
+                // To avoid having active dot that isn't visible thus breaking the carousel alignment
+                // TODO: find a way to make transition to new slide instant , right now it is dependent on glide.animationDuration
+                let breakpoint = window.matchMedia('(max-width: 640px)').matches && 0 || window.matchMedia('(max-width: 1024px)').matches && 1 || 2;
+                window.addEventListener("resize", throttle(() => {
+                    if (window.matchMedia('(max-width: 640px)').matches && breakpoint!=0) {
+                        //1 slide per page
+                        breakpoint=0;
+                    } 
+                    else if(window.matchMedia('(max-width: 1024px)').matches && breakpoint!=1) {
+                        //2 slides per page
+                        breakpoint=1;
+                        Glide.go(`=${Glide.index-(Glide.index%2)}`);
+                    }
+                    else if(window.matchMedia('(min-width: 1024px)').matches && breakpoint!=2){
+                        // 3 slides per page
+                        breakpoint=2;
+                        Glide.go(`=${Glide.index-(Glide.index%3)}`);
+                    }
+                },50));
+            }
+        }
+    }
+
+    // TODO: Find a way to make carousel dot change to active color at the start of the transition
+    // Right now it changes at the end of the slide transition and it looks kind of weird 
+    const glide = new Glide('.glide',{
+        type: 'carousel',
+        gap: 25,
+        perSwipe: '|',
+        animationDuration:500,
+        // greater than lg - 3 slides
+        perView: 3,
+        breakpoints: {
+            // less than sm - 1 slide
+            640: {
+                perView: 1 
+		    },
+            // less than lg - 2 slides 
+            1024: {
+                perView: 2
+            }
+	    }
+    }).mount({BreakpointChangeActive});
 </script>
 
-<style is:inline>
-	.glider-dots {
-		margin: inherit;
-	}
-	.glider-dot {
-		width: 24px;
-		height: 8px;
-		border-radius: 0px;
-		background-color: white;
-	}
-
-	.glider-dot.active {
+<style>
+    @media (width < 40rem) {
+        .glide__bullet{
+            width:24px
+        }
+    }
+    /* sm */
+    @media (width >= 40rem) {
+        .glide__bullet{
+            width:40px
+        }
+    }
+    /* lg */
+    @media (width >= 64rem) {
+        .glide__bullet{
+            width:50px
+        }
+    }
+    .glide__bullet {
+        height: 8px;
+        border-radius: 0px;
+        background-color: white;
+    }
+    .glide__bullet--active {
 		background-color: #b5465a;
-	}
-	.glider-track,
-	.glider {
-		scrollbar-width: none;
-	}
-
-	@-moz-document url-prefix() {
-		.glider-track {
-			margin-bottom: 17px;
-		}
-		.glider-wrap {
-			overflow: hidden;
-		}
-	}
-
-	.glider-track {
-		padding: 0;
-		margin: 0;
-	}
-
-	@media only screen and (min-width: 777px) {
-		.glider-dot {
-			width: 50px;
-			height: 8px;
-			border-radius: 0px;
-			background-color: white;
-		}
-
-		.glider-track {
-			display: flex;
-			justify-content: space-between;
-		}
 	}
 </style>
 
-<div class="glider-wrap bg-black text-white mt-8">
-	<div class="glider">
-		{
-			content.map((art) => (
-				<div class="flex justify-items-center md:max-w-[360px] md:mx-2 self-start">
-					<div class="border-[#3D3D3D] border max-w-md group">
-						<a class="glider-img overflow-hidden" href={art.link}>
-							<div class="overflow-hidden max-h-[350px] md:max-w-[360px] md:w-[360px] md:h-[300px]">
-								<OptimizedPicture
-									src={art.image}
-									alt={art.title}
-									class="transition-transform ease-in-out group-hover:scale-110 object-cover w-full h-full"
-								/>
-							</div>
-							<h4 class="py-4 px-2 title-medium-2 group-hover:text-primary_bold">
-								{art.title}
-							</h4>
-						</a>
-					</div>
-				</div>
-			))
-		}
-	</div>
-	<div role="tablist" id="dots" class="mt-14"></div>
+<div class="glide bg-black text-white mt-8">
+    <div class="glide__track" data-glide-el="track">
+        <div class="glide__slides">
+            {
+                content.map((art) => (
+                    <div class="border-[#3D3D3D] border group glide__slide w-full">
+                        <a class="glider-img overflow-hidden" href={art.link}>
+                            <div class="overflow-hidden h-[300px]">
+                                <OptimizedPicture
+                                    src={art.image}
+                                    alt={art.title}
+                                    class="transition-transform ease-in-out group-hover:scale-110 object-cover w-full h-full"
+                                />
+                            </div>
+                            <h4 class="py-4 px-2 title-medium-2 group-hover:text-primary_bold">
+                                {art.title}
+                            </h4>
+                        </a>
+                    </div>
+                ))
+            }
+        </div>
+    </div>
+
+    <div class="glide__bullets gap-4 mt-14 justify-center flex sm:hidden" data-glide-el="controls[nav]">
+        <button class="glide__bullet" data-glide-dir="=0"></button>
+        <button class="glide__bullet" data-glide-dir="=1"></button>
+        <button class="glide__bullet" data-glide-dir="=2"></button>
+        <button class="glide__bullet" data-glide-dir="=3"></button>
+        <button class="glide__bullet" data-glide-dir="=4"></button>
+        <button class="glide__bullet" data-glide-dir="=5"></button>
+    </div>
+    <div class="glide__bullets gap-4 mt-14 justify-center hidden sm:flex lg:hidden" data-glide-el="controls[nav]">
+        <button class="glide__bullet" data-glide-dir="=0"></button>
+        <button class="glide__bullet hidden" data-glide-dir="=1"></button>
+        <button class="glide__bullet" data-glide-dir="=2"></button>
+        <button class="glide__bullet hidden" data-glide-dir="=3"></button>
+        <button class="glide__bullet" data-glide-dir="=4"></button>
+        <button class="glide__bullet hidden" data-glide-dir="=5"></button>
+    </div>
+    <div class="glide__bullets gap-4 mt-14 justify-center hidden lg:flex" data-glide-el="controls[nav]">
+        <button class="glide__bullet" data-glide-dir="=0"></button>
+        <button class="glide__bullet hidden" data-glide-dir="=1"></button>
+        <button class="glide__bullet hidden" data-glide-dir="=2"></button>
+        <button class="glide__bullet" data-glide-dir="=3"></button>
+        <button class="glide__bullet hidden" data-glide-dir="=4"></button>
+        <button class="glide__bullet hidden" data-glide-dir="=5"></button>
+    </div>
 </div>
