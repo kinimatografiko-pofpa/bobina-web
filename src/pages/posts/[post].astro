@@ -24,8 +24,7 @@ export async function getStaticPaths() {
 }
 
 const post = Astro.props.post_obj;
-// const img = Object.values(post.attachments)[0]?.URL;
-const img = post.featured_image;
+const img = wordpress.getFeaturedImage(post);
 const content = {
 	title: parse(post.title).text,
 	description: wordpress.getExcerptFromPost(post),
@@ -38,8 +37,6 @@ const content = {
 	slug: post.slug,
 	tags: post.tags,
 };
-
-// console.log(post.content)
 ---
 
 <BasePage
@@ -52,9 +49,16 @@ const content = {
 		author={content.author}
 		tags={content.tags}
 		publishDate={content.publishDate}
-		heroImage={content.heroImage}
+		featuredImage={content.heroImage}
 		alt={content.alt}
 		text={content.text}
 		id={content.id}
 	/>
 </BasePage>
+
+
+<script define:vars={{post}}>
+	console.log(post.ID);
+
+	console.log(post.attachments);
+</script>

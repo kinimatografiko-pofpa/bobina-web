@@ -36,7 +36,7 @@ postsByYear.sort((a, b) => b.year - a.year);
 						{y.posts.map((p) => (
 							<PlainImagePost
 								title={parse(p.title).text}
-								image={p.featured_image}
+								image={wordpress.getFeaturedImage(p)}
 								href={'/posts/' + p.slug}
 								categories={wordpress.getCategoriesFromPost(p)}
 								class="md:w-[calc((100%-2.5rem)/2)] lg:w-[calc((100%-2.5rem)/3)] mb-14"

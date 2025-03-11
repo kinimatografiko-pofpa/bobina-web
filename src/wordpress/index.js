@@ -147,6 +147,21 @@ function getExcerptFromPost(post, max_chars) {
 	return exc;
 }
 
+/**
+ * Gets a preview image from the post incase there is no featured image
+ * @param {Object} post
+ * @returns {string} string with the url of the image
+ */
+function getFeaturedImage(post) {
+	if(post.featured_image){
+		return post.featured_image;
+	}
+	else if(Object.values(post.attachments).length>0 && Object.values(post.attachments)[0].mime_type.startsWith('image/')){
+		return Object.values(post.attachments)[0].URL;
+	}
+	return '';
+}
+
 export default {
 	getPosts,
 	getStickyPosts,
@@ -155,6 +170,7 @@ export default {
 	getCategories,
 	getCategoriesFromPost,
 	getExcerptFromPost,
+	getFeaturedImage,
 	DEFAULT_CATEGORY,
 	NO_CATEGORY,
 };
