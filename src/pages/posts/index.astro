@@ -3,11 +3,13 @@ import BasePage from '../../layouts/BasePage.astro';
 import PlainImagePost from '../../components/PlainImagePost.astro';
 
 import wordpress from '../../wordpress';
+import { getCollection } from 'astro:content';
 import { parse } from 'node-html-parser';
 
-let {
-	data: { posts },
-} = await wordpress.getPosts(100);
+let posts = await getCollection('posts');
+posts = posts.map((p) => {
+	return p.data;
+});
 
 //group posts by year
 let postsByYear = {};
@@ -36,7 +38,7 @@ postsByYear.sort((a, b) => b.year - a.year);
 						{y.posts.map((p) => (
 							<PlainImagePost
 								title={parse(p.title).text}
-								image={wordpress.getFeaturedImage(p)}
+								image={p.featured_image}
 								href={'/posts/' + p.slug}
 								categories={wordpress.getCategoriesFromPost(p)}
 								class="md:w-[calc((100%-2.5rem)/2)] lg:w-[calc((100%-2.5rem)/3)] mb-14"

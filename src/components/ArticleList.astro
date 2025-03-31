@@ -11,7 +11,7 @@ let list = posts.map((p) => ({
 	date: new Date(p.date),
 	categories: wordpress.getCategoriesFromPost(p),
 	shortText: wordpress.getExcerptFromPost(p, 275),
-	image: wordpress.getFeaturedImage(p),
+	image: p.featured_image,
 	id: p.ID,
 	slug: p.slug,
 }));

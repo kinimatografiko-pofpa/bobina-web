@@ -5,26 +5,26 @@ import BlogPost from '../../components/BlogPost.astro';
 import { parse } from 'node-html-parser';
 
 import wordpress from '../../wordpress';
+import { getCollection } from 'astro:content';
 
 // categorize posts using the slug since slugs are guaranteed unique by wordpress
 // this generates prettier urls and makes it easier to find posts
 export async function getStaticPaths() {
-	const {
-		data: { posts },
-	} = await wordpress.getPosts(100);
+	const collection = await getCollection('posts');
+  	if (!collection) return [];
 
-	return posts.map((p) => ({
+	return collection.map((p) => ({
 		params: {
-			post: decodeURI(p.slug),
+			post: decodeURI(p.id),
 		},
 		props: {
-			post_obj: p,
+			post_obj: p.data,
 		},
 	}));
 }
 
 const post = Astro.props.post_obj;
-const img = wordpress.getFeaturedImage(post);
+const img = post.featured_image;
 const content = {
 	title: parse(post.title).text,
 	description: wordpress.getExcerptFromPost(post),

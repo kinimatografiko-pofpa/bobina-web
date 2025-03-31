@@ -156,7 +156,7 @@ function getFeaturedImage(post) {
 	if(post.featured_image){
 		return post.featured_image;
 	}
-	else if(Object.values(post.attachments).length>0 && Object.values(post.attachments)[0].mime_type.startsWith('image/')){
+	else if(post.attachment_count>0 && Object.values(post.attachments)[0].mime_type.startsWith('image/')){
 		return Object.values(post.attachments)[0].URL;
 	}
 	return '';

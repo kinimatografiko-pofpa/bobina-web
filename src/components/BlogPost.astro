@@ -9,7 +9,7 @@ import BlogPicture from './BlogPicture.astro';
 import PlainImagePost from './PlainImagePost.astro';
 import OptimizedPicture from './OptimizedPicture.astro';
 import { parse } from 'node-html-parser';
-import axios from 'axios';
+import { getCollection } from 'astro:content';
 
 export interface Props {
 	title: string;
@@ -24,7 +24,14 @@ export interface Props {
 
 const { title, author, tags, publishDate, featuredImage, alt, text, id } = Astro.props;
 
-const parsed_post = parse(text);
+const parsed_post = parse(text,{
+	blockTextElements: {
+		script: false,		// keep text content when parsing
+		noscript: false,	// keep text content when parsing
+		style: false,		// keep text content when parsing
+		pre: false			// keep text content when parsing
+ 	}
+});
 
 function parseStyleAttribute(style_string) {
     const parsed_styles = {};
@@ -50,53 +57,31 @@ function addIframeClasses(node) {
 	node.classList.add('w-full');
 }
 
+// Get reccomended posts
+// Gets 4 random posts
+let posts = await getCollection('posts',({ data }) => {
+  return data.ID !== id;
+});
+posts = posts.map((p)=>{
+	return p.data;
+});
 let recommended = [];
-
-try {
-	let resp = await axios(
-		'http://N33J498LJ3-dsn.algolia.net/1/indexes/*/recommendations',
-		{
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-				'X-Algolia-Api-Key': import.meta.env.ALGOLIA_KEY,
-				'X-Algolia-Application-ID': import.meta.env.ALGOLIA_APPLICATION,
-			},
-			data: {
-				requests: [
-					{
-						indexName: 'dev_mpompina',
-						model: 'related-products',
-						objectID: id.toString(),
-						threshold: 0,
-						maxRecommendations: 4,
-					},
-				],
-			},
-		}
-	);
-
-	let rec = resp.data;
-	recommended = rec?.results?.[0]?.hits?.map((r) => ({
-		title: r.title,
-		id: r.objectID,
-		slug: r.slug,
-		image: r.image,
-	}));
-} catch (error) {
-	console.error(error);
+for (var i = 0; i <= 3; i++) {
+	var index = Math.floor(Math.random() * posts.length);
+	recommended.push({
+		title: posts[index].title,
+ 		id: posts[index].ID,
+ 		slug: posts[index].slug,
+ 		image: posts[index].featured_image,
+	});
+	posts.splice(index, 1);
 }
-
 // recommended = [
 // 	{
-// 		title: 'Ιαπωνικός Κινηματογράφος: ‘‘Like grains of sand’’',
-// 		image: 'https://mpompina.files.wordpress.com/2022/06/maxresdefault-2.jpg',
-// 		id: '1630',
-// 	},
-// 	{
-// 		title: 'Ιαπωνικός Κινηματογράφος: ‘‘Like grains of sand’’',
-// 		image: 'https://mpompina.files.wordpress.com/2022/06/maxresdefault-2.jpg',
-// 		id: '1630',
+// 		title: ,
+// 		id: ,
+// 		slug:
+// 		image:,
 // 	},
 // ];
 
@@ -151,10 +136,10 @@ let processed_post = parsed_post.childNodes.map((v) => {
 
 	let images = v.querySelectorAll('img');
 	if (images.length > 0) {
-		// images.forEach(function(image) {
-		// 	v.removeChild(image);
-		// 	v.insertAdjacentHTML('afterend',image);
-		// });
+		images.forEach(function(image) {
+			image.classList.add('my-4');
+			image.classList.add('mx-auto');
+		});
 	}
 
 	return v;
@@ -205,7 +190,7 @@ let processed_post = parsed_post.childNodes.map((v) => {
 					new Date(publishDate).toLocaleDateString('el-gr')
 				}
 			</p>
-			<!-- TODO share buttons ? -->
+			<!-- TODO : add share buttons ? -->
 			<!-- Tags -->
 			<p class="md:max-w-[750px] mx-auto text-body mt-2">
 				<span class="mr-1" style="font-weight: 400">TAGS</span>
@@ -219,7 +204,7 @@ let processed_post = parsed_post.childNodes.map((v) => {
 				}
 			</p>
 
-			<!-- Reccomended -->
+			<!-- Reccomended posts -->
 			<div class="md:max-w-[1140px] mx-auto">
 				<h5 class="mt-14 mb-10 title-medium md:text-center">
 					Διαβάστε ακόμα
@@ -233,7 +218,7 @@ let processed_post = parsed_post.childNodes.map((v) => {
 									title={parse(r.title).text}
 									image={r.image}
 									href={'/posts/' + r.slug}
-									class="mb-5 md:mx-2 md:max-w-[25%]"
+									class="mb-5 md:mx-2 md:w-[25%]"
 								/>
 							);
 						})

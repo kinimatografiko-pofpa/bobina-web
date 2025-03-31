@@ -4,7 +4,11 @@ import OptimizedPicture from './OptimizedPicture.astro';
 import '@glidejs/glide/dist/css/glide.core.min.css';
 import wordpress from '../wordpress';
 import { parse } from 'node-html-parser';
+import { getCollection } from 'astro:content';
 
+// const posts = await getCollection('posts',({ data }) => {
+//   return data.categories !== true;
+// });
 let {
 	data: { posts },
 } = await wordpress.getPosts(6, '', 'ανάλυση-κριτική-ταινιών');

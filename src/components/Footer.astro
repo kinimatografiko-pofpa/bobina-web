@@ -2,25 +2,21 @@
 import Collapse from './Collapse.astro';
 import FooterSearch from './FooterSearch.astro';
 
-import wordpress from '../wordpress';
+import { getCollection } from 'astro:content';
 
-let { data: categories } = await wordpress.getCategories();
-
+let categories = await getCollection('categories');
 categories = categories.map((c) => {
-	if (c.ID == wordpress.DEFAULT_CATEGORY) {
-		return {
-			title: 'Όλα τα άρθρα',
-			href: '/posts',
-		};
-	}
-	return {
-		title: c.name,
-		href: '/categories/' + c.slug,
-	};
+	return c.data;
 });
 
 const footer_data = [
-	{ title: 'Κατηγορίες', content: categories },
+	{ 
+		title: 'Κατηγορίες', 
+		content: categories.map((c) => ({
+			title: c.name,
+			href: c.href,
+		})),
+	},
 	{
 		title: 'Το Περιοδικό',
 		content: [
