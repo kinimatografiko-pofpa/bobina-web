@@ -21,18 +21,14 @@ const { class: cl } = Astro.props;
 
 <div class={cl}>
 	<h5 class="mb-6 title-small">Αναζήτηση</h5>
-	<form method="get" target="_blank" class="relative" id="searchForm">
+	<form class="relative" id="searchForm">
 		<input
 			placeholder="Αναζήτηση άρθρων"
 			class="bg-black pb-[3px] focus:pb-[2px] pt-[3px] border-b focus:border-b-2 border-white autofill:!border-black autofill:focus:!border-primary_bold focus:border-primary_bold focus:outline-primary_bold placeholder:text-gray-500 pl-1 pr-[23px] text-body-small block w-full"
 			id="queryInput"
-			oninput="searchGoogle()"
 		/>
 
-		<button
-			type="submit"
-			class="absolute top-[5px] bottom-0 right-[2px] flex bg-transparent border-none cursor-pointer"
-		>
+		<div class="absolute top-[5px] bottom-0 right-[2px] flex" id="icon">
 			<svg
 				width="16"
 				height="16"
@@ -44,21 +40,23 @@ const { class: cl } = Astro.props;
 				>
 				</path>
 			</svg>
-		</button>
+		</div>
 	</form>
 	<script is:inline>
 		function searchGoogle(e) {
-			// e.preventDefault(); // Prevent the default form submission
+			e.preventDefault(); // Prevent the default form submission
 			console.log('ASDAS');
-			let form = document.getElementById('searchForm');
 			let query = document.getElementById('queryInput').value;
-			if (form) {
-				let url = `https://www.google.com/search?q=site:${window.location.origin}+${encodeURIComponent(query)}`;
-				form.setAttribute('action', url);
-			}
+			console.log('VALUE', query);
+			// if (query) {
+			let url = `https://www.google.com/search?q=site:${window.location.origin}+${encodeURIComponent(query)}`;
+			window.open(url, '_blank');
+			// }
 		}
-		// document
-		// 	.getElementById('queryInput')
-		// 	.addEventListener('input', searchGoogle);
+		document.addEventListener('DOMContentLoaded', function () {
+			document
+				.getElementById('searchForm')
+				.addEventListener('submit', searchGoogle);
+		});
 	</script>
 </div>
