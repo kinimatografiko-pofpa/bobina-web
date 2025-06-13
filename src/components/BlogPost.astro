@@ -10,6 +10,7 @@ import PlainImagePost from './PlainImagePost.astro';
 import OptimizedPicture from './OptimizedPicture.astro';
 import { parse } from 'node-html-parser';
 import { getCollection } from 'astro:content';
+import wordpress from '../wordpress';
 
 export interface Props {
 	title: string;
@@ -20,9 +21,10 @@ export interface Props {
 	text: string;
 	tags: {name:string , slug:string}[];
 	id: number;
+	categories: {ID:number}[];
 }
 
-const { title, author, tags, publishDate, featuredImage, alt, text, id } = Astro.props;
+const { title, author, tags, publishDate, featuredImage, alt, text, id , categories } = Astro.props;
 
 const parsed_post = parse(text,{
 	blockTextElements: {
@@ -58,15 +60,23 @@ function addIframeClasses(node) {
 }
 
 // Get reccomended posts
-// Gets 4 random posts
+// Gets 4 random posts that have common categories with the post
 let posts = await getCollection('posts',({ data }) => {
-  return data.ID !== id;
+	if(data.ID === id) return false; //Exclude self
+
+	//Check if candidate post has at least one common category with post
+	const post_categories = wordpress.getCategoriesFromPost(data);
+	return categories.some(category => {
+		if(post_categories.some((post_category) => post_category.ID === category.ID)) return true;
+		return false;
+	});
 });
 posts = posts.map((p)=>{
 	return p.data;
 });
+let posts_number=posts.length; 
 let recommended = [];
-for (var i = 0; i <= 3; i++) {
+for (var i = 0; i <= 3 && i+1<=posts_number; i++) {
 	var index = Math.floor(Math.random() * posts.length);
 	recommended.push({
 		title: posts[index].title,
@@ -76,14 +86,6 @@ for (var i = 0; i <= 3; i++) {
 	});
 	posts.splice(index, 1);
 }
-// recommended = [
-// 	{
-// 		title: ,
-// 		id: ,
-// 		slug:
-// 		image:,
-// 	},
-// ];
 
 // Set first image in post as the hero image
 let first_image = parsed_post.querySelector('img');
@@ -205,26 +207,28 @@ let processed_post = parsed_post.childNodes.map((v) => {
 			</p>
 
 			<!-- Reccomended posts -->
-			<div class="md:max-w-[1140px] mx-auto">
-				<h5 class="mt-14 mb-10 title-medium md:text-center">
-					Διαβάστε ακόμα
-				</h5>
-				<div class="md:flex md:justify-center">
-					{
-						recommended &&
-						recommended.map((r) => {
-							return (
-								<PlainImagePost
-									title={parse(r.title).text}
-									image={r.image}
-									href={'/posts/' + r.slug}
-									class="mb-5 md:mx-2 md:w-[25%]"
-								/>
-							);
-						})
-					}
+			{recommended.length>0 &&
+				<div class="md:max-w-[1200px] mx-auto">
+					<h5 class="mt-14 mb-10 title-medium md:text-center">
+						Διαβάστε ακόμα
+					</h5>
+					<div class="flex justify-center gap-x-5 gap-y-5 flex-wrap">
+						{
+							recommended &&
+							recommended.map((r) => {
+								return (
+									<PlainImagePost
+										title={parse(r.title).text}
+										image={r.image}
+										href={'/posts/' + r.slug}
+										class="md:w-[calc((100%-3.75rem)/4)] sm:w-[calc((100%-1.25rem)/2)] w-full"
+									/>
+								);
+							})
+						}
+					</div>
 				</div>
-			</div>
+			}
 		</div>
 	</article>
 </div>

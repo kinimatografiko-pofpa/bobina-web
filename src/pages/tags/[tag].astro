@@ -21,6 +21,10 @@ const tag = Astro.props.tag;
 let {
 	data: { posts },
 } = await wordpress.getPosts(100, '', '', tag.slug);
+posts.map((p) => ({
+	...p,
+    featured_image: wordpress.getFeaturedImage(p),
+}));
 ---
 
 <BasePage

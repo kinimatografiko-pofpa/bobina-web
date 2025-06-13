@@ -23,9 +23,13 @@ export async function getStaticPaths() {
 
 const category = Astro.props.category;
 
-let {
-	data: { posts },
-} = await wordpress.getPosts(100, '', category.slug);
+let posts = await getCollection('posts',({ data }) => {
+	const post_categories = wordpress.getCategoriesFromPost(data);
+	return post_categories.some((post_category) => post_category.ID === category.ID);
+});
+posts = posts.map((p)=>{
+	return p.data;
+});
 ---
 
 <BasePage
