@@ -15,12 +15,18 @@ const items = [
 	{
 		href: null,
 		text: 'Κατηγορίες',
-		subitems: categories.map((c) => (
-			{
-				text: c.name,
-				href: c.href,
+		subitems: categories.map((c) => {
+			if (c.ID == wordpress.DEFAULT_CATEGORY) {
+				return {
+					text: 'Όλα τα άρθρα',
+					href: '/posts',
+				};
 			}
-		)),
+			return {
+				text: c.name,
+				href: '/categories/' + c.slug,
+			};
+		}),
 	},
 	{
 		href: '/contact',

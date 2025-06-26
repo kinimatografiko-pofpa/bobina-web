@@ -42,18 +42,9 @@ const categories = defineCollection({
         Maybe we can remove it from wordpress itself*/
 
         return categories_filtered.map((c) => {
-            if (c.ID == wordpress.DEFAULT_CATEGORY) {
-                return {
-                    id: c.slug,
-                    ...c,
-                    name: 'Όλα τα άρθρα',
-                    href: '/posts',
-                };
-            }
             return {
                 id: c.slug,
                 ...c,
-                href: '/categories/' + c.slug,
             };
         });
     },
