@@ -19,37 +19,47 @@ export interface Props {
 	featuredImage: string;
 	alt: string;
 	text: string;
-	tags: {name:string , slug:string}[];
+	tags: { name: string; slug: string }[];
 	id: number;
-	categories: {ID:number}[];
+	categories: { ID: number }[];
 }
 
-const { title, author, tags, publishDate, featuredImage, alt, text, id , categories } = Astro.props;
+const {
+	title,
+	author,
+	tags,
+	publishDate,
+	featuredImage,
+	alt,
+	text,
+	id,
+	categories,
+} = Astro.props;
 
-const parsed_post = parse(text,{
+const parsed_post = parse(text, {
 	blockTextElements: {
-		script: false,		// keep text content when parsing
-		noscript: false,	// keep text content when parsing
-		style: false,		// keep text content when parsing
-		pre: false			// keep text content when parsing
- 	}
+		script: false, // keep text content when parsing
+		noscript: false, // keep text content when parsing
+		style: false, // keep text content when parsing
+		pre: false, // keep text content when parsing
+	},
 });
 
 function parseStyleAttribute(style_string) {
-    const parsed_styles = {};
-    style_string.split(';').forEach(rule => {
-        const [property, value] = rule.split(':');
-        if (property && value) {
-            parsed_styles[property] = value;
-        }
-    });
-    return parsed_styles;
+	const parsed_styles = {};
+	style_string.split(';').forEach((rule) => {
+		const [property, value] = rule.split(':');
+		if (property && value) {
+			parsed_styles[property] = value;
+		}
+	});
+	return parsed_styles;
 }
 
 function styleAttributeString(style_object) {
 	var style_string = '';
-	Object.entries(style_object).forEach(function([property, value]){
-		style_string+=`${property}:${value};`
+	Object.entries(style_object).forEach(function ([property, value]) {
+		style_string += `${property}:${value};`;
 	});
 	return style_string;
 }
@@ -61,28 +71,36 @@ function addIframeClasses(node) {
 
 // Get reccomended posts
 // Gets 4 random posts that have common categories with the post
-let posts = await getCollection('posts',({ data }) => {
-	if(data.ID === id) return false; //Exclude self
+let posts = await getCollection('posts', ({ data }) => {
+	if (data.ID === id) return false; //Exclude self
 
 	//Check if candidate post has at least one common category with post
 	const post_categories = wordpress.getCategoriesFromPost(data);
-	return categories.some(category => {
-		if(post_categories.some((post_category) => post_category.ID === category.ID)) return true;
+	return categories.some((category) => {
+		if (
+			post_categories.some(
+				(post_category) => post_category.ID === category.ID
+			)
+		)
+			return true;
 		return false;
 	});
 });
-posts = posts.map((p)=>{
+
+posts = posts.map((p) => {
 	return p.data;
 });
-let posts_number=posts.length; 
+
+let posts_number = posts.length;
 let recommended = [];
-for (var i = 0; i <= 3 && i+1<=posts_number; i++) {
+
+for (var i = 0; i <= 3 && i + 1 <= posts_number; i++) {
 	var index = Math.floor(Math.random() * posts.length);
 	recommended.push({
 		title: posts[index].title,
- 		id: posts[index].ID,
- 		slug: posts[index].slug,
- 		image: posts[index].featured_image,
+		id: posts[index].ID,
+		slug: posts[index].slug,
+		image: posts[index].featured_image,
 	});
 	posts.splice(index, 1);
 }
@@ -90,65 +108,94 @@ for (var i = 0; i <= 3 && i+1<=posts_number; i++) {
 // Set first image in post as the hero image
 let first_image = parsed_post.querySelector('img');
 const heroImage = first_image ? first_image.getAttribute('data-orig-file') : '';
-if(first_image){
+if (first_image) {
 	first_image.remove();
 }
 // Add highlight color to links
 let links = parsed_post.getElementsByTagName('a');
-links.forEach(function(link_tag){
+links.forEach(function (link_tag) {
 	link_tag.classList.add('text-primary_bold');
 	link_tag.classList.add('font-normal');
-})
+});
+
 //Remove custom styling from text
-let styled_elements = parsed_post.querySelectorAll("[style]");
-styled_elements.forEach(function(element){
+let styled_elements = parsed_post.querySelectorAll('[style]');
+styled_elements.forEach(function (element) {
 	let styles = parseStyleAttribute(element.getAttribute('style'));
 	delete styles['font-family'];
 	delete styles['font-size'];
 	delete styles['color'];
 	delete styles['text-align'];
-	if(styles.length>0)
-		element.setAttribute('style',styleAttributeString(styles));
-	else
-		element.removeAttribute('style');
+	if (styles.length > 0)
+		element.setAttribute('style', styleAttributeString(styles));
+	else element.removeAttribute('style');
 });
+
 //Make iframes responsive and tweak styling
 let i_frames = parsed_post.getElementsByTagName('iframe');
-i_frames.forEach(function(i_frame){
+i_frames.forEach(function (i_frame) {
 	addIframeClasses(i_frame);
-})
+});
+
 // Change styling of paragraphs
 let paragraphs = parsed_post.getElementsByTagName('p');
-paragraphs.forEach(function(p){
+paragraphs.forEach(function (p) {
 	p.classList.add('my-4');
 	//Replace the &nbsp; character that is used on some paragraphs and breaks the formatting
 	p.innerHTML = p.innerHTML.replace(/\&nbsp;/g, '');
 });
 
-let processed_post = parsed_post.childNodes.map((v) => {
-	if (v == null) return;
-	if (v.nodeType !== 1) {
-        return v;
-    }
+function processHtmlWithImages(htmlString: string) {
+	const root = parse(htmlString);
+	const imgElements = root.querySelectorAll('img');
 
-	if (v.tagName != null) {
-		v.classList.add('mx-auto');
-		v.classList.add('md:max-w-[750px]');
+	if (imgElements.length === 0) {
+		return [{ type: 'html', content: htmlString }];
 	}
 
-	let images = v.querySelectorAll('img');
-	if (images.length > 0) {
-		images.forEach(function(image) {
-			image.classList.add('my-4');
-			image.classList.add('mx-auto');
+	const parts = [];
+	let remainingHtml = htmlString;
+
+	imgElements.forEach((img) => {
+		const imgHtml = img.outerHTML;
+		const imgPosition = remainingHtml.indexOf(imgHtml);
+
+		// Add HTML content before this image
+		if (imgPosition > 0) {
+			parts.push({
+				type: 'html',
+				content: remainingHtml.substring(0, imgPosition),
+			});
+		}
+
+		// Add image data
+		parts.push({
+			type: 'image',
+			data: {
+				src: img.getAttribute('data-orig-file'),
+				alt: img.getAttribute('alt') || '',
+				title: img.getAttribute('data-image-title') || '',
+				caption: img.getAttribute('data-image-caption') || '',
+				height: img.getAttribute('height') || '',
+			},
 		});
+
+		// Update remaining HTML to content after this image
+		remainingHtml = remainingHtml.substring(imgPosition + imgHtml.length);
+	});
+
+	// Add any remaining HTML after the last image
+	if (remainingHtml) {
+		parts.push({ type: 'html', content: remainingHtml });
 	}
 
-	return v;
-});
+	return parts;
+}
+
+let processed_post = processHtmlWithImages(parsed_post.toString());
 ---
 
-<div class="layout mb-20 mx-auto">
+<div class="layout mb-20 md:max-w-[750px] mx-auto">
 	<article class="px-5">
 		<div>
 			<header class="md:max-w-[750px] mx-auto">
@@ -168,20 +215,20 @@ let processed_post = parsed_post.childNodes.map((v) => {
 			<main class="text-body">
 				{
 					processed_post.map((v) => {
-						if (v.tagName == 'IMG') {
+						if (v.type == 'html')
+							return <Fragment set:html={v.content} />;
+						else if (v.type == 'image') {
 							return (
 								<BlogPicture
-									src={v.getAttribute('data-orig-file')}
-									alt={v.getAttribute('alt')}
-									title={v.getAttribute('data-image-title')}
-									caption={v.getAttribute('data-image-caption')}
-									height={v.getAttribute('height')}
+									src={v.data.src}
+									alt={v.data.alt}
+									title={v.data.title}
+									caption={v.data.caption}
+									height={v.data.height}
 									class="my-4 md:max-w-xl md:mx-auto"
 								/>
 							);
 						}
-
-						return <Fragment set:html={v}/>;
 					})
 				}
 			</main>
@@ -194,42 +241,44 @@ let processed_post = parsed_post.childNodes.map((v) => {
 			</p>
 			<!-- TODO : add share buttons ? -->
 			<!-- Tags -->
-			{Object.keys(tags).length > 0 &&
-				<p class="md:max-w-[750px] mx-auto text-body mt-2">
-					<span class="mr-1" style="font-weight: 400">TAGS</span>
-					/ 
-					{
-						Object.values(tags).map((t) => (
+			{
+				Object.keys(tags).length > 0 && (
+					<p class="md:max-w-[750px] mx-auto text-body mt-2">
+						<span class="mr-1" style="font-weight: 400">
+							TAGS
+						</span>
+						/
+						{Object.values(tags).map((t) => (
 							<>
 								<a href={'/tags/' + t.slug}>{t.name}</a> /
 							</>
-						))
-					}
-				</p>
+						))}
+					</p>
+				)
 			}
 
 			<!-- Reccomended posts -->
-			{recommended.length>0 &&
-				<div class="md:max-w-[1200px] mx-auto">
-					<h5 class="mt-14 mb-10 title-medium md:text-center">
-						Διαβάστε ακόμα
-					</h5>
-					<div class="flex justify-center gap-x-5 gap-y-5 flex-wrap">
-						{
-							recommended &&
-							recommended.map((r) => {
-								return (
-									<PlainImagePost
-										title={parse(r.title).text}
-										image={r.image}
-										href={'/posts/' + r.slug}
-										class="md:w-[calc((100%-3.75rem)/4)] sm:w-[calc((100%-1.25rem)/2)] w-full"
-									/>
-								);
-							})
-						}
+			{
+				recommended.length > 0 && (
+					<div class="md:max-w-[1200px] mx-auto">
+						<h5 class="mt-14 mb-10 title-medium md:text-center">
+							Διαβάστε ακόμα
+						</h5>
+						<div class="flex justify-center gap-x-5 gap-y-5 flex-wrap">
+							{recommended &&
+								recommended.map((r) => {
+									return (
+										<PlainImagePost
+											title={parse(r.title).text}
+											image={r.image}
+											href={'/posts/' + r.slug}
+											class="md:w-[calc((100%-3.75rem)/4)] sm:w-[calc((100%-1.25rem)/2)] w-full"
+										/>
+									);
+								})}
+						</div>
 					</div>
-				</div>
+				)
 			}
 		</div>
 	</article>
