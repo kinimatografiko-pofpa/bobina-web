@@ -194,17 +194,19 @@ let processed_post = parsed_post.childNodes.map((v) => {
 			</p>
 			<!-- TODO : add share buttons ? -->
 			<!-- Tags -->
-			<p class="md:max-w-[750px] mx-auto text-body mt-2">
-				<span class="mr-1" style="font-weight: 400">TAGS</span>
-				/ {
-					Object.keys(tags).length > 0 &&
-					Object.values(tags).map((t) => (
-						<>
-							<a href={'/tags/' + t.slug}>{t.name}</a> /
-						</>
-					))
-				}
-			</p>
+			{Object.keys(tags).length > 0 &&
+				<p class="md:max-w-[750px] mx-auto text-body mt-2">
+					<span class="mr-1" style="font-weight: 400">TAGS</span>
+					/ 
+					{
+						Object.values(tags).map((t) => (
+							<>
+								<a href={'/tags/' + t.slug}>{t.name}</a> /
+							</>
+						))
+					}
+				</p>
+			}
 
 			<!-- Reccomended posts -->
 			{recommended.length>0 &&

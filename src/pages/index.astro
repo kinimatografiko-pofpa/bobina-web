@@ -22,9 +22,30 @@ let {
 	data: { posts: afieromata },
 } = await wp.getPosts(3, '', 'θέσεις-σκηνοθετών');
 
+// Get sticky post for Hero section
+// Alternatively get most recent post
+let {
+	data: { posts },
+} = await wp.getStickyPosts(1).then(async (response) => {
+    if (response.data.found === 0) {
+        const fallback = await wp.getPosts(1);
+        return fallback;
+    }
+    return response;
+});
+let sticky_post = posts[0];
+
 let {
 	data: { posts: article_list_posts },
-} = await wp.getPosts(4);
+} = await wp.getPosts(4).then(async (response) => {
+	// If most recent post is also on HeroSection 
+	// then remove it from the recent articles list
+    if (response.data?.posts[0].ID === sticky_post.ID) {
+        const fallback = await wp.getPosts(4,'','','',1);
+        return fallback;
+    }
+    return response;
+});
 ---
 
 <html lang="en">
@@ -41,7 +62,7 @@ let {
 		<BlogHeader />
 		<main class="">
 			<div class="px-5 max-w-[1200px] md:mx-auto">
-				<HeroSection />
+				<HeroSection post={sticky_post}/>
 				<TitleSeparator title="Αφιερωματα" />
 			</div>
 			<div

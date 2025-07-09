@@ -3,19 +3,7 @@ import OptimizedPicture from './OptimizedPicture.astro';
 import wordpress from '../wordpress';
 import { parse } from 'node-html-parser';
 
-// Get sticky post for Hero section
-// Alternatively get most recent post
-let {
-	data: { posts },
-} = await wordpress.getStickyPosts(1).then(async (response) => {
-    if (response.data.found === 0) {
-        const fallback = await wordpress.getPosts(1);
-        return fallback;
-    }
-    return response;
-});
-
-let post = posts[0];
+const { post } = Astro.props;
 
 let post_categories = wordpress.getCategoriesFromPost(post);
 ---
