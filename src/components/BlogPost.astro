@@ -19,7 +19,7 @@ export interface Props {
 	featuredImage: string;
 	alt: string;
 	text: string;
-	tags: {name:string , slug:string}[];
+	tags: {ID:number , name:string , slug:string}[];
 	id: number;
 	categories: {ID:number}[];
 }
@@ -59,25 +59,33 @@ function addIframeClasses(node) {
 	node.classList.add('w-full');
 }
 
-// Get reccomended posts
+// Get recommended posts
 // Gets 4 random posts that have common categories with the post
 let posts = await getCollection('posts',({ data }) => {
 	if(data.ID === id) return false; //Exclude self
 
-	//Check if candidate post has at least one common category with post
+	//Check if candidate post has at least one common category or one common tag with post
 	const post_categories = wordpress.getCategoriesFromPost(data);
-	return categories.some(category => {
+	const post_tags = data.tags;
+	return ( categories.some(category => {
 		if(post_categories.some((post_category) => post_category.ID === category.ID)) return true;
 		return false;
-	});
+	}) 
+
+	||
+	 
+	Object.values(tags).some(tag=>{
+		if(Object.values(post_tags).some((post_tag) => post_tag.ID === tag.ID)) return true;
+		return false;
+	}));
 });
 posts = posts.map((p)=>{
 	return p.data;
 });
 let posts_number=posts.length; 
-let recommended = [];
-for (var i = 0; i <= 3 && i+1<=posts_number; i++) {
-	var index = Math.floor(Math.random() * posts.length);
+const recommended = [];
+for (let i = 0; i <= 3 && i+1<=posts_number; i++) {
+	let index = Math.floor(Math.random() * posts.length);
 	recommended.push({
 		title: posts[index].title,
  		id: posts[index].ID,
@@ -85,6 +93,51 @@ for (var i = 0; i <= 3 && i+1<=posts_number; i++) {
  		image: posts[index].featured_image,
 	});
 	posts.splice(index, 1);
+}
+// Pad recommendations with recent posts if there are less than 4
+if(recommended.length<4) {
+	let all_posts = await getCollection('posts',({ data }) => {
+		if(data.ID === id) return false; //Exclude self
+		return true;
+	});
+	all_posts = all_posts.map((p)=>{
+		return p.data;
+	});
+	const recent_posts = [];
+
+	for (let i = 0; i+1 <= all_posts.length && recent_posts.length < 15; i++) {
+		//Get 15 most recent posts
+		//Exclude similar posts from results
+		const post_categories = wordpress.getCategoriesFromPost(all_posts[i]);
+		const post_tags = all_posts[i].tags;
+
+		if(!(
+			categories.some(category => {
+				if(post_categories.some((post_category) => post_category.ID === category.ID)) return true;
+				return false;
+			}) 
+
+			||
+	 
+			Object.values(tags).some(tag=>{
+				if(Object.values(post_tags).some((post_tag) => post_tag.ID === tag.ID)) return true;
+				return false;
+			})
+		)){
+			recent_posts.push(all_posts[i]);
+		}
+	}
+
+	for (let i = recommended.length; i <= 3 && recent_posts.length>0; i++) {
+		let index = Math.floor(Math.random() * recent_posts.length);
+		recommended.push({
+			title: recent_posts[index].title,
+			id: recent_posts[index].ID,
+			slug: recent_posts[index].slug,
+			image: recent_posts[index].featured_image,
+		});
+		recent_posts.splice(index, 1);
+	}
 }
 
 // Set first image in post as the hero image
@@ -208,7 +261,7 @@ let processed_post = parsed_post.childNodes.map((v) => {
 				</p>
 			}
 
-			<!-- Reccomended posts -->
+			<!-- Recommended posts -->
 			{recommended.length>0 &&
 				<div class="md:max-w-[1200px] mx-auto">
 					<h5 class="mt-14 mb-10 title-medium md:text-center">
