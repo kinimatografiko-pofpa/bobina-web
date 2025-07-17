@@ -1,4 +1,6 @@
 /* text styles */
+@tailwind base;
+@tailwind components;
 @tailwind utilities;
 
 * {
@@ -138,4 +140,13 @@
 
 a, button {
 	cursor: pointer;
+}
+
+
+@layer base{
+	:root {
+		--color-black: #131313;
+		--color-primary: #B5465A;
+		--color-primary_bold: #E04460;
+	}
 }

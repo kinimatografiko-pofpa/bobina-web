@@ -106,6 +106,12 @@ let processed_post = parsed_post.childNodes.map((v) => {
 });
 ---
 
+<style>
+	button.pressed {
+		color: var(--color-primary);
+	}
+</style>
+
 <div class="layout mb-20 mx-auto">
 	<article class="px-5">
 		<div>
@@ -145,12 +151,26 @@ let processed_post = parsed_post.childNodes.map((v) => {
 				}
 			</main>
 
-			<p class="md:max-w-[750px] mx-auto text-body italic">
+			<p class="md:max-w-[750px] mx-auto text-body italic mt-16">
 				Δημοσιεύθηκε στις {
 					new Date(publishDate).toLocaleDateString('el-gr')
 				}
 			</p>
-			<p class="md:max-w-[750px] mx-auto text-body mt-2">
+			<!-- Share -->
+			{true &&
+				<p class="md:max-w-[750px] mx-auto text-body mt-4" id="share_section">
+					<span class="mr-1" style="font-weight: 400">SHARE</span>
+					
+					<button class="hover:text-primary_bold hidden" style="text-decoration: underline ; text-underline-offset: 4px;" id="copy_link">
+						Copy link
+					</button>
+
+					<button class="hover:text-primary_bold hidden" style="text-decoration: underline ; text-underline-offset: 4px;" id="native_share">
+						Κοινοποίηση
+					</button>
+				</p>
+			}
+			<p class="md:max-w-[750px] mx-auto text-body mt-4">
 				<span class="mr-1" style="font-weight: 400">TAGS</span>
 				/ {
 					Object.keys(tags).length > 0 &&
@@ -162,8 +182,8 @@ let processed_post = parsed_post.childNodes.map((v) => {
 				}
 			</p>
 
-			<div class="md:max-w-[1140px] mx-auto">
-				<h5 class="mt-14 mb-10 title-medium md:text-center">
+			<div class="md:max-w-[1140px] mx-auto mt-20">
+				<h5 class="mb-10 title-medium md:text-center">
 					Διαβάστε ακόμα
 				</h5>
 				<div class="md:flex md:justify-center">
@@ -185,3 +205,41 @@ let processed_post = parsed_post.childNodes.map((v) => {
 		</div>
 	</article>
 </div>
+
+
+<script define:vars={{title}}>
+	const copyLinkButton = document.querySelector('#copy_link');
+	const nativeShareButton = document.querySelector('#native_share');
+	const shareSection = document.querySelector('#share_section');
+
+	const shareData = {
+		title: 'Μπομπίνα | ' + title ,
+		text: 'Μπομπίνα | ' + title ,
+		url: window.location.href //TODO : maybe implement some kind of shortened url for easier sharing
+	}
+
+	// Check if browser supports native sharing functionality
+	if (navigator.canShare && navigator.canShare(shareData)) {
+		nativeShareButton.addEventListener('click', async () => {
+			try {
+    			await navigator.share(shareData);
+ 			} catch (error) {
+    			console.log(error);
+ 			}
+		});
+		nativeShareButton.classList.remove('hidden');
+	}
+	else if(navigator.clipboard){
+		copyLinkButton.addEventListener('click', () => {
+			navigator.clipboard.writeText(shareData.url).then(() => {
+				copyLinkButton.innerText = "Link copied!"
+				copyLinkButton.classList.add('pressed');
+			})
+		});
+
+		copyLinkButton.classList.remove('hidden');
+	}
+	else{
+		shareSection.remove();
+	}
+</script>
