@@ -31,11 +31,11 @@ const { posts } = Astro.props;
 </style>
 
 <div
-	class="row gap-x-5 px-5 md:justify-between w-screen md:w-full overflow-x-auto mx-auto max-w-[1200px] pb-7 pt-2 sm:h-[420px] md:h-[560px]"
+	class="row gap-x-5 px-5 md:justify-between w-screen md:w-full overflow-x-auto mx-auto max-w-[1200px] pb-7 pt-2 min-h-[550px] sm:min-h-[500px] md:min-h-[560px]"
 >
 	{
 	posts.map((post) => (
-		<article class='group relative w-[70vw] md:w-[60vw] lg:max-w-[360px] overflow-hidden card h-full'>
+		<article class='group relative w-[70vw] sm:w-[40vw] md:w-[37vw] lg:max-w-[360px] overflow-hidden card h-full'>
 			<a href={'/posts/' + post.slug}>
 				<h1 class="title-medium md:title-xlarge text-white mt-7 pt-4 px-4 mb-16 md:mb-0">
 					{parse(post.title).text}
