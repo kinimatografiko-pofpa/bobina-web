@@ -18,15 +18,18 @@ const { posts } = Astro.props;
 		grid-template-rows: 1fr;
 	}
 	.card{
-		grid-row: span 2;
-		display: grid;
-		grid-template-rows: subgrid;
+		display:flex;
+		flex-direction: column;
+
+		@supports (grid-template-rows: subgrid){
+			grid-row: span 2;
+			display: grid;
+			grid-template-rows: subgrid;
+		}
 	}
 
-	.card > a{
-		grid-row: inherit;
-		display: inherit;
-		grid-template-rows: inherit;
+	.card > h1{
+		flex-grow: 1;
 	}
 </style>
 
@@ -36,22 +39,21 @@ const { posts } = Astro.props;
 	{
 	posts.map((post) => (
 		<article class='group relative w-[70vw] sm:w-[40vw] md:w-[37vw] lg:max-w-[360px] overflow-hidden card h-full'>
-			<a href={'/posts/' + post.slug}>
-				<h1 class="title-medium md:title-xlarge text-white mt-7 pt-4 px-4 mb-16 md:mb-0">
-					{parse(post.title).text}
-				</h1>
-				<div class="text-body-small text-white px-3 pt-4 pb-6 bg-primary bg-opacity-70">
-					{wordpress.getExcerptFromPost(post, 120)}
-				</div>
+			<h1 class="title-medium md:title-xlarge text-white mt-7 pt-4 px-4 mb-16 md:mb-0">
+				{parse(post.title).text}
+			</h1>
+			<div class="text-body-small text-white px-3 pt-4 pb-6 bg-primary bg-opacity-70">
+				{wordpress.getExcerptFromPost(post, 120)}
+			</div>
 
-				<div class="color_overlay absolute top-0 left-0 w-full h-full -z-10"></div>
-				<OptimizedPicture
-					src={post.featured_image}
-					class="bg-cover bg-center absolute top-0 w-full h-full -z-20 transition-all group-hover:scale-105"
-					alt={post.title}
-					style='linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5))'
-				/>
-			</a>
+			<div class="color_overlay absolute top-0 left-0 w-full h-full -z-10"></div>
+			<OptimizedPicture
+				src={post.featured_image}
+				class="bg-cover bg-center absolute top-0 w-full h-full -z-20 transition-all group-hover:scale-105"
+				alt={post.title}
+				style='linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5))'
+			/>
+			<a href={'/posts/' + post.slug} class="absolute top-0 left-0 w-full h-full z-10"></a>
 		</article>
 	))
 	}
