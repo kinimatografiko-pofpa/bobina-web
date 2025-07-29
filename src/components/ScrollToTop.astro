@@ -1,0 +1,100 @@
+---
+---
+<button id="scrollToTopBtn" aria-label="Scroll to top">
+  <svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 24 24">
+    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m17 14l-5-5l-5 5"/>
+  </svg>
+</button>
+
+<style>
+  #scrollToTopBtn {
+    position: fixed;
+    bottom: 2rem; 
+    right: 2rem; 
+    width: 3rem;  
+    height: 3rem; 
+    border-radius: 50%;
+    color: var(--textColor);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+    z-index: 1000;
+
+    @apply bg-primary;
+  }
+
+  #scrollToTopBtn.visible {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  #scrollToTopBtn:hover {
+    @apply bg-primary_bold;
+  }
+</style>
+
+<script>
+   document.addEventListener('DOMContentLoaded', () => {
+    const scrollBtn = document.getElementById('scrollToTopBtn');
+    
+    // Hardcoded scroll value of 200px
+    const showAt = 200;
+
+    if (scrollBtn) {
+      // Show or hide the button based on scroll position
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > showAt) {
+          scrollBtn.classList.add('visible');
+        } else {
+          scrollBtn.classList.remove('visible');
+        }
+      });
+
+      // Scroll to top on click
+      scrollBtn.addEventListener('click', () => {
+        smoothScrollToTop();
+      });
+    }
+  });
+
+
+    function smoothScrollToTop() {
+        const targetPosition = 0;
+        const startPosition = window.pageYOffset;
+        const distance = targetPosition - startPosition;
+        
+        // Change this value to control the speed. Higher value = slower scroll.
+        const scrollDuration = 1000;
+        
+        let startTime = null;
+
+        function animation(currentTime) {
+            if (startTime === null) startTime = currentTime;
+            const timeElapsed = currentTime - startTime;
+            const run = ease(timeElapsed, startPosition, distance, scrollDuration);
+            window.scrollTo(0, run);
+            if (timeElapsed < scrollDuration) requestAnimationFrame(animation);
+        }
+
+        /**
+         * Easing function for a more natural scroll animation.
+         * t: current time
+         * b: start value
+         * c: change in value
+         * d: duration
+         */
+        function ease(t, b, c, d) {
+            t /= d / 2;
+            if (t < 1) return c / 2 * t * t + b;
+            t--;
+            return -c / 2 * (t * (t - 2) - 1) + b;
+        }
+
+        requestAnimationFrame(animation);
+    }
+</script>
