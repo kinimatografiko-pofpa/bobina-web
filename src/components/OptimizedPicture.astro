@@ -6,9 +6,10 @@ export interface Props {
 	alt: string;
 	class?: string;
 	style?: string;
+	objectPosition?:string;
 }
 
-const { src, alt, class: cl , style } = Astro.props;
+const { src, alt, class: cl , style , objectPosition: position='center'} = Astro.props;
 const fileExtRe = /\.[a-zA-Z0-9]+$/g;
 let skip = false;
 if (src != null) {
@@ -37,7 +38,7 @@ if (src != null) {
 				fallbackFormat="jpeg"
 				includeSourceFormat={false}
 				loading="lazy"
-				objectPosition="center"
+				objectPosition={position}
 				layout="fill"
 			/>
 		</div>
