@@ -17,13 +17,15 @@ const { title, description, permalink } = Astro.props;
 
 <html lang="el">
 	<head>
-		<BaseHead {title} {description} {permalink} />
+		<BaseHead {title} {description} {permalink}/>
 	</head>
 
 	<body>
-		<Analytics />
-		<BlogHeader />
-		<slot />
-		<Footer />
+		<Analytics/>
+		<BlogHeader/>
+		<main class="">
+			<slot/>
+		</main>
+		<Footer/>
 	</body>
 </html>

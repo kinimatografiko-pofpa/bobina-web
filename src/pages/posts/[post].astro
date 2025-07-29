@@ -11,7 +11,7 @@ import { getCollection } from 'astro:content';
 // this generates prettier urls and makes it easier to find posts
 export async function getStaticPaths() {
 	const collection = await getCollection('posts');
-  	if (!collection) return [];
+	if (!collection) return [];
 
 	return collection.map((p) => ({
 		params: {

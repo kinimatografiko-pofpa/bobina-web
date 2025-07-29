@@ -1,16 +1,12 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import BlogHeader from '../components/BlogHeader.astro';
-import BlogPostPreview from '../components/BlogPostPreview.astro';
-import Analytics from '../components/Analytics.astro';
 import HeroSection from '../components/HeroSection.astro';
 import TitleSeparator from '../components/TitleSeparator.astro';
-import PlainArticleList from '../components/PlainArticleList.astro';
 import ArticleList from '../components/ArticleList.astro';
 import ScrollCards from '../components/ScrollCards.astro';
 import Carousel from '../components/Carousel.astro';
 import MainGrid from '../components/MainGrid.astro';
-import Footer from '../components/Footer.astro';
+
+import BasePage from '../layouts/BasePage.astro';
 
 import wp from '../wordpress';
 
@@ -27,120 +23,115 @@ let {
 let {
 	data: { posts },
 } = await wp.getStickyPosts(1).then(async (response) => {
-    if (response.data.found === 0) {
-        const fallback = await wp.getPosts(1);
-        return fallback;
-    }
-    return response;
+	if (response.data.found === 0) {
+		const fallback = await wp.getPosts(1);
+		return fallback;
+	}
+	return response;
 });
 let sticky_post = posts[0];
 
 let {
 	data: { posts: article_list_posts },
 } = await wp.getPosts(4).then(async (response) => {
-	// If most recent post is also on HeroSection 
+	// If most recent post is also on HeroSection
 	// then remove it from the recent articles list
-    if (response.data?.posts[0].ID === sticky_post.ID) {
-        const fallback = await wp.getPosts(4,'','','',1);
-        return fallback;
-    }
-    return response;
+	if (response.data?.posts[0].ID === sticky_post.ID) {
+		const fallback = await wp.getPosts(4, '', '', '', 1);
+		return fallback;
+	}
+	return response;
 });
 ---
 
-<html lang="en">
-	<head>
-		<BaseHead {title} {description} {permalink} />
-
-		<style>
-
-		</style>
-	</head>
-
-	<body>
-		<Analytics />
-		<BlogHeader />
-		<main class="">
-			<div class="px-5 max-w-[1200px] md:mx-auto">
-				<HeroSection post={sticky_post}/>
-				<TitleSeparator title="Αφιερωματα" />
-			</div>
-			<!-- 'Afieromata' scroll cards -->
-			<ScrollCards
-				posts={afieromata}
-			/>
-			<div class="px-5 max-w-[1200px] md:mx-auto">
-				<TitleSeparator title="Προσφατα" />
-				<ArticleList class="max-w-[750px]" posts={article_list_posts} />
-			</div>
-			<section class="bg-black py-9 mt-14">
-				<div class="max-w-[1200px] px-5 md:mx-auto">
-					<h1 class="title-large font-medium text-primary_bold">
-						Αναλύσεις / Κριτικές Ταινιών
-					</h1>
-					<Carousel />
-				</div>
-			</section>
-			<div class="px-5 max-w-[1200px] md:mx-auto">
-				<TitleSeparator title="Γενικες κατηγοριες" />
-				<MainGrid class="md:mb-12" />
-				<div class="md:flex md:items-stretch">
-					<div
-						class="mt-14 md:mt-0 bg-black text-white py-14 px-11 md:py-16 md:pr-20 h-[440px] md:max-w-[360px] md:h-auto md:self-stretch flex"
-					>
-						<div class="text-xxlarge md:my-auto">
-							Γίνε <br /> μέρος <br /> του <br /> περιο- <br /> δικού
-						</div>
-					</div>
-					<p
-						class="text-body mt-8 md:mt-0 md:pt-14 md:pb-24 md:px-16"
-					>
-						Η Μπομπίνα αποτελεί το επίσημο περιοδικό του
-						Κινηματογραφικού Τομέα Π.Ο.Φ.Π.Α. Στις σελίδες της
-						φιλοξενεί ένα πολύπλευρο σύνολο από κείμενα που
-						εκφράζουν τις σκέψεις, ιστορίες και απόψεις των μελών
-						του Τομέα, με βασικό κοινό σημείο την αγάπη μας για τον
-						κινηματογράφο.
-						<br /><br />
-						Με συντακτική ομάδα που αποτελείται από τα μέλη του κινηματογραφικού
-						τομέα, τα κείμενα και τα άρθρα της Μπομπίνα παραθέτουν
-						αυθεντικές απόψεις, σκέψεις και παρατηρήσεις για διάφορα
-						θέματα του κινηματογράφου.
-						<br /><br />
-						Για όποιον/α επιθυμεί να στείλει κείμενα, ιδέες και ότι άλλο,
-						η ηλεκτρονική διεύθυνση είναι: mpompina@gmail.com. Τα κείμενα
-						θα δημοσιεύονται είτε στην έντυπη, είτε στην ηλεκτρονική έκδοση,
-						είτε και στις δύο.
-					</p>
+<BasePage title={title} description={description} permalink={permalink}>
+	<div class="px-5 max-w-[1200px] md:mx-auto">
+		<HeroSection post={sticky_post} />
+		<TitleSeparator title="Αφιερωματα" />
+	</div>
+	<!-- 'Afieromata' scroll cards -->
+	<ScrollCards posts={afieromata} />
+	<div class="px-5 max-w-[1200px] md:mx-auto">
+		<TitleSeparator title="Προσφατα" />
+		<ArticleList class="max-w-[750px]" posts={article_list_posts} />
+	</div>
+	<section class="bg-black py-9 mt-14">
+		<div class="max-w-[1200px] px-5 md:mx-auto">
+			<h1 class="title-large font-medium text-primary_bold">
+				Αναλύσεις / Κριτικές Ταινιών
+			</h1>
+			<Carousel />
+		</div>
+	</section>
+	<div class="px-5 max-w-[1200px] md:mx-auto">
+		<TitleSeparator title="Γενικες κατηγοριες" />
+		<MainGrid class="md:mb-12" />
+		<div class="md:flex md:items-stretch">
+			<div
+				class="mt-14 md:mt-0 bg-black text-white py-14 px-11 md:py-16 md:pr-20 h-[440px] md:max-w-[360px] md:h-auto md:self-stretch flex"
+			>
+				<div class="text-xxlarge md:my-auto">
+					Γίνε <br /> μέρος <br /> του <br /> περιο- <br /> δικού
 				</div>
 			</div>
-			<!-- Promo video -->
-			<div class="mt-11 w-full bg-black">
-				<div class="md:flex max-w-[1200px] md:mx-auto md:px-5">
-					<video class="object-cover md:w-[60%] md:pb-20 md:pt-16 w-screen"  autoplay="autoplay" loop muted playsinline oncontextmenu="return true;">
-						<source src="assets/video.webm" type="video/webm">
-						<source src="assets/video.mp4" type="video/mp4">
-					</video>
-					<div class="px-5 md:px-0 md:pl-10 pt-16 pb-20 text-white md:w-[40%]">
-						<h2 class="title-large md:max-w-[250px]" style="letter-spacing: initial">
-							Κινηματογραφικός Τομέας ΠΟΦΠΑ
-						</h2>
-						<p class="text-body mt-6 mb-10 paragraph">
-							Ο Κινηματογραφικός Τομέας του ΠΟΦΠΑ έχει σκοπό την καλλιέργεια της κινηματογραφικής παιδείας αλλά και την εμψύχωση για δημιουργία των μελών του. <br><br>
-							Σήμερα ο Κινηματογραφικός Τομέας έχει ένα πλήρες εβδομαδιαίο πρόγραμμα σεμιναρίων και προβολών σε φίλμ 35mm και βιντεοπροτζέκτορα, το οποίο καθημερινά βελτιώνεται και εμπλουτίζεται. Επίσης, παροτρύνει και υποστιρίζει τα μέλη του για τις κινηματογραφικές τους δημιουργίες.
-						</p>
-						<a
-							href="https://kinimatografiko.gr"
-							class="text-button hover:text-primary_bold"
-							style="text-decoration: underline ; text-underline-offset: 4px;"
-							target="_blank"
-						>
-							Δείτε περισσότερα
-						</a>
-					</div>
-				</div>
+			<p class="text-body mt-8 md:mt-0 md:pt-14 md:pb-24 md:px-16">
+				Η Μπομπίνα αποτελεί το επίσημο περιοδικό του Κινηματογραφικού
+				Τομέα Π.Ο.Φ.Π.Α. Στις σελίδες της φιλοξενεί ένα πολύπλευρο
+				σύνολο από κείμενα που εκφράζουν τις σκέψεις, ιστορίες και
+				απόψεις των μελών του Τομέα, με βασικό κοινό σημείο την αγάπη
+				μας για τον κινηματογράφο.
+				<br /><br />
+				Με συντακτική ομάδα που αποτελείται από τα μέλη του κινηματογραφικού
+				τομέα, τα κείμενα και τα άρθρα της Μπομπίνα παραθέτουν αυθεντικές
+				απόψεις, σκέψεις και παρατηρήσεις για διάφορα θέματα του κινηματογράφου.
+				<br /><br />
+				Για όποιον/α επιθυμεί να στείλει κείμενα, ιδέες και ότι άλλο, η ηλεκτρονική
+				διεύθυνση είναι: mpompina@gmail.com. Τα κείμενα θα δημοσιεύονται
+				είτε στην έντυπη, είτε στην ηλεκτρονική έκδοση, είτε και στις δύο.
+			</p>
+		</div>
+	</div>
+	<!-- Promo video -->
+	<div class="mt-11 w-full bg-black">
+		<div class="md:flex max-w-[1200px] md:mx-auto md:px-5">
+			<video
+				class="object-cover md:w-[60%] md:pb-20 md:pt-16 w-screen"
+				autoplay="autoplay"
+				loop
+				muted
+				playsinline
+				oncontextmenu="return true;"
+			>
+				<source src="assets/video.webm" type="video/webm" />
+				<source src="assets/video.mp4" type="video/mp4" />
+			</video>
+			<div
+				class="px-5 md:px-0 md:pl-10 pt-16 pb-20 text-white md:w-[40%]"
+			>
+				<h2
+					class="title-large md:max-w-[250px]"
+					style="letter-spacing: initial"
+				>
+					Κινηματογραφικός Τομέας ΠΟΦΠΑ
+				</h2>
+				<p class="text-body mt-6 mb-10 paragraph">
+					Ο Κινηματογραφικός Τομέας του ΠΟΦΠΑ έχει σκοπό την
+					καλλιέργεια της κινηματογραφικής παιδείας αλλά και την
+					εμψύχωση για δημιουργία των μελών του. <br /><br />
+					Σήμερα ο Κινηματογραφικός Τομέας έχει ένα πλήρες εβδομαδιαίο
+					πρόγραμμα σεμιναρίων και προβολών σε φίλμ 35mm και βιντεοπροτζέκτορα,
+					το οποίο καθημερινά βελτιώνεται και εμπλουτίζεται. Επίσης, παροτρύνει
+					και υποστιρίζει τα μέλη του για τις κινηματογραφικές τους δημιουργίες.
+				</p>
+				<a
+					href="https://kinimatografiko.gr"
+					class="text-button hover:text-primary_bold"
+					style="text-decoration: underline ; text-underline-offset: 4px;"
+					target="_blank"
+				>
+					Δείτε περισσότερα
+				</a>
 			</div>
-		</main>
-		<Footer />
-	</body>
-</html>
+		</div>
+	</div>
+</BasePage>
