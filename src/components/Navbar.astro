@@ -1,11 +1,12 @@
 ---
 import wordpress from '../wordpress';
+import { getCollection } from 'astro:content';
 
-let { data: categories } = await wordpress.getCategories();
+let categories = await getCollection('categories');
+categories = categories.map((c) => {
+	return c.data;
+});
 
-//script here
-const categories_filtered = categories.filter((category) => category.ID != wordpress.NO_CATEGORY);/* Remove 'uncategorized' category since it's not in use 
-Maybe we can remove it from wordpress itself*/
 const items = [
 	{
 		href: '/about',
@@ -14,7 +15,7 @@ const items = [
 	{
 		href: null,
 		text: 'Κατηγορίες',
-		subitems: categories_filtered.map((c) => {
+		subitems: categories.map((c) => {
 			if (c.ID == wordpress.DEFAULT_CATEGORY) {
 				return {
 					text: 'Όλα τα άρθρα',

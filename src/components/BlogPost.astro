@@ -2,104 +2,199 @@
 /**
  * Blog Post page body, It take a blogpost and it parses it, processing it
  * to fix links (iframes from youtube for example), display images and author/post meta info.
- * It also adds a "reccomended" section in the end of the post with links to other posts
+ * It also adds a "recommended" section in the end of the post with links to other posts
  */
 
 import BlogPicture from './BlogPicture.astro';
 import PlainImagePost from './PlainImagePost.astro';
 import OptimizedPicture from './OptimizedPicture.astro';
 import { parse } from 'node-html-parser';
-import axios from 'axios';
+import { getCollection } from 'astro:content';
+import wordpress from '../wordpress';
 
 export interface Props {
 	title: string;
 	author: string;
 	publishDate: string;
-	heroImage: string;
+	featuredImage: string;
 	alt: string;
 	text: string;
-	tags: any[];
+	tags: {ID:number , name:string , slug:string}[];
+	id: number;
+	categories: {ID:number}[];
 }
 
-const { title, author, tags, publishDate, heroImage, alt, text, id } =
-	Astro.props;
+const { title, author, tags, publishDate, featuredImage, alt, text, id , categories } = Astro.props;
 
-const parsed_post = parse(text);
+const parsed_post = parse(text,{
+	blockTextElements: {
+		script: false,		// keep text content when parsing
+		noscript: false,	// keep text content when parsing
+		style: false,		// keep text content when parsing
+		pre: false			// keep text content when parsing
+ 	}
+});
+
+function parseStyleAttribute(style_string) {
+    const parsed_styles = {};
+    style_string.split(';').forEach(rule => {
+        const [property, value] = rule.split(':');
+        if (property && value) {
+            parsed_styles[property] = value;
+        }
+    });
+    return parsed_styles;
+}
+
+function styleAttributeString(style_object) {
+	var style_string = '';
+	Object.entries(style_object).forEach(function([property, value]){
+		style_string+=`${property}:${value};`
+	});
+	return style_string;
+}
+
 function addIframeClasses(node) {
 	node.classList.add('outline-none');
 	node.classList.add('w-full');
 }
 
-let recommended = [];
+// Get recommended posts
+// Gets 4 random posts that have common categories with the post
+let posts = await getCollection('posts',({ data }) => {
+	if(data.ID === id) return false; //Exclude self
 
-try {
-	let resp = await axios(
-		'http://N33J498LJ3-dsn.algolia.net/1/indexes/*/recommendations',
-		{
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-				'X-Algolia-Api-Key': import.meta.env.ALGOLIA_KEY,
-				'X-Algolia-Application-ID': import.meta.env.ALGOLIA_APPLICATION,
-			},
-			data: {
-				requests: [
-					{
-						indexName: 'dev_mpompina',
-						model: 'related-products',
-						objectID: id.toString(),
-						threshold: 0,
-						maxRecommendations: 4,
-					},
-				],
-			},
-		}
-	);
+	//Check if candidate post has at least one common category or one common tag with post
+	const post_categories = wordpress.getCategoriesFromPost(data);
+	const post_tags = data.tags;
+	return ( categories.some(category => {
+		if(post_categories.some((post_category) => post_category.ID === category.ID)) return true;
+		return false;
+	}) 
 
-	let rec = resp.data;
-	recommended = rec?.results?.[0]?.hits?.map((r) => ({
-		title: r.title,
-		id: r.objectID,
-		slug: r.slug,
-		image: r.image,
+	||
+	 
+	Object.values(tags).some(tag=>{
+		if(Object.values(post_tags).some((post_tag) => post_tag.ID === tag.ID)) return true;
+		return false;
 	}));
-} catch (error) {
-	console.error(error);
+});
+posts = posts.map((p)=>{
+	return p.data;
+});
+let posts_number=posts.length; 
+const recommended = [];
+for (let i = 0; i <= 3 && i+1<=posts_number; i++) {
+	let index = Math.floor(Math.random() * posts.length);
+	recommended.push({
+		title: posts[index].title,
+ 		id: posts[index].ID,
+ 		slug: posts[index].slug,
+ 		image: posts[index].featured_image,
+	});
+	posts.splice(index, 1);
+}
+// Pad recommendations with recent posts if there are less than 4
+if(recommended.length<4) {
+	let all_posts = await getCollection('posts',({ data }) => {
+		if(data.ID === id) return false; //Exclude self
+		return true;
+	});
+	all_posts = all_posts.map((p)=>{
+		return p.data;
+	});
+	const recent_posts = [];
+
+	for (let i = 0; i+1 <= all_posts.length && recent_posts.length < 15; i++) {
+		//Get 15 most recent posts
+		//Exclude similar posts from results
+		const post_categories = wordpress.getCategoriesFromPost(all_posts[i]);
+		const post_tags = all_posts[i].tags;
+
+		if(!(
+			categories.some(category => {
+				if(post_categories.some((post_category) => post_category.ID === category.ID)) return true;
+				return false;
+			}) 
+
+			||
+	 
+			Object.values(tags).some(tag=>{
+				if(Object.values(post_tags).some((post_tag) => post_tag.ID === tag.ID)) return true;
+				return false;
+			})
+		)){
+			recent_posts.push(all_posts[i]);
+		}
+	}
+
+	for (let i = recommended.length; i <= 3 && recent_posts.length>0; i++) {
+		let index = Math.floor(Math.random() * recent_posts.length);
+		recommended.push({
+			title: recent_posts[index].title,
+			id: recent_posts[index].ID,
+			slug: recent_posts[index].slug,
+			image: recent_posts[index].featured_image,
+		});
+		recent_posts.splice(index, 1);
+	}
 }
 
-// recommended = [
-// 	{
-// 		title: 'Ιαπωνικός Κινηματογράφος: ‘‘Like grains of sand’’',
-// 		image: 'https://mpompina.files.wordpress.com/2022/06/maxresdefault-2.jpg',
-// 		id: '1630',
-// 	},
-// 	{
-// 		title: 'Ιαπωνικός Κινηματογράφος: ‘‘Like grains of sand’’',
-// 		image: 'https://mpompina.files.wordpress.com/2022/06/maxresdefault-2.jpg',
-// 		id: '1630',
-// 	},
-// ];
-
-// remove first image since it's the hero image:
-parsed_post.getElementsByTagName('img')[0]?.remove();
+// Set first image in post as the hero image
+let first_image = parsed_post.querySelector('img');
+const heroImage = first_image ? first_image.getAttribute('data-orig-file') : '';
+if(first_image){
+	first_image.remove();
+}
+// Add highlight color to links
+let links = parsed_post.getElementsByTagName('a');
+links.forEach(function(link_tag){
+	link_tag.classList.add('text-primary_bold');
+	link_tag.classList.add('font-normal');
+})
+//Remove custom styling from text
+let styled_elements = parsed_post.querySelectorAll("[style]");
+styled_elements.forEach(function(element){
+	let styles = parseStyleAttribute(element.getAttribute('style'));
+	delete styles['font-family'];
+	delete styles['font-size'];
+	delete styles['color'];
+	delete styles['text-align'];
+	if(styles.length>0)
+		element.setAttribute('style',styleAttributeString(styles));
+	else
+		element.removeAttribute('style');
+});
+//Make iframes responsive and tweak styling
+let i_frames = parsed_post.getElementsByTagName('iframe');
+i_frames.forEach(function(i_frame){
+	addIframeClasses(i_frame);
+})
+// Change styling of paragraphs
+let paragraphs = parsed_post.getElementsByTagName('p');
+paragraphs.forEach(function(p){
+	p.classList.add('my-4');
+	//Replace the &nbsp; character that is used on some paragraphs and breaks the formatting
+	p.innerHTML = p.innerHTML.replace(/\&nbsp;/g, '');
+});
 
 let processed_post = parsed_post.childNodes.map((v) => {
 	if (v == null) return;
+	if (v.nodeType !== 1) {
+        return v;
+    }
 
 	if (v.tagName != null) {
-		v.classList.add('my-4');
 		v.classList.add('mx-auto');
 		v.classList.add('md:max-w-[750px]');
 	}
 
-	if (v.childNodes.length > 0) {
-		if (v.tagName === 'IMG' || v.querySelector('img') != null) {
-			return v.tagName === 'IMG' ? v : v.querySelector('img');
-		} else if (v.tagName === 'IFRAME' || v.querySelector('iframe')) {
-			// addIframeClasses(
-			// 	v.tagName === 'IFRAME' ? v : v.querySelector('iframe')
-			// );
-		}
+	let images = v.querySelectorAll('img');
+	if (images.length > 0) {
+		images.forEach(function(image) {
+			image.classList.add('my-4');
+			image.classList.add('mx-auto');
+		});
 	}
 
 	return v;
@@ -112,14 +207,12 @@ let processed_post = parsed_post.childNodes.map((v) => {
 			<header class="md:max-w-[750px] mx-auto">
 				{
 					heroImage && (
-						<a href={heroImage}>
-							<OptimizedPicture
-								class="object-cover max-w-full "
-								loading="lazy"
-								src={heroImage}
-								alt={alt}
-							/>
-						</a>
+						<OptimizedPicture
+							class="object-cover max-w-full"
+							loading="lazy"
+							src={heroImage}
+							alt={alt}
+						/>
 					)
 				}
 				<h1 class="title-large mb-4 mt-5">{title}</h1>
@@ -134,54 +227,63 @@ let processed_post = parsed_post.childNodes.map((v) => {
 									src={v.getAttribute('data-orig-file')}
 									alt={v.getAttribute('alt')}
 									title={v.getAttribute('data-image-title')}
+									caption={v.getAttribute('data-image-caption')}
 									height={v.getAttribute('height')}
 									class="my-4 md:max-w-xl md:mx-auto"
 								/>
 							);
 						}
 
-						return v;
+						return <Fragment set:html={v}/>;
 					})
 				}
 			</main>
 
+			<!-- Publish Date -->
 			<p class="md:max-w-[750px] mx-auto text-body italic">
 				Δημοσιεύθηκε στις {
 					new Date(publishDate).toLocaleDateString('el-gr')
 				}
 			</p>
-			<p class="md:max-w-[750px] mx-auto text-body mt-2">
-				<span class="mr-1" style="font-weight: 400">TAGS</span>
-				/ {
-					Object.keys(tags).length > 0 &&
-					Object.values(tags).map((t) => (
-						<>
-							<a href={'/tags/' + t.slug}>{t.name}</a> /
-						</>
-					))
-				}
-			</p>
-
-			<div class="md:max-w-[1140px] mx-auto">
-				<h5 class="mt-14 mb-10 title-medium md:text-center">
-					Διαβάστε ακόμα
-				</h5>
-				<div class="md:flex md:justify-center">
+			<!-- TODO : add share buttons ? -->
+			<!-- Tags -->
+			{Object.keys(tags).length > 0 &&
+				<p class="md:max-w-[750px] mx-auto text-body mt-2">
+					<span class="mr-1" style="font-weight: 400">TAGS</span>
+					/ 
 					{
-						recommended &&
-						recommended.map((r) => {
-							return (
-								<PlainImagePost
-									title={parse(r.title).text}
-									image={r.image}
-									href={'/posts/' + r.slug}
-									class="mb-5 md:mx-2 md:max-w-[25%]"
-								/>
-							);
-						})
+						Object.values(tags).map((t) => (
+							<>
+								<a href={'/tags/' + t.slug}>{t.name}</a> /
+							</>
+						))
 					}
+				</p>
+			}
+
+			<!-- Recommended posts -->
+			{recommended.length>0 &&
+				<div class="md:max-w-[1200px] mx-auto">
+					<h5 class="mt-14 mb-10 title-medium md:text-center">
+						Διαβάστε ακόμα
+					</h5>
+					<div class="flex justify-center gap-x-5 gap-y-5 flex-wrap">
+						{
+							recommended &&
+							recommended.map((r) => {
+								return (
+									<PlainImagePost
+										title={parse(r.title).text}
+										image={r.image}
+										href={'/posts/' + r.slug}
+										class="md:w-[calc((100%-3.75rem)/4)] sm:w-[calc((100%-1.25rem)/2)] w-full"
+									/>
+								);
+							})
+						}
+					</div>
 				</div>
-			</div>
+			}
 		</div>
 	</article>
 </div>

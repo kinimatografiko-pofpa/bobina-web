@@ -3,11 +3,7 @@ import OptimizedPicture from './OptimizedPicture.astro';
 import wordpress from '../wordpress';
 import { parse } from 'node-html-parser';
 
-let {
-	data: { posts },
-} = await wordpress.getPosts(1);
-
-let post = posts[0];
+const { post } = Astro.props;
 
 let post_categories = wordpress.getCategoriesFromPost(post);
 ---
@@ -18,7 +14,7 @@ let post_categories = wordpress.getCategoriesFromPost(post);
 			class="h-[240px] md:min-h-[383px] bg-black md:w-[50%] grow" 
 		>
 			<OptimizedPicture
-				src={post.featured_image}
+				src={wordpress.getFeaturedImage(post)}
 				alt={parse(post.title).text}
 				class="object-cover w-full h-full"
 			/>
