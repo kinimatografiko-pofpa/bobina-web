@@ -9,7 +9,7 @@ import { getCollection } from 'astro:content';
 // this generates prettier urls and makes it easier to find posts
 export async function getStaticPaths() {
 	const categories = await getCollection('categories');
-  	if (!categories) return [];
+	if (!categories) return [];
 
 	return categories.map((c) => ({
 		params: {
@@ -23,11 +23,13 @@ export async function getStaticPaths() {
 
 const category = Astro.props.category;
 
-let posts = await getCollection('posts',({ data }) => {
+let posts = await getCollection('posts', ({ data }) => {
 	const post_categories = wordpress.getCategoriesFromPost(data);
-	return post_categories.some((post_category) => post_category.ID === category.ID);
+	return post_categories.some(
+		(post_category) => post_category.ID === category.ID
+	);
 });
-posts = posts.map((p)=>{
+posts = posts.map((p) => {
 	return p.data;
 });
 ---

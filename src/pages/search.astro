@@ -8,18 +8,19 @@ import wordpress from '../wordpress';
 ---
 
 <BasePage title="Search" description="search" permalink="search">
-	<div class="px-5 max-w-[750px] mx-auto mb-24">
-		<div id="searchbox"></div>
-		<div id="hits"></div>
-	</div>
-	<script>
-		import algoliasearch from 'algoliasearch/lite';
-		import instantsearch from 'instantsearch.js';
-		import { searchBox, hits } from 'instantsearch.js/es/widgets';
-		import { connectHits } from 'instantsearch.js/es/connectors';
+	<main>
+		<div class="px-5 max-w-[750px] mx-auto mb-24">
+			<div id="searchbox"></div>
+			<div id="hits"></div>
+		</div>
+		<script>
+			import algoliasearch from 'algoliasearch/lite';
+			import instantsearch from 'instantsearch.js';
+			import { searchBox, hits } from 'instantsearch.js/es/widgets';
+			import { connectHits } from 'instantsearch.js/es/connectors';
 
-		function articleListPlain(article) {
-			return `
+			function articleListPlain(article) {
+				return `
 			<article class="mt-10 md:flex md:items-center md:h-[263px]">
 				<img
 					src=${article.image}
@@ -51,55 +52,56 @@ import wordpress from '../wordpress';
 					</a>
 				</div>
 			</article>`;
-		}
+			}
 
-		const searchClient = algoliasearch(
-			'N33J498LJ3',
-			'4950452eedff51fa5d5b9c166d1216a7'
-		);
+			const searchClient = algoliasearch(
+				'N33J498LJ3',
+				'4950452eedff51fa5d5b9c166d1216a7'
+			);
 
-		const search = instantsearch({
-			indexName: 'dev_mpompina',
-			searchClient,
-			routing: true,
-		});
+			const search = instantsearch({
+				indexName: 'dev_mpompina',
+				searchClient,
+				routing: true,
+			});
 
-		// Create the render function
-		const renderHits = (renderOptions, isFirstRender) => {
-			const { hits, widgetParams } = renderOptions;
+			// Create the render function
+			const renderHits = (renderOptions, isFirstRender) => {
+				const { hits, widgetParams } = renderOptions;
 
-			widgetParams.container.innerHTML = `
+				widgetParams.container.innerHTML = `
     <ul>
       ${hits.map((item) => articleListPlain(item)).join('')}
     </ul>
   `;
-		};
+			};
 
-		// Create the custom widget
-		const customHits = connectHits(renderHits);
+			// Create the custom widget
+			const customHits = connectHits(renderHits);
 
-		search.addWidgets([
-			searchBox({
-				container: '#searchbox',
-			}),
+			search.addWidgets([
+				searchBox({
+					container: '#searchbox',
+				}),
 
-			customHits({
-				container: document.querySelector('#hits'),
-			}),
-		]);
+				customHits({
+					container: document.querySelector('#hits'),
+				}),
+			]);
 
-		let params = new URL(document.location.toString()).searchParams;
+			let params = new URL(document.location.toString()).searchParams;
 
-		// let q = params.get('query');
-		search.start();
+			// let q = params.get('query');
+			search.start();
 
-		// setTimeout(() => {
-		// 	if (q != null && q.length > 0) {
-		// 		let sb = document.querySelector('.ais-SearchBox-input');
-		// 		sb.value = q;
-		// 		search.
-		// 		// sb.dispatchEvent(new Event('input'));
-		// 	}
-		// }, 500);
-	</script>
+			// setTimeout(() => {
+			// 	if (q != null && q.length > 0) {
+			// 		let sb = document.querySelector('.ais-SearchBox-input');
+			// 		sb.value = q;
+			// 		search.
+			// 		// sb.dispatchEvent(new Event('input'));
+			// 	}
+			// }, 500);
+		</script>
+	</main>
 </BasePage>

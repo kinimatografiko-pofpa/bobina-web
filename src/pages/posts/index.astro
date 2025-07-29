@@ -26,27 +26,33 @@ postsByYear.sort((a, b) => b.year - a.year);
 ---
 
 <BasePage title="Όλα τα άρθρα" permalink="/posts">
-	<div class="px-5 md:max-w-[1000px] mx-auto mb-24">
-		<h1 class="title-large text-center mb-14 mt-10 md:mt-20">Όλα τα άρθρα</h1>
-		{
-			postsByYear.map((y) => (
-				<div class="md:flex">
-					<p class="title-small text-[#424242] md:mr-10 text-center mb-6">
-						{y.year}
-					</p>
-					<div class="md:flex flex-wrap grow justify-start gap-x-5">
-						{y.posts.map((p) => (
-							<PlainImagePost
-								title={parse(p.title).text}
-								image={p.featured_image}
-								href={'/posts/' + p.slug}
-								categories={wordpress.getCategoriesFromPost(p)}
-								class="md:w-[calc((100%-1.25rem)/2)] lg:w-[calc((100%-2.5rem)/3)] mb-14"
-							/>
-						))}
+	<main>
+		<div class="px-5 md:max-w-[1000px] mx-auto mb-24">
+			<h1 class="title-large text-center mb-14 mt-10 md:mt-20">
+				Όλα τα άρθρα
+			</h1>
+			{
+				postsByYear.map((y) => (
+					<div class="md:flex">
+						<p class="title-small text-[#424242] md:mr-10 text-center mb-6">
+							{y.year}
+						</p>
+						<div class="md:flex flex-wrap grow justify-start gap-x-5">
+							{y.posts.map((p) => (
+								<PlainImagePost
+									title={parse(p.title).text}
+									image={p.featured_image}
+									href={'/posts/' + p.slug}
+									categories={wordpress.getCategoriesFromPost(
+										p
+									)}
+									class="md:w-[calc((100%-1.25rem)/2)] lg:w-[calc((100%-2.5rem)/3)] mb-14"
+								/>
+							))}
+						</div>
 					</div>
-				</div>
-			))
-		}
-	</div>
+				))
+			}
+		</div>
+	</main>
 </BasePage>
