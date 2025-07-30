@@ -3,27 +3,24 @@ import OptimizedPicture from './OptimizedPicture.astro';
 import wordpress from '../wordpress';
 import { parse } from 'node-html-parser';
 
-let {
-	data: { posts },
-} = await wordpress.getPosts(1);
-
-let post = posts[0];
+const { post } = Astro.props;
 
 let post_categories = wordpress.getCategoriesFromPost(post);
 ---
 
-<article class="flex flex-col md:flex-row md:items-center">
+<article class="md:grid md:grid-flow-col md:auto-cols-fr">
 		<a
 			href={`/posts/${post.slug}`}
-			class="h-[240px] md:min-h-[383px] bg-black md:w-[50%] grow" 
+			class="h-[240px] bg-black md:min-h-full flex"
 		>
+
 			<OptimizedPicture
-				src={post.featured_image}
+				src={wordpress.getFeaturedImage(post)}
 				alt={parse(post.title).text}
-				class="object-cover w-full h-full"
+				class="object-cover grow"
 			/>
 		</a>
-		<div class="md:w-[50%] grow md:p-11">
+		<div class="md:pt-12 md:pb-9 md:pl-14 md:pr-11 flex flex-col content-center">
 			<p class="text-overline mt-6">
 				{
 					post_categories.map((c) => (

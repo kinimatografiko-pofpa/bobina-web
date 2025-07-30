@@ -10,7 +10,7 @@ let {
 } = await wordpress.getPosts(6, '', 'ανάλυση-κριτική-ταινιών');
 
 let content = posts.map((p) => ({
-	image: p.featured_image,
+	image: wordpress.getFeaturedImage(p),
 	title: parse(p.title).text,
 	link: '/posts/' + p.slug,
 }));

@@ -4,7 +4,7 @@
  * with a caption in a blogpost exactly what we want it.
  */
 import { Picture } from 'astro-imagetools/components';
-const { src, alt, height, title, class: cl } = Astro.props;
+const { src, alt, height, title, caption, class: cl } = Astro.props;
 const fileExtRe = /\.[a-zA-Z0-9]+$/g;
 let skip = false;
 if (src != null) {
@@ -27,22 +27,20 @@ if (src != null) {
 	!skip && src != null && src.length > 0 ? (
 		<div class={cl}>
 			<figure>
-				<a href={src}>
-					<div class="center-content">
-						<Picture
-							src={src}
-							alt={alt}
-							height={Math.min(height, 700)}
-							format={['avif', 'webp']}
-							fallbackFormat="jpeg"
-							includeSourceFormat={false}
-							loading="lazy"
-							objectPosition="center"
-							attributes={{ class: cl }}
-						/>
-					</div>
-				</a>
-				<figcaption>{alt}</figcaption>
+				<div class="center-content">
+					<Picture
+						src={src}
+						alt={alt}
+						height={Math.min(height, 700)}
+						format={['avif', 'webp']}
+						fallbackFormat="jpeg"
+						includeSourceFormat={false}
+						loading="lazy"
+						objectPosition="center"
+						attributes={{ class: cl }}
+					/>
+				</div>
+				<figcaption>{caption}</figcaption>
 			</figure>
 		</div>
 	) : (

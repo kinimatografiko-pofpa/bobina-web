@@ -131,6 +131,10 @@
 	letter-spacing: 0.02em;
 }
 
+em {
+	font-weight: 400;
+}
+
 .border-t-3 {
 	border-top-width: 3px;
 }
