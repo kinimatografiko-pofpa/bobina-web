@@ -1,12 +1,49 @@
 ---
 import BasePage from '../layouts/BasePage.astro';
+import { getCollection } from 'astro:content';
+import PlainImagePost from '../components/PlainImagePost.astro';
+import { parse } from 'node-html-parser';
+
+// Get most recent post to recommend
+let all_posts = await getCollection('posts');
+const recommended = all_posts.slice(0, 4).map((p)=>{
+	return {
+		title: p.data.title,
+ 		id: p.data.ID,
+ 		slug: p.data.slug,
+ 		image: p.data.featured_image,
+	};
+});
 ---
 
 <BasePage title="Η σελίδα δεν βρέθηκε" permalink="/404">
-	<main>
-		<div class="px-5 max-w-[750px] mx-auto mb-24 mt-10 md:mt-20">
+	<main class="mb-24">
+		<div class="px-5 max-w-[750px] mx-auto mb-20 mt-10 md:mt-20">
 			<h1 class="title-large text-center mb-14">404</h1>
 			<p class="text-body text-center mb-7">Η σελίδα δεν βρέθηκε</p>
 		</div>
+		<!-- Recent posts -->
+		{recommended.length>0 &&
+			<div class=" px-5 md:max-w-[1200px] mx-auto">
+				<h5 class="mt-14 mb-10 title-medium md:text-center">
+					Διαβάστε ακόμα
+				</h5>
+				<div class="flex justify-center gap-x-5 gap-y-5 flex-wrap">
+					{
+						recommended &&
+						recommended.map((r) => {
+							return (
+								<PlainImagePost
+									title={parse(r.title).text}
+									image={r.image}
+									href={'/posts/' + r.slug}
+									class="md:w-[calc((100%-3.75rem)/4)] sm:w-[calc((100%-1.25rem)/2)] w-full"
+								/>
+							);
+						})
+					}
+				</div>
+			</div>
+		}
 	</main>
 </BasePage>
