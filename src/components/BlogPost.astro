@@ -255,13 +255,16 @@ let processed_post = parsed_post.childNodes.map((v) => {
 			<p class="md:max-w-[750px] mx-auto text-body mt-4" id="share_section">
 				<span class="mr-1" style="font-weight: 400">SHARE</span>
 				
-				<button class="hover:text-primary_bold hidden" style="text-decoration: underline ; text-underline-offset: 4px;" id="copy_link">
-					Copy link
+				<button class="hover:!text-primary_bold hidden" id="copy_link">
+					<span id="button_text">Αντιγραφή συνδέσμου</span>
+					<span class="material-symbols-sharp text-[18px]/[24px] align-bottom">link</span>
 				</button>
 
-				<button class="hover:text-primary_bold hidden" style="text-decoration: underline ; text-underline-offset: 4px;" id="native_share">
-					Κοινοποίηση
+				<button class="hover:text-primary_bold hidden" id="native_share">
+					<span>Κοινοποίηση</span>
+					<span class="material-symbols-sharp text-[18px]/[24px] align-bottom">share</span>
 				</button>
+				
 			</p>
 			<!-- Tags -->
 			{Object.keys(tags).length > 0 &&
@@ -308,6 +311,7 @@ let processed_post = parsed_post.childNodes.map((v) => {
 
 <script define:vars={{title}}>
 	const copyLinkButton = document.querySelector('#copy_link');
+	const copyLinktext = copyLinkButton.querySelector('#button_text');
 	const nativeShareButton = document.querySelector('#native_share');
 	const shareSection = document.querySelector('#share_section');
 
@@ -331,7 +335,7 @@ let processed_post = parsed_post.childNodes.map((v) => {
 	else if(navigator.clipboard){
 		copyLinkButton.addEventListener('click', () => {
 			navigator.clipboard.writeText(shareData.url).then(() => {
-				copyLinkButton.innerText = "Link copied!"
+				copyLinktext.innerText = "Αντιγράφηκε!"
 				copyLinkButton.classList.add('pressed');
 			})
 		});
