@@ -203,7 +203,7 @@ let processed_post = parsed_post.childNodes.map((v) => {
 
 <style>
 	button.pressed {
-		color: var(--color-primary);
+		background-color: #424242 !important;
 	}
 </style>
 
@@ -255,12 +255,12 @@ let processed_post = parsed_post.childNodes.map((v) => {
 			<p class="md:max-w-[750px] mx-auto text-body mt-4" id="share_section">
 				<span class="mr-1" style="font-weight: 400">SHARE</span>
 				
-				<button class="hover:!text-primary_bold hidden" id="copy_link">
+				<button class="hidden bg-primary rounded-md px-2 py-[1px] text-white" id="copy_link">
 					<span id="button_text">Αντιγραφή συνδέσμου</span>
 					<span class="material-symbols-sharp text-[18px]/[24px] align-bottom">link</span>
 				</button>
 
-				<button class="hover:text-primary_bold hidden" id="native_share">
+				<button class="hidden bg-primary rounded-md px-2 py-[1px] text-white" id="native_share">
 					<span>Κοινοποίηση</span>
 					<span class="material-symbols-sharp text-[18px]/[24px] align-bottom">share</span>
 				</button>
