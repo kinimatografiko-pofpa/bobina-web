@@ -10,14 +10,15 @@ export interface Props {
 	title: string;
 	description?: string;
 	permalink: string;
+	thumbnail?: string;
 }
 
-const { title, description, permalink } = Astro.props;
+const { title, description, permalink, thumbnail } = Astro.props;
 ---
 
 <html lang="el">
 	<head>
-		<BaseHead {title} {description} {permalink} />
+		<BaseHead {title} {description} {permalink} {thumbnail}/>
 	</head>
 
 	<body>
