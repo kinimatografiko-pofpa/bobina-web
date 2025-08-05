@@ -157,9 +157,9 @@ function getFeaturedImage(post) {
 		return post.featured_image;
 	}
 	else if(post.attachment_count>0){
-		const attachments = Object.values(post.attachments).filter((attachment) => attachment.mime_type.startsWith('image/'));
-		if(attachments.length>0){
-			return attachments[0].URL;
+		const image_attachment = Object.values(post.attachments).find((attachment) => attachment.mime_type.startsWith('image/'));
+		if(image_attachment){
+			return image_attachment.URL;
 		}
 	}
 	// There are some articles that have images in the text body that don't show up as attachments
