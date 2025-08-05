@@ -156,9 +156,14 @@ function getFeaturedImage(post) {
 	if(post.featured_image){
 		return post.featured_image;
 	}
-	else if(post.attachment_count>0 && Object.values(post.attachments)[0].mime_type.startsWith('image/')){
-		return Object.values(post.attachments)[0].URL;
+	else if(post.attachment_count>0){
+		const attachments = Object.values(post.attachments).filter((attachment) => attachment.mime_type.startsWith('image/'));
+		if(attachments.length>0){
+			return attachments[0].URL;
+		}
 	}
+	// There are some articles that have images in the text body that don't show up as attachments
+	// Maybe we can parse them to get the first image as a thumbnail ?
 	return '';
 }
 
