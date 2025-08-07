@@ -1,4 +1,14 @@
+<p align="center">
+  <img alt="logo and tagline" src="https://github.com/user-attachments/assets/5038a296-7ba0-48f2-991f-c7476e48c1e4">
+</p>
+
 # Bobina website
+[www.mpompina.kinimatografiko.gr](https://mpompina.kinimatografiko.gr/)
+
+<p float="left">
+  <kbd><img width="400" alt="screenshot_1" src="https://github.com/user-attachments/assets/a7445a8b-7ebb-4802-af1d-e869c8a0eac4"/></kbd>
+  <kbd><img width="400" alt="screenshot_2" src="https://github.com/user-attachments/assets/78550765-4348-4bab-931a-24177dff1f4a"/></kbd>
+</p>
 
 ## About
 
@@ -39,3 +49,7 @@ yarn build
 ## Contributing
 
 Contributions are welcome and encouraged! Please start an issue first before submitting a PR.
+
+### Useful resources
+
+[WordPress REST API documentation](https://developer.wordpress.com/docs/api/)
