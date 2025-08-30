@@ -158,6 +158,7 @@ a, button {
 @layer base{
 	:root {
 		--color-black: #131313;
+		--color-gray: #424242;
 		--color-primary: #B5465A;
 		--color-primary_bold: #E04460;
 	}

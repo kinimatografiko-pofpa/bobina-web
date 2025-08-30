@@ -20,8 +20,9 @@ let post_categories = wordpress.getCategoriesFromPost(post);
 				class="object-cover grow"
 			/>
 		</a>
-		<div class="md:pt-12 md:pb-9 md:pl-14 md:pr-11 flex flex-col content-center">
-			<p class="text-overline mt-6">
+		<div class="md:pt-12 md:pb-9 md:pl-14 md:pr-11 flex flex-col content-center mt-6 gap-y-4">
+			{post_categories.length>0 && 
+				<p class="text-overline">
 				{
 					post_categories.map((c) => (
 						<a
@@ -36,9 +37,10 @@ let post_categories = wordpress.getCategoriesFromPost(post);
 						</a>
 					))
 				}
-			</p>
+				</p>
+			}
 			
-			<a href={`/posts/${post.slug}`}><h3 class="title-large my-4 hover:text-primary_bold">{parse(post.title).text}</h3></a>
+			<a href={`/posts/${post.slug}`}><h3 class="title-large hover:text-primary_bold">{parse(post.title).text}</h3></a>
 			<p class="text-body">
 				{wordpress.getExcerptFromPost(post)}
 			</p>

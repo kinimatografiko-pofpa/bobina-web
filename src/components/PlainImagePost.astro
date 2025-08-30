@@ -26,7 +26,7 @@ const { title, image, href, categories, class: cl } = Astro.props;
 		categories.map((c) => (
 			<a
 				href={'/categories/' + c.slug}
-				class="text-overline-small hover:text-primary_bold mr-1"
+				class="text-overline-small hover:text-primary_bold mr-1 text-gray"
 			>
 				{
 					c.name
