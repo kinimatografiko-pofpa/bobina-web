@@ -37,8 +37,6 @@ async function getPosts(
 
 	let data = resp.data;
 
-	console.log(data);
-
 	return { data, resp };
 }
 
