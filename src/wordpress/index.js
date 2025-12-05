@@ -16,7 +16,13 @@ const NO_CATEGORY = 1; //this is the ID of the "uncategorized" category on wordp
  * @param {Number} [offset] offset for first post to be retrieved
  * @returns {Object} {data: Object[], resp: Object} data is an array of posts, resp is the response object for whatever purposes
  */
-async function getPosts(max = 20, page_handle = '', category = '', tag = '', offset=0) {
+async function getPosts(
+	max = 20,
+	page_handle = '',
+	category = '',
+	tag = '',
+	offset = 0
+) {
 	let resp = await axios({
 		url: siteUrl + '/posts',
 		method: 'GET',
@@ -30,6 +36,8 @@ async function getPosts(max = 20, page_handle = '', category = '', tag = '', off
 	});
 
 	let data = resp.data;
+
+	console.log(data);
 
 	return { data, resp };
 }
@@ -153,10 +161,12 @@ function getExcerptFromPost(post, max_chars) {
  * @returns {string} string with the url of the image
  */
 function getFeaturedImage(post) {
-	if(post.featured_image){
+	if (post.featured_image) {
 		return post.featured_image;
-	}
-	else if(post.attachment_count>0 && Object.values(post.attachments)[0].mime_type.startsWith('image/')){
+	} else if (
+		post.attachment_count > 0 &&
+		Object.values(post.attachments)[0].mime_type.startsWith('image/')
+	) {
 		return Object.values(post.attachments)[0].URL;
 	}
 	return '';
