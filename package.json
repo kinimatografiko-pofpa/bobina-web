@@ -5,7 +5,8 @@
 	"scripts": {
 		"dev": "astro dev",
 		"start": "astro dev",
-		"build": "astro build",
+		"build": "node generate_redirects.js && astro build",
+		"build:redirects": "node generate_redirects.js",
 		"preview": "astro preview"
 	},
 	"devDependencies": {

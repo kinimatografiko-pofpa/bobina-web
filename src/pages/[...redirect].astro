@@ -1,0 +1,71 @@
+---
+/**
+ * This page handles redirects from old WordPress URLs to new Astro URLs
+ * It creates static HTML files with 301 redirects for each old URL
+ */
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+	const collection = await getCollection('posts');
+	if (!collection) return [];
+
+	const paths = [];
+
+	for (const post of collection) {
+		const oldUrl = post.data.URL;
+
+		if (!oldUrl) continue;
+
+		// Parse the old URL to extract the path
+		try {
+			const url = new URL(oldUrl);
+			// Remove leading slash and split into segments
+			const pathSegments = url.pathname
+				.split('/')
+				.filter((segment) => segment !== '');
+
+			// New URL format
+			const newUrl = `/posts/${post.data.slug}`;
+
+			paths.push({
+				params: {
+					redirect: pathSegments.join('/'),
+				},
+				props: {
+					newUrl,
+				},
+			});
+		} catch (error) {
+			console.error(
+				`Error parsing URL for post ${post.data.slug}:`,
+				error
+			);
+		}
+	}
+
+	return paths;
+}
+
+const { newUrl } = Astro.props;
+
+// Set 301 redirect header
+Astro.response.status = 301;
+Astro.response.headers.set('Location', newUrl);
+---
+
+<!doctype html>
+<html lang="el">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="refresh" content="0; url={newUrl}" />
+		<link rel="canonical" href={newUrl} />
+		<title>Redirecting...</title>
+		<script>
+			// JavaScript fallback redirect
+			window.location.replace('{newUrl}');
+		</script>
+	</head>
+	<body>
+		<p>Redirecting to <a href={newUrl}>{newUrl}</a>...</p>
+	</body>
+</html>

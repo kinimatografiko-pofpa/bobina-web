@@ -35,3 +35,5 @@ algolia_index.json
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+public/_redirects
+vercel.json
