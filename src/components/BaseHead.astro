@@ -5,8 +5,9 @@ export interface Props {
 	title: string;
 	description?: string;
 	permalink: string;
+	heroImage?: string;
 }
-const { title, description, permalink } = Astro.props;
+const { title, description, permalink, heroImage } = Astro.props;
 ---
 
 <!-- Global Metadata -->
@@ -30,14 +31,20 @@ const { title, description, permalink } = Astro.props;
 <meta property="og:url" content={permalink} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
-<meta property="og:image" content="https://astro.build/social.jpg?v=1" />
+<meta
+	property="og:image"
+	content={heroImage || 'https://astro.build/social.jpg?v=1'}
+/>
 
 <!-- Twitter -->
 <meta property="twitter:card" content="summary_large_image" />
 <meta property="twitter:url" content={permalink} />
 <meta property="twitter:title" content={title} />
 <meta property="twitter:description" content={description} />
-<meta property="twitter:image" content="https://astro.build/social.jpg?v=1" />
+<meta
+	property="twitter:image"
+	content={heroImage || 'https://astro.build/social.jpg?v=1'}
+/>
 
 <!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -57,8 +64,8 @@ const { title, description, permalink } = Astro.props;
 />
 <!-- Icons -->
 <link
- 	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=link,share"
-	rel="stylesheet" 
+	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=link,share"
+	rel="stylesheet"
 />
 <!-- or include the full Satellite theme -->
 <link
@@ -71,8 +78,7 @@ const { title, description, permalink } = Astro.props;
 	data-goatcounter="https://mpompina.goatcounter.com/count"
 	async
 	src="//gc.zgo.at/count.js"
->
-</script>
+></script>
 <noscript>
 	<img src={'https://mpompina.goatcounter.com/count?p=' + permalink} />
 </noscript>
