@@ -14,8 +14,8 @@
 		"@types/glidejs__glide": "^3",
 		"astro": "5.1.8",
 		"find-up": "^7.0.0",
-		"prettier": "^2.7.1",
-		"prettier-plugin-astro": "^0.13.0"
+		"prettier": "^3.6.2",
+		"prettier-plugin-astro": "^0.14.1"
 	},
 	"dependencies": {
 		"@glidejs/glide": "^3.7.1",
