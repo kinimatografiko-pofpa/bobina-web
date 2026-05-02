@@ -60,6 +60,11 @@ function normalizePost(post) {
 		tags[tag.name] = { ID: tag.id, name: tag.name, slug: tag.slug };
 	}
 
+	let footnotes = [];
+	try {
+		footnotes = JSON.parse(post.meta.footnotes);
+	} catch (error) {}
+
 	// Resolve featured image URL from embedded media
 	const featuredMedia = post._embedded?.['wp:featuredmedia'] || [];
 	const featured_image =
@@ -78,6 +83,7 @@ function normalizePost(post) {
 		categories,
 		tags,
 		sticky: post.sticky,
+		footnotes,
 		// Keep the raw _embedded for any advanced use
 		_embedded: post._embedded,
 	};
