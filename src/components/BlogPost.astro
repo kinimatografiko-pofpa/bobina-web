@@ -250,12 +250,12 @@ console.log(footnotes);
 	}
 
 	li:target {
-		animation: highlight 2s ease-out forwards;
+		animation: highlight 5s ease-out forwards;
 	}
 
 	@keyframes highlight {
 		0% {
-			background-color: #fff3cd;
+			background-color: #ffe17d;
 		}
 		100% {
 			background-color: transparent;
@@ -312,7 +312,13 @@ console.log(footnotes);
 											>
 												<Fragment
 													set:html={footnote.content}
-												/>
+												/>{' '}
+												<a
+													href={`#${footnote.id}-link`}
+													class="text-xs"
+												>
+													↩︎
+												</a>
 											</li>
 										))}
 									</ol>
